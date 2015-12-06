@@ -55,7 +55,7 @@
 </div>
 <div>
     
-    <p>Some further explanation of how to get Metal Archives' JSON data from a <a href='/blog/2011/05/23/scraping-a-site-when-it-changes-its-design'>recent post</a> is necessary. Through reading the markup and trial and error, I found the URL to receive the data I needed.</p><pre><code>http://www.metal-archives.com/search/ajax-advanced/searching/albums \
+    <p>Some further explanation of how to get Metal Archives' JSON data from a <a href='/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html.html'>recent post</a> is necessary. Through reading the markup and trial and error, I found the URL to receive the data I needed.</p><pre><code>http://www.metal-archives.com/search/ajax-advanced/searching/albums \
 /?&amp;releaseYearFrom=2011&amp;releaseMonthFrom=1&amp;releaseYearTo=2011 \
 &amp;releaseMonthTo=12&amp;&#95;=1&amp;sEcho=0&amp;iColumns=4&amp;sColumns=&amp;iDisplayStart=1&amp; \
 iDisplayLength=100&amp;sNames=%2C%2C%2C
@@ -78,7 +78,7 @@ iDisplayLength=100&amp;sNames=%2C%2C%2C
     &quot;May 6th, 2011 &lt;!-- 2011-05-06 --&gt;&quot;
   &#93;
 }
-</code></pre><p>You'll notice the <code>iTotalRecords</code> field which conveniently provides the total amount to releases available. You'll also notice the the <code>iDisplayStart</code> parameter in the URL that lets us step through the results 100 at a time. By looping through <code>&#40;iTotalRecords / 100 + 1&#41;</code> times, incrementing <code>iDispalyStart</code> by <code>i &#42; 100</code>, we can get a result set for all the records very quickly.</p><p>Now that we have the results, we just need a little regular expression magic to pull out all the information.</p><pre><code class="ruby">BAND&#95;NAME&#95;AND&#95;COUNTRY&#95;REGEXP = /&#40;.+&#41;\s{1}\&#40;&#40;&#91;a-zA-Z&#93;{2}&#41;\&#41;/
+</code></pre><p>You'll notice the <code>iTotalRecords</code> field which conveniently provides the total amount to releases available. You'll also notice the <code>iDisplayStart</code> parameter in the URL that lets us step through the results 100 at a time. By looping through <code>&#40;iTotalRecords / 100 + 1&#41;</code> times, incrementing <code>iDispalyStart</code> by <code>i &#42; 100</code>, we can get a result set for all the records very quickly.</p><p>Now that we have the results, we just need a little regular expression magic to pull out all the information.</p><pre><code class="ruby">BAND&#95;NAME&#95;AND&#95;COUNTRY&#95;REGEXP = /&#40;.+&#41;\s{1}\&#40;&#40;&#91;a-zA-Z&#93;{2}&#41;\&#41;/
 ALBUM&#95;URL&#95;AND&#95;NAME&#95;REGEXP = /&quot;&#40;.+&#41;&quot;&gt;&#40;.+&#41;&lt;\/a&gt;/
 RELEASE&#95;DATE&#95;REGEXP = /&lt;!--\s&#40;.{10}&#41;\s--&gt;/
 </code></pre><p>There was a strange situation where an album didn't have a band page but displayed a message that the band didn't exist, so there is one last regular expression used to guard against a slightly alternative format for the data:</p><pre><code class="ruby">NO&#95;BAND&#95;REGEXP = /span.+&lt;\/span/
