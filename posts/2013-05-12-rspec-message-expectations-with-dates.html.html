@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: RSpec message expectations with dates</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">May 12, 2013</div>
+        
+    </div>
+    <h2>RSpec message expectations with dates</h2>
+</div>
+<div>
+    
+    <p>I've got a class that has a collaborator class. The collaborator takes a start date and an end date as arguments. I want to test that the original object instantiates the collaborator with the right dates.</p><h2><a name="a&#95;little&#95;tricky"></a>A little tricky</h2><p>The tests fail if I were to assert that the collaborator should receive dates as its arguments.</p><pre><code class="ruby"># the test
+a&#95;collaborator.should&#95;receive&#40;:new&#41;
+  .with&#40;'an argument',
+      Time.zone.parse&#40;'2000-1-11 00:00:00'&#41;,
+      Time.zone.parse&#40;'2000-1-11 23:59:59'&#41;&#41;
+  .and&#95;return&#40;a&#95;collaborator&#95;instance&#41;
+
+# the error
+Stub :a&#95;collaborator received :new with unexpected arguments
+ expected: &#40;&quot;an argument&quot;, Tue, 11 Jan 2000 00:00:00 UTC +00:00, Tue, 11 Jan 2000 23:59:59 UTC +00:00&#41;
+      got: &#40;&quot;an argument&quot;, Tue, 11 Jan 2000 00:00:00 UTC +00:00, Tue, 11 Jan 2000 23:59:59 UTC +00:00&#41;
+</code></pre><p>Time comparison in Ruby is a little tricky. So what do we do?</p><h2><a name="an&#95;unexpected&#95;expectation&#95;syntax"></a>An unexpected expectation syntax</h2><p>It <a href='https://www.relishapp.com/rspec/rspec-mocks/docs/message-expectations'>turns out</a> that RSpec has another expectation syntax that will let us do some manipulation of the date arguments. Check this out:</p><pre><code class="ruby">a&#95;collaborator.should&#95;receive&#40;:new&#41; { |an&#95;argument, start&#95;date, end&#95;date|
+  expect&#40;an&#95;argument&#41;.to eq&#40;'an argument'&#41;
+  expect&#40;start&#95;date.to&#95;i&#41;.to eq&#40;Time.zone.parse&#40;'2000-1-11 00:00:00'&#41;.to&#95;i&#41;
+  expect&#40;end&#95;date.to&#95;i&#41;.to eq&#40;Time.zone.parse&#40;'2000-1-11 23:59:59'&#41;.to&#95;i&#41;
+}.and&#95;return&#40;a&#95;collaborator&#95;instance&#41;
+</code></pre><p>We're able to get the seconds since the Epoch version of the dates to get an exact number to compare to each other.</p><p>The seconds matter, so it's good to know we can test them easily.</p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/testing.html">testing</a>
+    
+    <a href="/tags/rspec.html">rspec</a>
+    
+    <a href="/tags/ruby.html">ruby</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html.html">&laquo; Setting default arguments in Ruby the right way</a>
+        
+        
+        <a class="right" href="/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html.html">Why did Heroku stop precompiling my assets? &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

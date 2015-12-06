@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Testing controller JSON responses in Rspec</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">September 15, 2011</div>
+        
+    </div>
+    <h2>Testing controller JSON responses in Rspec</h2>
+</div>
+<div>
+    
+    <p>I was recently rewriting some controller specs because they were way too heavy: all the models were saved to the database and there was no mocking. While trying to test the JSON response of an action, I got the following exception:</p><pre><code class="ruby">ActiveSupport::JSON::Encoding::CircularReferenceError
+</code></pre><p>Here is the relevant controller code:</p><pre><code class="ruby">format.json do
+  render :json =&gt; as&#95;json&#40;@questions&#41;
+end
+</code></pre><p>Here is the test's mock:</p><pre><code class="ruby">question = mock&#95;model&#40;Question&#41;
+</code></pre><p>A little cryptic, right? After a little digging, I changed the mock to this:</p><pre><code class="ruby">question = mock&#95;model&#40;Question, :as&#95;json =&gt; {'foo' =&gt; 'bar'}&#41;
+</code></pre><p>Ah, there we go!</p><p>The spec ended up looking like this:</p><pre><code class="ruby">context &quot;as json&quot; do
+  it &quot;lists the questions&quot; do
+    question = mock&#95;model&#40;Question, :as&#95;json =&gt; {'foo' =&gt; 'bar'}&#41;
+    Question.should&#95;receive&#40;:find&#95;ordered&#95;subjects&#41;.and&#95;return&#40;&#91;question&#93;&#41;
+    get :index, :format =&gt; 'json'
+    response.body.should == &quot;&#91;{\&quot;foo\&quot;:\&quot;bar\&quot;}&#93;&quot;
+  end
+end
+</code></pre><p>In our <code>application&#95;controller.rb</code>, an <code>as&#95;json</code> method called <code>to&#95;json</code>, which would call <code>as&#95;json</code> in the test, resulting in a circular reference. Oops.</p><p>Don't forget to stub <code>as&#95;json</code>!</p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/testing.html">testing</a>
+    
+    <a href="/tags/ruby.html">ruby</a>
+    
+    <a href="/tags/rails.html">rails</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2011-09-27-emailing-with-delayed-job.html.html">&laquo; Emailing with Delayed Job</a>
+        
+        
+        <a class="right" href="/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html.html">Attaching Events to a Disabled Submit Button &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

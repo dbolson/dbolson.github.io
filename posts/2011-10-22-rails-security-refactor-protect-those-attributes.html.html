@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Rails Security Refactor - Protect Those Attributes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">October 22, 2011</div>
+        
+    </div>
+    <h2>Rails Security Refactor - Protect Those Attributes</h2>
+</div>
+<div>
+    
+    <p>Rails in the enterprise is still a fairly new concept, but the same web development principles we have also exist in this new realm. One no-brainer is security, and one no-brainer part of security is protecting data from malicious user input.</p><p>The basic Rails ways to protect attributes on a model are <code>attr&#95;protected</code> and <code>attr&#95;accessible</code>. If neither are set, it's easy to imagine a situation where a user updates his attributes and the corresponding model has a boolean admin field on it. The user can trivially submit post data that looks like this:</p><pre><code class="ruby">params: { &quot;user&quot; =&gt; { :email =&gt; &quot;foo@bar.com&quot;, :first&#95;name =&gt; &quot;Joe&quot;, :last&#95;name =&gt; &quot;Hacker&quot;, :admin =&gt; &quot;true&quot; }}
+</code></pre><p>Oops! Now Mr. Hacker is Mr. Admin!</p><p>So how do we get from here to (more) secure? Throwing <code>attr&#95;accessible</code> on the model to whitelist is the safest, but it can cause a lot of unknown breakage if there aren't tests around the fields, which there probably aren't because why would someone test the fields for accessibility if they are automatically accessible? An interim step is to create a blacklist) using <code>attr&#95;protected</code> to only protect specified fields, get tests around these protected fields, and then upgrade to <code>attr&#95;accessible</code>.</p><p>For our user model, let's protect that admin field:</p><pre><code class="ruby">Class User &lt; ActiveRecord::Base
+  attr&#95;protected :admin
+end
+</code></pre><p>And the tests:</p><pre><code class="ruby">describe User do
+  describe &quot;with protected fields&quot; do
+    context &quot;including admin&quot; do
+      let&#40;:user&#41; { Factory.build&#40;:user, :admin =&gt; false&#41; }
+
+      it &quot;cannot mass-update&quot; do
+        user.update&#95;attributes&#40;{ :admin =&gt; true }&#41;
+        user.admin.should be&#95;false
+      end
+    end
+  end
+end
+</code></pre><p>We instantiate a user object with admin set to false, try to update that field, and ensure that it did not get updated. If we use <code>user.update&#95;attribute&#40;:admin, true&#41;</code>, the test would fail because that skips all the ActiveRecord protection, so we use <code>user.update&#95;attributes</code>. Doing this for all the fields we want to protect will eventually get us to the point where we can swap out <code>attr&#95;protected</code> with the easier to deal with <code>attr&#95;accessible</code>. Since we need to be explicit with <code>attr&#95;protected</code>, it can get to be difficult to maintain quickly since we need to remember to add each new field we want to protect to the list and test it.</p><pre><code class="ruby">Class User &lt; ActiveRecord::Base
+  # attr&#95;protected :id, :admin, :awesomeness&#95;rating, :money
+  attr&#95;accessible :email, :first&#95;name, :last&#95;name
+end
+</code></pre><p>That's better. Tests and iterative development to the rescue!</p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/testing.html">testing</a>
+    
+    <a href="/tags/ruby.html">ruby</a>
+    
+    <a href="/tags/rails.html">rails</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html.html">&laquo; Rails 2.3.5 Bug With accepts_nested_attributes_for</a>
+        
+        
+        <a class="right" href="/posts/2011-10-07-our-interview-process.html.html">Our Interview Process &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

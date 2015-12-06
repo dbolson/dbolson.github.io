@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Don&#39;t be lazy with route resources and allow unused ones</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">March 5, 2012</div>
+        
+    </div>
+    <h2>Don&#39;t be lazy with route resources and allow unused ones</h2>
+</div>
+<div>
+    
+    <p>Refactoring controllers to make them <a href='http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model'>skinny</a> is usually a multi-step affair. The common process is to get current functionality tested and them refactor the business logic where it needs to go, moving the tests along with them to their corresponding test files. As the code is moved (to models or service objects, etc.), we can stub out those calls in the controller. Eventually, hopefully, the controller actions will be only a few assignments and a render call. Since the effects can reach across the entire Rails architecture (the M, V, and C, if you will), I find <a href='http://en.wikipedia.org/wiki/Smoke<i>testing#Software</i>development'>smoke testing</a> often a necessary step in the process.</p><p>Which brings me to two sources of frustration: the default Rails (2.0) routes and default restful routes.</p><pre><code class="ruby">map.connect ':controller/:action/:id.:format'
+</code></pre><p>This is just ripe for annoyance. Having a list of all the routes set up and not being able to find the one that I need? This guys fault. Rails has a lot of magic, but this has become a major pain because of the implicit and non-obvious nature of allowing anything one wants to sit next to a specified list. But then again, that specific list can have problems of its own too.</p><pre><code class="ruby">map.resources :photos
+</code></pre><p>This can be fantastic. One line gives us so much power and ease: 7 actions for the price of one. What's the problem? Well, when I was recently working on some <a href='http://en.wikipedia.org/wiki/Technical_debt'>technical debt</a>, I thought I found some unused actions. But how did I know for sure? I had to do a lot of <a href='http://en.wikipedia.org/wiki/Grep'>grepping</a> and manual testing to make sure these really weren't used. It turned out that one I thought wasn't was actually called in one specific case, so I had to back out my changes.</p><p>This would have been less painful if the code coverage was better, but that's sometimes the nature of old code, isn't it? If there are methods in the controller that aren't used, it's one thing to not have them declared, but what happens when there is code for an action that goes unused? I decided to be explicit about which routes to use so I didn't have to deal with the same problems later on (I can be my own worst enemy sometimes).</p><p>Let's lock down those resources:</p><pre><code class="ruby">map.resources :foobars, :only =&gt; &#91;:index, :show, :new, :create&#93;
+</code></pre><p>If we're not using <code>:edit</code>, <code>:update</code>, and <code>:destroy</code>, let's not clutter things up with implications.</p><p>Maybe it's overkill, but tech debt can be painful to pay back, and I don't want to piss off my future self if this were to happen again.</p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/testing.html">testing</a>
+    
+    <a href="/tags/ruby.html">ruby</a>
+    
+    <a href="/tags/bugs.html">bugs</a>
+    
+    <a href="/tags/rails.html">rails</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2012-05-10-fast-specs-and-better-design.html.html">&laquo; Fast specs and better design</a>
+        
+        
+        <a class="right" href="/posts/2012-02-12-vimprovements.html.html">Vimprovements &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

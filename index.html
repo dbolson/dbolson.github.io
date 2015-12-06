@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 17, 2014</div>
+        
+    </div>
+    <h2>How to Set up a Service Oriented Architecture for Development</h2>
+</div>
+<div>
+    
+    <p>Service oriented architectures can have many benefits, but there are trade-offs as well. One immediate annoyance is setting up multiple applications to do local development. The current workflow looks like this:</p><p><strong>Side note</strong>: Things have been quiet around here as I've just completed my first month at <a href='https://www.fundingcircle.com/us/'>Funding Circle</a> and haven't made the time to blog. Now that I'm settling in, let's get this blog going again.</p><pre><code>$ cd app1
+$ RACK&#95;ENV=development rackup -p 3002
+
+# open a new tab
+$ cd app2
+$ RACK&#95;ENV=development rackup -p 4000
+
+# open a new tab
+$ cd app3
+$ RACK&#95;ENV=development rackup -p 5000
+
+# etc.
+</code></pre><p>It's also convenient to label the tabs to know where to look for an application's output, so we need to name each tab as well. This is boring and error prone as it's very easy to forget to start an application that could prevent the entire system from working as expected.</p><h2><a name="consular&#95;to&#95;the&#95;rescue!"></a>Consular to the Rescue!</h2><p>We just recently found out about <a href='https://github.com/achiu/consular'>Consular</a> to automate terminal tasks and turn the above headache into a one command solution.</p><p>Setup is simple:</p><pre><code>$ gem install consular
+$ gem install consular-iterm
+$ rbenv rehash # if appropriate
+$ consular init
+</code></pre><p>This generates <code>&#126;/.consularc</code> for customization, and <code>&#126;/.config/consular</code> for projects. If you're using <a href='http://www.iterm2.com/'>iTerm</a>, you'll need to require the necessary core.</p><pre><code># &#126;/.consularc
+require 'consular/iterm'
+
+# the rest of the file
+</code></pre><p>Now generate a project:</p><pre><code>$ consular edit soa-setup
+</code></pre><p>Here is an example project that replaces the current workflow:</p><pre><code># &#126;/.config/consular/soa-setup.term
+tab 'app1' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 3002'
+end
+
+tab 'app2' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 4000'
+end
+
+tab 'app3' do
+  run 'cd &#126;/workspace/app3'
+  run 'RACK&#95;ENV=development rackup -p 5000'
+end
+</code></pre><p>Now all you need to do is run one command, <code>consular start soa-setup</code>.</p><h2><a name="some&#95;tweaks"></a>Some tweaks</h2><p>It's nice to not have to do this (minimal) song and dance for each development machine, so we packaged this up into some scripts to make the process easier.</p><pre><code># bin/setup
+echo &quot;Installing Consular...&quot;
+
+bundle install
+rbenv rehash
+consular init
+
+# prepend require to file
+echo &quot;require 'consular/iterm'\n&quot; &gt; tmpfile
+cat &#126;/.consularc &gt;&gt; tmpfile
+cp tmpfile &#126;/.consularc
+rm tmpfile
+
+# copy project&#40;s&#41; to home directory to use anywhere
+cp lib/default.term &#126;/.config/consular/
+
+echo &quot;\nRun bin/run to start all applications.&quot;
+</code></pre><pre><code># bin/run
+consular start default
+</code></pre><pre><code># lib/default.term
+tab 'app1' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 3002'
+end
+
+tab 'app2' do
+  run 'cd &#126;/workspace/app2'
+  run 'RACK&#95;ENV=development rackup -p 4000'
+end
+
+tab 'app3' do
+  run 'cd &#126;/workspace/app3'
+  run 'RACK&#95;ENV=development rackup -p 5000'
+end
+</code></pre><pre><code># Gemfile
+source 'https://rubygems.org'
+
+gem 'consular'
+gem 'consular-iterm'
+</code></pre><p>Finally, you can create a symlink to the <code>run</code> command:</p><pre><code>ln -s &#126;/path/to/bin/run &#126;/launch-apps
+</code></pre><p>Go forth and be lazy, I mean, <a href='http://c2.com/cgi/wiki?LazinessImpatienceHubris'>virtuous</a>!</p>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/tools.html">tools</a>
+    
+    <a href="/tags/soa.html">soa</a>
+    
+</div>
+
+
+    
+
+    <div id="prev-next">
+        
+        
+        <a class="right" href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation &raquo;</a>
+        
+    </div>
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

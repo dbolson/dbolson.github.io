@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Structuring your fast tests in RSpec</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 15, 2013</div>
+        
+    </div>
+    <h2>Structuring your fast tests in RSpec</h2>
+</div>
+<div>
+    
+    <p>Not to be too hyperbolic, but <code>spec&#95;fast</code> directory <em>will</em> increase the quality of all our lives in addition to making our code better. You see, we don't have to load Rails for all our test files. In fact, it's a dependency that we should try to stay away from as much as possible.</p><pre><code>/spec&#95;fast
+  /contexts
+  /decorators
+  /models
+  /lib
+  /services
+</code></pre><p>Sure, if we need to touch the database or we're testing the integration of multiple classes that access the framework, we need it. But we don't need it for so many other things. What other things you ask? How about most other things.</p><p>For example, we use <a href='https://github.com/drapergem/draper'>Draper</a> to decorate our objects with presentational data. Do we need Rails to test these? Nope. You can see it in action below:</p><pre><code class="ruby"># spec&#95;fast/decorators/user&#95;decorator.rb
+require 'draper'
+
+require&#95;relative '../fast&#95;spec&#95;helper'
+require&#95;relative '../../app/decorators/user&#95;decorator'
+
+describe UserDecorator do
+  let&#40;:decorator&#41; { UserDecorator }
+
+  let&#40;:user&#41; { stub&#40;:user, my&#95;method: 'my method'&#41; }
+
+  describe 'delegation' do
+    it 'delegates all methods' do
+      expect&#40;decorator.decorate&#40;user&#41;.my&#95;method&#41;.to eq&#40;'my method'&#41;
+    end
+  end
+
+  describe '#special&#95;url' do
+    it 'sets the URL to the special URL' do
+      expect&#40;decorator.decorate&#40;user&#41;.special&#95;url&#41;.to eq&#40;'you/are/special'&#41;
+    end
+  end
+end
+
+# app/decorators/user&#95;decorator.rbo
+class UserDecorator &lt; Draper::Decorator
+  delegate&#95;all
+
+  def special&#95;url
+    'you/are/special'
+  end
+end
+</code></pre><p>You'll notice a few things:</p><ul><li>The <code>/spec&#95;fast</code> directory is set up just like the <code>spec</code> directory where the folder structure  mimics the structure in the application.</li><li>The <code>fast&#95;spec&#95;helper</code> contains everything that all the fast tests need.</li><li>The <code>/support</code> directory functions just like the <code>spec/support</code> directory.</li><li>We use <code>require&#95;relative</code> for each file we need to load, and we need to load all the files  manually in the tests.</li><li>The secret sauce is that there is no <code>require 'spec&#95;helper'</code> in any of the tests, so there is no  Rails! <a href='http://gal.darkervision.com/wp-content/uploads/2008/11/calvin-naked-resize.jpg'>Freedom</a>!</li><li>Feel free to add to this directory as often as possible. In fact, you should probably default  your tests here. Why? It reduces coupling with the framework and (should) lead to better, ie,  <a href='http://en.wikipedia.org/wiki/SOLID<i>(object-oriented</i>design'>SOLID</a>) classes.</li></ul>
+</div>
+
+<div id="post-tags">
+    <b>Tags: </b>
+    
+    <a href="/tags/testing.html">testing</a>
+    
+    <a href="/tags/ruby.html">ruby</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html.html">&laquo; Greater Test Control with RSpec&#39;s Tag Filters</a>
+        
+        
+        <a class="right" href="/posts/2013-06-24-working-with-sass-and-web-fonts.html.html">Working with Sass and web fonts &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Tags</h3>
+                    <ul>
+                        
+                        <li><a href="/tags/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/tags/design patterns.html">design patterns</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
