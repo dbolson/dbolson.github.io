@@ -12,11 +12,33 @@ https://dbolson.github.io
 Thinking out loud, on the internet
 </description>
 <lastBuildDate>
-Sun, 13 Dec 2015 10:10:00 -0800
+Sun, 13 Dec 2015 10:45:27 -0800
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
+<item>
+<guid>
+https://dbolson.github.io/posts/2015-12-13-find-and-replace-in-vim.html
+</guid>
+<link>
+https://dbolson.github.io/posts/2015-12-13-find-and-replace-in-vim.html
+</link>
+<title>
+Find and Replace in Vim
+</title>
+<description>
+&lt;p&gt;Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;a href='http://jezenthomas.com/how-i-find-and-replace-in-vim'&gt;How I Find and Replace in Vim&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This requires &lt;a href='http://beyondgrep.com/'&gt;ack&lt;/a&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code&gt;:args `ack -l '\b{text to replace}\b' --ignore-dir=compiled --ignore-file=is:tags`
+:argdo %s/\&amp;lt;{text to replace}\&amp;gt;/{replacing text}/gc | update
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Sun, 13 Dec 2015 00:00:00 -0800
+</pubDate>
+</item>
 <item>
 <guid>
 https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html

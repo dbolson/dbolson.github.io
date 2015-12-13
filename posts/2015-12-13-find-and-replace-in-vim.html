@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs: Getting Things Done</title>
+    <title>Rubber Duck Dialogs: Find and Replace in Vim</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -48,14 +48,16 @@
 <div id="post">
     <div class="post-header">
     <div id="post-meta" class="row">
-        <div class="col-lg-6">May 15, 2012</div>
+        <div class="col-lg-6">December 13, 2015</div>
         
     </div>
-    <h2>Getting Things Done</h2>
+    <h2>Find and Replace in Vim</h2>
 </div>
 <div>
     
-    <p>It seems that our backlog of features, bugs, and technical debt grew more than it shrunk. We would fix one bug and discover two more, or we'd clean up some poorly designed feature and find out that there are others that depend on that one. We try to do our best to design new features as best we can, but that can't always happen on a legacy code base.</p><p>What could we do? What did we do?</p><p>Those two questions were very different. We could schedule time to fix bugs and clean up technical debt in between adding new features, and it's great when management is happy with this process. You may think why we as developers expose that to the management instead of just putting it into the regular development process – that we effectively black box it from the "outside" non-technical people. In a start-up it's not always possible since everyone needed to know what's going on, plus it's hard to hide anything when everyone was in one room. But the positive side was that management understands the need for these chores and didn't push back.</p><p>But back to those two questions and their differences.</p><p>We could do these things, and they got done, but the bugs and technical debt were still with us in a major way, and they slowed down our entire process. Was there a solution?</p><p>What if we just fixed them? No discussion up front, but do it and “apologize” later.</p><p>We've built up a lot of UI cruft over the years – poorly structured CSS and HTML, poor <a href='http://openhallway.com/'>usability</a>, inconsistent UI. It was always a pain point, but there were so many other things we had to do as well, so it stayed around and we just dealt with it.</p><p>Until one of our developers took it on himself to start cleaning it up. He didn't ask for permission and he didn't talk about it, but we came in one day to a demo and code review of a much cleaner UI. The conversation immediately was about tweaking the new changes and what else we could do to make the UI better. It wasn't “hey, why did you do this?” but was just accepted that it was there and we would now deal with it. It probably helps that it was user-facing and so immediate that everyone was able to weigh in with their opinion, that it wasn't a code cleanup that only developers would recognize.</p><p>It was a big win and we were all much happier about the design, but could this go too far? The developer did this on his own time, either staying late or working on it at home. I don't want to seem like a [5:01 developer][2], since, as Scott prefers, I am excited about technology and I do go home to work on personal projects and learn new things, and these extracurriculars do help me be a better developer for personal and professional reasons. But they do not necessarily immediately impact what I'm doing at work. I feel this is where we should draw a distinction and concern ourselves with doing too much work-related development and not enough personal development. It's a fine line between the two and how much to balance work and life, and there is no simple solution. We should be aware of it and realize how it can become the norm.</p>
+    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution.</p><p><strong><a href='http://jezenthomas.com/how-i-find-and-replace-in-vim'>How I Find and Replace in Vim</a></strong></p><p>This requires <a href='http://beyondgrep.com/'>ack</a>.</p><pre><code>:args `ack -l '\b{text to replace}\b' --ignore-dir=compiled --ignore-file=is:tags`
+:argdo %s/\&lt;{text to replace}\&gt;/{replacing text}/gc | update
+</code></pre>
 </div>
 
 <div id="post-tags">
@@ -63,15 +65,15 @@
     
     <a href="/categories/productivity.html">productivity</a>
     
+    <a href="/categories/vim.html">vim</a>
+    
 </div>
 
 
     <div id="prev-next">
         
-        <a href="/posts/2012-05-25-reading-the-developer-s-code.html">&laquo; Reading - The Developer&#39;s Code</a>
         
-        
-        <a class="right" href="/posts/2012-05-10-fast-specs-and-better-design.html">Fast specs and better design &raquo;</a>
+        <a class="right" href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development &raquo;</a>
         
     </div>
 
