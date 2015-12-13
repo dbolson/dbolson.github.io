@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Adding Field Separation for List Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 13, 2011</div>
+        
+    </div>
+    <h2>Adding Field Separation for List Data</h2>
+</div>
+<div>
+    
+    <p><a href='https://github.com/dbolson/metaldetectr'>MetalDetectr</a> is effectively a list of data as specific as a user wishes to see. It will show only a list of releases a user has in his <a href='http://www.last.fm/'>last.fm</a> library to a list of everything on <a href='http://www.metal-archives.com/'>metal-archives.com</a>. A big concern is presenting it properly, and one method is to delineate releases by whatever sort method a user wants to see. This can be by release date, by the band's name, by the release's name, or by the release's format (eg, EP, full-length, DVD).</p><h2><a name="the&#95;algorithm"></a>The algorithm</h2><ul><li>Start with a table row showing the earliest or most recent, depending on sort order, of theselected sort column.</li><li>Loop through the releases.</li><li>If the current release's relevant field is greater/less than the preceding one, show anothertable row with the current release's field value.</li><li>Show the release.</li></ul><p>For example, the default sort is by US release date starting at the earliest date (and the current month so there's less noise). The list will display the current month and every album released during that month. When a release is next month, it will show next month and then all releases from that month. Continue on through the rest of the releases. If the user wants to see the list in descending order, it will show the last month first and work its way to the most current month.</p><h2><a name="the&#95;code"></a>The code</h2><p>First find the first value and display it in a full column span table row:</p><pre><code># views/releases/index,html.haml
+- comparison&#95;value = @releases.first.chain&#95;methods&#40;Release::FIELDS&#95;WITH&#95;METHODS&#91;Release.default&#95;sort&#40;params&#91;:s&#93;&#41;&#93;&#41;
+= separator&#95;row&#40;comparison&#95;value&#41;
+</code></pre><p>These two lines use the following methods:</p><pre><code class="ruby"># models/release.rb
+# Sets the sort order to what's passed or us&#95;date.
+def self.default&#95;sort&#40;sort&#41;
+  sort || 'us&#95;date'
+end
+
+# models/release.rb
+# Takes an array of symbols and calls them on the release instance if it
+# responds to them.
+# Example: release.chain&#95;methods&#40;&#91;:us&#95;date, :month&#93;&#41; =&gt; release.us&#95;date.month
+def chain&#95;methods&#40;methods&#41;
+  methods.inject&#40;nil&#41; do |memo, acc|
+    target = memo ? memo : self
+    target.respond&#95;to?&#40;acc&#41; ? target.send&#40;acc&#41; : memo
+  end
+end
+
+# helpers/releases&#95;helper.rb
+# Creates a row with a full colspan for the value.
+def separator&#95;row&#40;value&#41;
+  value = Date::MONTHNAMES&#91;value&#93; if value.is&#95;a?&#40;Fixnum&#41;
+  content&#95;tag&#40;:tr, :class =&gt; cycle&#40;'even', 'odd'&#41;&#41; do
+    content&#95;tag&#40;:td, value, :class =&gt; 'separator&#95;row', :colspan =&gt; 7&#41;
+  end
+end
+</code></pre><p><code>FIELDS&#95;WITH&#95;METHODS</code> is a constant that contains a mapping of field names and methods to call on them to display properly:</p><pre><code class="ruby"># models/release.rb
+FIELDS&#95;WITH&#95;METHODS = {
+  'band' =&gt; &#91;:band, :first, :downcase&#93;,
+  'name' =&gt; &#91;:name, :first, :downcase&#93;,
+  'us&#95;date' =&gt; &#91;:us&#95;date, :month&#93;,
+  'euro&#95;date' =&gt; &#91;:euro&#95;date, :month&#93;,
+  'format' =&gt; &#91;:format&#93;,
+  nil =&gt; &#91;:us&#95;date, :month&#93;
+}
+</code></pre><p>Then we loop through each release, updating the comparison value when we get to the next one:</p><pre><code># views/releases/index,html.haml
+- @releases.each do |release|
+  - current&#95;value = release.chain&#95;methods&#40;Release::FIELDS&#95;WITH&#95;METHODS&#91;Release.default&#95;sort&#40;params&#91;:s&#93;&#41;&#93;&#41;
+  - if Release.values&#95;compared?&#40;current&#95;value, comparison&#95;value, params&#91;:d&#93;&#41;
+    - comparison&#95;value = current&#95;value
+    = separator&#95;row&#40;comparison&#95;value&#41;
+  - else
+    - comparison&#95;value = current&#95;value
+  = render release
+</code></pre><p>Compare the two values based on the sort order:</p><pre><code class="ruby"># models/release.rb
+# Sets the comparison operator to be greater than if the direction is nil or ascending,
+# or less than if the direction is descending.
+def self.comparison&#95;operator&#40;direction&#41;
+  &#40;direction.nil? || direction == 'asc'&#41; ? :&gt; : :&lt;
+end
+
+# models/release.rb
+# True if both value and comparison exist and
+# if the direction is ascending:
+#   true if value &gt; comparison, false otherwise
+# if the direction is descending:
+#   true if value &lt; comparison, false otherwise
+def self.values&#95;compared?&#40;value, comparison, direction&#41;
+  value &amp;&amp;
+  comparison &amp;&amp;
+  value.send&#40;
+    Release.comparison&#95;operator&#40;direction&#41;,
+    comparison
+  &#41;
+end
+</code></pre><p>We tried to abstract the comparisons and what's displayed so we can add new fields and only need to update the field-method mapping. There is always the possibility that a field is nil, since we don't always get all the possible data for every release, so <code>chain&#95;methods</code> will call all the methods it can on a release instance until it finishes or returns nil. We could have chained a bunch of <code>try</code>s together, but that didn't look right.</p><p>We also tried to get as much code out of the view as we could, and it can be improved, but it's okay for now.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/categories/modularity.html">modularity</a>
+    
+    <a href="/categories/metaldetectr.html">metaldetectr</a>
+    
+    <a href="/categories/ruby.html">ruby</a>
+    
+    <a href="/categories/rails.html">rails</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html">&laquo; My name is Danny...and I make mistakes</a>
+        
+        
+        <a class="right" href="/posts/2011-07-08-namespacing-lib-files-and-rspec.html">Namespacing lib files and RSpec &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/categories/book review.html">book review</a></li>
+                        
+                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/categories/learning.html">learning</a></li>
+                        
+                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/categories/open source.html">open source</a></li>
+                        
+                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/categories/rails.html">rails</a></li>
+                        
+                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/categories/sass.html">sass</a></li>
+                        
+                        <li><a href="/categories/soa.html">soa</a></li>
+                        
+                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/categories/testing.html">testing</a></li>
+                        
+                        <li><a href="/categories/tests.html">tests</a></li>
+                        
+                        <li><a href="/categories/tools.html">tools</a></li>
+                        
+                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/categories/vim.html">vim</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

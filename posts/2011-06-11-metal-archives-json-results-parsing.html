@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Metal Archives&#39; JSON Results Parsing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 11, 2011</div>
+        
+    </div>
+    <h2>Metal Archives&#39; JSON Results Parsing</h2>
+</div>
+<div>
+    
+    <p>Some further explanation of how to get Metal Archives' JSON data from a <a href='/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html.html'>recent post</a> is necessary. Through reading the markup and trial and error, I found the URL to receive the data I needed.</p><pre><code>http://www.metal-archives.com/search/ajax-advanced/searching/albums \
+/?&amp;releaseYearFrom=2011&amp;releaseMonthFrom=1&amp;releaseYearTo=2011 \
+&amp;releaseMonthTo=12&amp;&#95;=1&amp;sEcho=0&amp;iColumns=4&amp;sColumns=&amp;iDisplayStart=1&amp; \
+iDisplayLength=100&amp;sNames=%2C%2C%2C
+</code></pre><p>This returns a result set that looks like this:</p><pre><code>{
+ &quot;error&quot;: &quot;&quot;,
+ &quot;iTotalRecords&quot;: 3637,
+ &quot;iTotalDisplayRecords&quot;: 3637,
+ &quot;sEcho&quot;: 0,
+ &quot;aaData&quot;: &#91;
+   &#91;
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/bands/037/3540277845\&quot; title=\&quot;037 &#40;ES&#41;\&quot;&gt;037&lt;/a&gt;&quot;,
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/albums/037/Los&#95;Fuertes&#95;Sobreviven/307703\&quot;&gt;Los Fuertes Sobreviven&lt;/a&gt;&quot;,
+    &quot;Full-length&quot;,
+    &quot;May 24th, 2011 &lt;!-- 2011-05-24 --&gt;&quot;
+  &#93;,
+  &#91;
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/bands/037/3540277845\&quot; title=\&quot;037 &#40;ES&#41;\&quot;&gt;037&lt;/a&gt;&quot;,
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/albums/037/Tantas&#95;Vidas/306172\&quot;&gt;Tantas Vidas&lt;/a&gt;&quot;,
+    &quot;Single&quot;,
+    &quot;May 6th, 2011 &lt;!-- 2011-05-06 --&gt;&quot;
+  &#93;
+}
+</code></pre><p>You'll notice the <code>iTotalRecords</code> field which conveniently provides the total amount to releases available. You'll also notice the <code>iDisplayStart</code> parameter in the URL that lets us step through the results 100 at a time. By looping through <code>&#40;iTotalRecords / 100 + 1&#41;</code> times, incrementing <code>iDispalyStart</code> by <code>i &#42; 100</code>, we can get a result set for all the records very quickly.</p><p>Now that we have the results, we just need a little regular expression magic to pull out all the information.</p><pre><code class="ruby">BAND&#95;NAME&#95;AND&#95;COUNTRY&#95;REGEXP = /&#40;.+&#41;\s{1}\&#40;&#40;&#91;a-zA-Z&#93;{2}&#41;\&#41;/
+ALBUM&#95;URL&#95;AND&#95;NAME&#95;REGEXP = /&quot;&#40;.+&#41;&quot;&gt;&#40;.+&#41;&lt;\/a&gt;/
+RELEASE&#95;DATE&#95;REGEXP = /&lt;!--\s&#40;.{10}&#41;\s--&gt;/
+</code></pre><p>There was a strange situation where an album didn't have a band page but displayed a message that the band didn't exist, so there is one last regular expression used to guard against a slightly alternative format for the data:</p><pre><code class="ruby">NO&#95;BAND&#95;REGEXP = /span.+&lt;\/span/
+</code></pre><p>The data are much easier to gather and never time out now, so I was able to get rid of all the intermediate saving steps such as after gathering the paginated links and saving the last release searched when the site times out. I'll probably have to add it back in to get the record label of the release since you'll notice it's absent in the JSON but it is available on the release's page.</p><p>The code to save the albums now looks like this:</p><pre><code class="ruby">agent = ::MetalArchives::Agent.new
+agent.paginated&#95;albums.each&#95;with&#95;index do |album&#95;page, index|
+  album&#95;page.each do |album|
+    if album&#91;0&#93;.match&#40;::MetalArchives::Agent::NO&#95;BAND&#95;REGEXP&#41;.nil?
+      Release.create&#40;
+        :name =&gt; agent.album&#95;name&#40;album&#41;,
+        :band =&gt; agent.band&#95;name&#40;album&#41;,
+        :format =&gt; agent.release&#95;type&#40;album&#41;,
+        :url =&gt; agent.album&#95;url&#40;album&#41;,
+        :country =&gt; agent.country&#40;album&#41;,
+        :us&#95;date =&gt; agent.release&#95;date&#40;album&#41;
+      &#41;
+    end
+    CompletedStep.find&#95;or&#95;create&#95;by&#95;step&#40;CompletedStep::ReleasesCollected&#41;
+  end
+end
+</code></pre><p>Quick and simple.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/categories/metaldetectr.html">metaldetectr</a>
+    
+    <a href="/categories/ruby.html">ruby</a>
+    
+    <a href="/categories/rails.html">rails</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2011-06-26-a-real-life-github-success-story.html">&laquo; A Real Life GitHub Success Story</a>
+        
+        
+        <a class="right" href="/posts/2011-05-31-histograms-in-ruby-with-seer.html">Histograms in Ruby With Seer &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/categories/book review.html">book review</a></li>
+                        
+                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/categories/learning.html">learning</a></li>
+                        
+                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/categories/open source.html">open source</a></li>
+                        
+                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/categories/rails.html">rails</a></li>
+                        
+                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/categories/sass.html">sass</a></li>
+                        
+                        <li><a href="/categories/soa.html">soa</a></li>
+                        
+                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/categories/testing.html">testing</a></li>
+                        
+                        <li><a href="/categories/tests.html">tests</a></li>
+                        
+                        <li><a href="/categories/tools.html">tools</a></li>
+                        
+                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/categories/vim.html">vim</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

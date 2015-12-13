@@ -12,17 +12,17 @@ https://dbolson.github.io
 Thinking out loud, on the internet
 </description>
 <lastBuildDate>
-Sun, 13 Dec 2015 09:25:12 -0800
+Sun, 13 Dec 2015 10:10:00 -0800
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html
+https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html.html
+https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
 </link>
 <title>
 How to Set up a Service Oriented Architecture for Development
@@ -115,10 +115,10 @@ Thu, 17 Jul 2014 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html
+https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html.html
+https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
 </link>
 <title>
 What Do You Get When You Send an Engineer to Poland to Give His First Presentation
@@ -135,10 +135,10 @@ Sat, 22 Mar 2014 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html.html
+https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html.html
+https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html
 </link>
 <title>
 Notes on Markdown
@@ -159,10 +159,10 @@ Thu, 06 Feb 2014 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html.html
+https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html.html
+https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html
 </link>
 <title>
 Musings on ActiveSupport::Concern
@@ -207,10 +207,10 @@ Thu, 06 Feb 2014 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html.html
+https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html.html
+https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html
 </link>
 <title>
 Refactoring to a Query Object
@@ -333,10 +333,10 @@ Wed, 27 Nov 2013 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html.html
+https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html.html
+https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
 </link>
 <title>
 Your Backbone Can't Save You Now - Why We Use Backbone Marionette
@@ -357,10 +357,10 @@ Sat, 09 Nov 2013 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html.html
+https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html.html
+https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
 </link>
 <title>
 UI Integration Tests with RSpec and Capybara
@@ -447,10 +447,10 @@ Fri, 20 Sep 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html.html
+https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html.html
+https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
 </link>
 <title>
 The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application
@@ -470,10 +470,10 @@ Tue, 10 Sep 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html.html
+https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html.html
+https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
 </link>
 <title>
 Greater Test Control with RSpec's Tag Filters
@@ -490,10 +490,10 @@ Sun, 18 Aug 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html.html
+https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html.html
+https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html
 </link>
 <title>
 Structuring your fast tests in RSpec
@@ -548,10 +548,10 @@ Mon, 15 Jul 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html.html
+https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html.html
+https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html
 </link>
 <title>
 Working with Sass and web fonts
@@ -596,10 +596,10 @@ Mon, 24 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html.html
+https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html.html
+https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html
 </link>
 <title>
 Putting Sass files in a global namespace
@@ -643,10 +643,10 @@ Mon, 17 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html.html
+https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html.html
+https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html
 </link>
 <title>
 FactoryGirl fun with associations with associations
@@ -735,10 +735,10 @@ Sat, 01 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html.html
+https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html.html
+https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html
 </link>
 <title>
 When to use Ruby's Object#send
@@ -782,10 +782,10 @@ Sat, 25 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html.html
+https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html.html
+https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html
 </link>
 <title>
 Creating a presenter in Rails
@@ -823,10 +823,10 @@ Sun, 19 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html.html
+https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html.html
+https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
 </link>
 <title>
 Setting default arguments in Ruby the right way
@@ -874,10 +874,10 @@ Wed, 15 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html.html
+https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html.html
+https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html
 </link>
 <title>
 RSpec message expectations with dates
@@ -910,10 +910,10 @@ Sun, 12 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html.html
+https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html.html
+https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
 </link>
 <title>
 Why did Heroku stop precompiling my assets?
@@ -931,10 +931,10 @@ Sun, 05 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html.html
+https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html.html
+https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html
 </link>
 <title>
 A use for Ruby constants
@@ -958,10 +958,10 @@ Sun, 21 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html.html
+https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html.html
+https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html
 </link>
 <title>
 Using ActiveSupport::TimeWithZone without Rails
@@ -1017,10 +1017,10 @@ Wed, 17 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html.html
+https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html.html
+https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
 </link>
 <title>
 MySQL RSpec won't clear the database between test runs
@@ -1044,10 +1044,10 @@ Thu, 11 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html.html
+https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html.html
+https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html
 </link>
 <title>
 MySQL installation woes on Mountain Lion
@@ -1070,10 +1070,10 @@ Tue, 28 Aug 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html.html
+https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html.html
+https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html
 </link>
 <title>
 Eventual Consistency In UI Design
@@ -1090,10 +1090,10 @@ Sat, 07 Jul 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html.html
+https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html.html
+https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html
 </link>
 <title>
 Squashing bugs with Git
@@ -1112,10 +1112,10 @@ Wed, 20 Jun 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html.html
+https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html.html
+https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html
 </link>
 <title>
 Rails controller tests without Rails
@@ -1204,10 +1204,10 @@ Sun, 10 Jun 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html.html
+https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html.html
+https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html
 </link>
 <title>
 Reading - The Developer's Code
@@ -1224,10 +1224,10 @@ Fri, 25 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-15-getting-things-done.html.html
+https://dbolson.github.io/posts/2012-05-15-getting-things-done.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-15-getting-things-done.html.html
+https://dbolson.github.io/posts/2012-05-15-getting-things-done.html
 </link>
 <title>
 Getting Things Done
@@ -1244,10 +1244,10 @@ Tue, 15 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html.html
+https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html.html
+https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html
 </link>
 <title>
 Fast specs and better design
@@ -1296,10 +1296,10 @@ Thu, 10 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html.html
+https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html.html
+https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
 </link>
 <title>
 Don't be lazy with route resources and allow unused ones
@@ -1319,10 +1319,10 @@ Mon, 05 Mar 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-02-12-vimprovements.html.html
+https://dbolson.github.io/posts/2012-02-12-vimprovements.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-02-12-vimprovements.html.html
+https://dbolson.github.io/posts/2012-02-12-vimprovements.html
 </link>
 <title>
 Vimprovements
@@ -1340,10 +1340,10 @@ Sun, 12 Feb 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html.html
+https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html.html
+https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html
 </link>
 <title>
 State Machine Transactions
@@ -1383,10 +1383,10 @@ Mon, 16 Jan 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html.html
+https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html.html
+https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html
 </link>
 <title>
 Can We Have Too Many Tools?
@@ -1403,10 +1403,10 @@ Thu, 22 Dec 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html.html
+https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html.html
+https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html
 </link>
 <title>
 Pair Programming Feedback
@@ -1423,10 +1423,10 @@ Sun, 04 Dec 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html.html
+https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html.html
+https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html
 </link>
 <title>
 Welcome the New Guys
@@ -1444,10 +1444,10 @@ Fri, 18 Nov 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html.html
+https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html.html
+https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
 </link>
 <title>
 Rails 2.3.5 Bug With accepts_nested_attributes_for
@@ -1479,10 +1479,10 @@ Fri, 04 Nov 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html.html
+https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html.html
+https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html
 </link>
 <title>
 Rails Security Refactor - Protect Those Attributes
@@ -1519,10 +1519,10 @@ Sat, 22 Oct 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-10-07-our-interview-process.html.html
+https://dbolson.github.io/posts/2011-10-07-our-interview-process.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-10-07-our-interview-process.html.html
+https://dbolson.github.io/posts/2011-10-07-our-interview-process.html
 </link>
 <title>
 Our Interview Process
@@ -1539,10 +1539,10 @@ Fri, 07 Oct 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html.html
+https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html.html
+https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html
 </link>
 <title>
 Emailing with Delayed Job
@@ -1569,10 +1569,10 @@ Tue, 27 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html.html
+https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html.html
+https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html
 </link>
 <title>
 Testing controller JSON responses in Rspec
@@ -1603,10 +1603,10 @@ Thu, 15 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html.html
+https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html.html
+https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html
 </link>
 <title>
 Attaching Events to a Disabled Submit Button
@@ -1643,10 +1643,10 @@ Mon, 12 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html.html
+https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html.html
+https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
 </link>
 <title>
 My name is Danny...and I make mistakes
@@ -1663,10 +1663,10 @@ Tue, 06 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html.html
+https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html.html
+https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html
 </link>
 <title>
 Adding Field Separation for List Data
@@ -1750,10 +1750,10 @@ Wed, 13 Jul 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html.html
+https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html.html
+https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html
 </link>
 <title>
 Namespacing lib files and RSpec
@@ -1784,10 +1784,10 @@ Fri, 08 Jul 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html.html
+https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html.html
+https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html
 </link>
 <title>
 A Real Life GitHub Success Story
@@ -1833,10 +1833,10 @@ Sun, 26 Jun 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html.html
+https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html.html
+https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html
 </link>
 <title>
 Metal Archives' JSON Results Parsing
@@ -1896,10 +1896,10 @@ Sat, 11 Jun 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html.html
+https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html.html
+https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html
 </link>
 <title>
 Histograms in Ruby With Seer
@@ -1992,10 +1992,10 @@ Tue, 31 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html.html
+https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html.html
+https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html
 </link>
 <title>
 Scraping a Site When It Changes Its Design
@@ -2012,10 +2012,10 @@ Mon, 23 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html.html
+https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html.html
+https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html
 </link>
 <title>
 Introducing MetalDetectr
@@ -2032,10 +2032,10 @@ Sat, 14 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html.html
+https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html.html
+https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html
 </link>
 <title>
 Messing With Magic Encoding
@@ -2056,10 +2056,10 @@ Tue, 10 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html.html
+https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html.html
+https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html
 </link>
 <title>
 I Am Become Genius
@@ -2076,10 +2076,10 @@ Mon, 02 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html.html
+https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html.html
+https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
 </link>
 <title>
 Book Review - Pragmatic Thinking and Learning: Refactor Your Wetware
@@ -2096,10 +2096,10 @@ Tue, 26 Apr 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html.html
+https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html.html
+https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html
 </link>
 <title>
 Composite Pattern FTW

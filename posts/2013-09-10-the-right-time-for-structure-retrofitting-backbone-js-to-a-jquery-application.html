@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">September 10, 2013</div>
+        
+    </div>
+    <h2>The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application</h2>
+</div>
+<div>
+    
+    <p>It started innocently enough. We had a story to make a few UI changes to a small JavaScript app. There would be no functionality changes, so it was going to be an easy morning. Maybe even an early lunch? When we fired up Vim we saw that lunch was going to be a bit later than expected and that we were having...<a href='http://dundundun.net/'>spaghetti</a>.</p><p>Let's break it down, starting with the symptoms:</p><ul><li>0 lines in the repository's README</li><li>1 JavaScript file</li><li>16 global functions</li><li>15 tests</li></ul><p>This application was created using a "wouldn't it be cool if..." design process. Since this would be a one-off application that would only get a little internal use, if any at all beyond the initial excitement, it made sense to get something out, quick and dirty, and move on to more valuable work. Given the wholly experimental nature (read: risky), this seemed reasonable.</p><p>It turns out that we created a popular tool and it wasn't going away anytime soon. And now we had a dilemma: Do we make the quick code change and worry about <a href='http://en.wikipedia.org/wiki/Technical_debt'>maintainability later</a>, or do we <a href='http://programmer.97things.oreilly.com/wiki/index.php/The<i>Boy</i>Scout_Rule'>clean up the code now</a>, spending more time than anyone planned for this feature?</p><p>Would you keep reading this post if we wrote the feature, leaving a trail of shattered dreams behind us?</p><p>We use [backbone.js][4] for most of our JavaScript applications, so it was the logical choice to organize this application. It turned out that the tests were not very helpful since they were so coupled to the implementation of the global functions, so out they went. One even questions the utility of testing during raw experimentation (is testing code you're likely to shortly toss be considered a form of <a href='https://en.wikipedia.org/wiki/Toyota<i>Production</i>System'>waste</a> in the Lean sense)?</p><p>We also decided not to practice TDD since we were essentially backfilling tests and it's [not really TDD anymore][6].</p><h2><a name="let&#95;the&#95;retrofitting&#95;begin"></a>Let the Retrofitting Begin</h2><ol><li>Find the next function that's called</li><li>Move it to the appropriate backbone view or model without changing the internals of the  function</li><li>Manually test the application in the browser</li><li>Clean up the code we just moved (extracting functions, moving DOM selectors, event handlers,  and callbacks)</li><li>Manually test the application in the browser again</li><li>Repeat the above steps until there are no more global functions</li></ol><p>We made slow and steady progress using the above process. If a change broke existing functionality, we'd revert the change and make another attempt. Using small iterations and only changing one thing at a time, we made progress and soon ended up with a much cleaner codebase.</p><p>Now our code is in a much better place for adding functionality. Before it would have been too difficult to add tests because they would be so brittle, but now our code is much easier to test since it's properly set up with appropriate models and views.</p><p>As a bonus, working through each function revealed a lot of dead code that we were able to get rid of. There are few things better than deleting code.</p><p>As evidence of our total victory, <code>application.js</code> is now this:</p><pre><code class="javascript">$&#40;function&#40;&#41; {
+  App.init&#40;&#41;;
+}&#41;;
+</code></pre><h2><a name="take-aways"></a>Take-aways</h2><ul><li><strong>We must always be professionals</strong>: Assume any code you're paid to write is going to get used.  As a professional and a craftsman, we strive to create value with our work. We must use the best  tools for the job and write software to the best of our abilities.</li><li><strong>Speed at the cost of maintainability isn't true speed</strong>: Working so quickly created a lot of  technical debt that we eventually had to pay back. When we did, our initial development time  slowed to a crawl. A one hour change turned into four days of work.</li><li><strong>Write code for the benefit of the next person</strong>: Our code should always be written so it's  easy to change since we're always getting new feature requests. Someone will have to write these  new features, and that someone needs to be able to understand the code quickly or spend valuable  time getting up to speed. That person could easily be the same person who wrote the code (we've  all experienced running git blame and seeing a familiar name listed). Remove code that's no  longer used, document the code properly, and use proper naming.</li></ul>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/categories/backbone.html">backbone</a>
+    
+    <a href="/categories/javascript.html">javascript</a>
+    
+    <a href="/categories/jquery.html">jquery</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html">&laquo; UI Integration Tests with RSpec and Capybara</a>
+        
+        
+        <a class="right" href="/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html">Greater Test Control with RSpec&#39;s Tag Filters &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/categories/book review.html">book review</a></li>
+                        
+                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/categories/learning.html">learning</a></li>
+                        
+                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/categories/open source.html">open source</a></li>
+                        
+                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/categories/rails.html">rails</a></li>
+                        
+                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/categories/sass.html">sass</a></li>
+                        
+                        <li><a href="/categories/soa.html">soa</a></li>
+                        
+                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/categories/testing.html">testing</a></li>
+                        
+                        <li><a href="/categories/tests.html">tests</a></li>
+                        
+                        <li><a href="/categories/tools.html">tools</a></li>
+                        
+                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/categories/vim.html">vim</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

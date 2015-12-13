@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Putting Sass files in a global namespace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 17, 2013</div>
+        
+    </div>
+    <h2>Putting Sass files in a global namespace</h2>
+</div>
+<div>
+    
+    <p>Rails makes it easy to package our CSS files using the asset pipeline – just put all the <code>.scss</code> files in the <code>application.css</code> manifest file or set <code>require&#95;tree .</code> to automatically pull in all the appropriate files.</p><h2><a name="if&#95;only&#95;it&#95;were&#95;that&#95;easy..."></a>If only it were that easy...</h2><p>Using the asset pipeline keeps each <code>.scss</code> file in its own namespace, so you will need to import any files that have variables we want to use in the current file.</p><pre><code class="scss"># layouts.scss
+@import &quot;variables&quot;;
+
+#my-selector {
+  background-color: @background-color; # imported from layouts.scss
+}
+</code></pre><p><code>layouts.scss</code> doesn't know about the contents of <code>variables.scss</code>, so it can't access <code>@background-color</code> that's set within <code>variables.scss</code>. Now we need to import that file that's probably included in the manifest file, so we're going to have two declarations of the contents of <code>variables.scss</code> and the dependency of importing it within any file that needs its content.</p><p>[twitter-bootstrap-rails][1] generates a <code>bootstrap&#95;and&#95;overrides.css.scss</code> file that imports the Bootstrap files, so we can use the variables and mixins from Bootstrap in that file, but it won't work for any other files we have. It would be much nicer to organize our <code>.scss</code> files semantically, eg.,</p><pre><code>forms.scss
+layout.scss
+header.scss
+footer.scss
+notification.scss
+# ... etc.
+</code></pre><p>Each of these files will probably want to have access to Bootstrap variables and site-wide variables, but we will need to import everything we want to use.</p><h2><a name="a&#95;dryer&#95;way"></a>A DRYer way</h2><p>h/t to <a href='https://blog.pivotal.io/pivotal-labs/labs/structure-your-sass-files-with-import'>Pivotal Labs</a> for the implementation and the <a href='http://guides.rubyonrails.org/asset_pipeline.html'>link</a> to the docs:</p><blockquote><p> If you want to use multiple Sass files, you should generally use the Sass @import rule instead of these Sprockets directives. Using Sprockets directives all Sass files exist within their own scope, making variables or mixins only available within the document they were defined in. </p></blockquote><p>Here's what the results look like:</p><pre><code class="javascript"># application.scss
+// &#42;= require bootstrap-datepicker
+
+@import &quot;twitter/bootstrap/bootstrap&quot;;
+@import &quot;twitter/bootstrap/sprites&quot;;
+
+// Site files
+@import &quot;custom-variables&quot;;
+@import &quot;custom-other&quot;;
+
+@import &quot;forms&quot;;
+@import &quot;header&quot;;
+@import &quot;footer&quot;;
+@import &quot;content&quot;;
+# ... etc.
+</code></pre><p>A few notes about this:</p><ul><li>We renamed application.css to application.scss. This will allow us to use include a manifest and  use <code>.scss</code> syntax.</li><li>We are still using the manifest for third-party CSS files. Since <code>bootstrap-datepicker</code> comes in  through a <a href='https://github.com/Nerian/bootstrap-datepicker-rails/'>gem</a>, we can just reference the CSS and let it do its thing automatically.</li><li>We could load each Bootstrap file individually if we want to reduce its footprint, but loading  the entire library is easier to illustrate here.</li></ul><h2><a name="results"></a>Results</h2><p>We can make our code more modular by easily reusing variables and mixins. Maybe we can even work toward more <a href='http://ruby.bvision.com/blog/please-stop-embedding-bootstrap-classes-in-your-html'>semantic naming</a>...</p><h2><a name="one&#95;caveat"></a>One caveat</h2><p>We had to remove the <code>spec/javascripts/spec.css</code> file that loaded the manifest file since that is now <code>.scss</code> and not <code>.css</code>. This upset <a href='http://jasmine.github.io/'>Jasmine</a>, and we don't like it when Jasmine is upset.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/categories/sass.html">sass</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts/2013-06-24-working-with-sass-and-web-fonts.html">&laquo; Working with Sass and web fonts</a>
+        
+        
+        <a class="right" href="/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html">FactoryGirl fun with associations with associations &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        
+                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        
+                        <li><a href="/posts/2014-02-06-notes-on-markdown.html">Notes on Markdown</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/categories/book review.html">book review</a></li>
+                        
+                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        
+                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/categories/learning.html">learning</a></li>
+                        
+                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/categories/open source.html">open source</a></li>
+                        
+                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/categories/rails.html">rails</a></li>
+                        
+                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/categories/sass.html">sass</a></li>
+                        
+                        <li><a href="/categories/soa.html">soa</a></li>
+                        
+                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/categories/testing.html">testing</a></li>
+                        
+                        <li><a href="/categories/tests.html">tests</a></li>
+                        
+                        <li><a href="/categories/tools.html">tools</a></li>
+                        
+                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/categories/vim.html">vim</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy; 2015 Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
