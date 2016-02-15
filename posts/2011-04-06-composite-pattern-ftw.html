@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
-    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -55,7 +55,7 @@
 </div>
 <div>
     
-    <p>A <a href='http://www.paulgraham.com/taste.html'>post</a> by Paul Graham I recently found resonated with what I've been doing at work recently. In his post, "Taste for Makers," PG posits that beauty is not wholly subjective and that good design is beautiful. Among others, good design:</p><ul><li>is simple</li><li>solves the right problem</li><li>is suggestive</li><li>looks easy</li><li>uses symmetry</li><li>is redesign</li><li>can copy</li><li>is often quite strange</li><li>happens in chunks</li></ul><p>I'd like to focus on a few of these descriptions and use an example I've recently done.</p><p>In his fantastic book, <em><a href='http://www.designpatternsinruby.com/'>Design Patterns in Ruby</a></em>, <a href='http://blog.russolsen.com/'>Russ Olsen</a> describes one tenant of the <a href='http://c2.com/cgi/wiki?GangOfFour'>GOF</a> book to “prefer composition over inheritance.” Inheritance creates tighter coupling between classes, since the children of the base class need to know about the internals of the base, even though the coupling is very specific to the implementation and (should be) well understood. <a href='http://en.wikipedia.org/wiki/Composite&#95;pattern'>Composition</a>, however, changes the relationship between objects. An object no longer is another type of object but has the functionality of another object (<a href='http://en.wikipedia.org/wiki/Has-a'>is-a vs. has-a</a>). This relationship increases the encapsulation of the composite object by providing an interface to the composed object instead of exposing the underlying details of a base class.</p><h2><a name="slices&#95;<em>and</em>&#95;dices!"></a>Slices <em>and</em> Dices!</h2><p>Now I know there is a tendency to think of design patterns as a <a href='http://en.wikipedia.org/wiki/No&#95;Silver&#95;Bullet'>silver bullet</a>, but bear with me. The situation is fine when the inheritance tree is simple and the functionality basic. The complexity grows as the tree grows and as more functionality is required. Soon, you're not quite sure if it should inherit <code>Foo</code> which inherits from <code>Bar</code>, or if you should just inherit from Baz way up near the base. You'll have to dig into the classes to find out which one is closest to what you want and hope it makes the most sense to place the new class wherever you end up placing it. However, using the Composite Pattern gives us much more flexibility for creating new classes and giving them abilities.</p><h2><a name="an&#95;example"></a>An Example</h2><p>There is a system that asks users different types of questions. One type asks when an event will happen (<code>DateQuestion</code>), one type asks the numerical results of an event (<code>NumberQuestion</code>), and one asks which event will happen given a set of choices (<code>ChoiceQuestion</code>). We have a base <code>Question</code> that each inherits from, and since dates can be represented as numbers, <code>DateQuestion</code> will inherit from <code>NumberQuestion</code>. These questions allow answers, comments, access control lists, and have a specific work flow (create, activate, suspend, close, etc.).</p><p>Later on, the system needs to support a few more types of questions: a numeric range (<code>NumberRangeQuestion</code>), a date range (<code>DateRangeQuestion</code>), a yes/no-only (<code>YesNoQuestion</code>)... you get the point. We need to figure out where these new types go in the inheritance tree – whether one is a child of a <code>DateQuestion</code> (itself a child of <code>NumberQuestion</code>), or if it's just a child of <code>NumberQuestion</code>, or maybe it's its own type and only inherits from the base <code>Question</code> type. We start to bump into complexity issues, that is, unnecessary complexity.</p><h2><a name="i'll&#95;take&#95;a&#95;little&#95;of&#95;this..."></a>I'll Take a Little of This...</h2><p>Let's approach this problem from a different angle. Given our original <code>Question</code> types, we can make them all inherit from a base <code>Question</code> class and then give them abilities as needed. So now our classes look like this:</p><pre><code class="ruby">class Question
+    <p>A <a href='http://www.paulgraham.com/taste.html'>post</a> by Paul Graham I recently found resonated with what I've been doing at work recently. In his post, "Taste for Makers," PG posits that beauty is not wholly subjective and that good design is beautiful. Among others, good design:</p><ul><li>is simple</li><li>solves the right problem</li><li>is suggestive</li><li>looks easy</li><li>uses symmetry</li><li>is redesign</li><li>can copy</li><li>is often quite strange</li><li>happens in chunks</li></ul><p>I'd like to focus on a few of these descriptions and use an example I've recently done.</p><p>In his fantastic book, <em><a href='http://www.designpatternsinruby.com/'>Design Patterns in Ruby</a></em>, <a href='http://blog.russolsen.com/'>Russ Olsen</a> describes one tenant of the <a href='http://c2.com/cgi/wiki?GangOfFour'>GOF</a> book to “prefer composition over inheritance.” Inheritance creates tighter coupling between classes, since the children of the base class need to know about the internals of the base, even though the coupling is very specific to the implementation and (should be) well understood. <a href='http://en.wikipedia.org/wiki/Composite_pattern'>Composition</a>, however, changes the relationship between objects. An object no longer is another type of object but has the functionality of another object (<a href='http://en.wikipedia.org/wiki/Has-a'>is-a vs. has-a</a>). This relationship increases the encapsulation of the composite object by providing an interface to the composed object instead of exposing the underlying details of a base class.</p><h2><a name="slices&#95;<em>and</em>&#95;dices!"></a>Slices <em>and</em> Dices!</h2><p>Now I know there is a tendency to think of design patterns as a <a href='http://en.wikipedia.org/wiki/No_Silver_Bullet'>silver bullet</a>, but bear with me. The situation is fine when the inheritance tree is simple and the functionality basic. The complexity grows as the tree grows and as more functionality is required. Soon, you're not quite sure if it should inherit <code>Foo</code> which inherits from <code>Bar</code>, or if you should just inherit from Baz way up near the base. You'll have to dig into the classes to find out which one is closest to what you want and hope it makes the most sense to place the new class wherever you end up placing it. However, using the Composite Pattern gives us much more flexibility for creating new classes and giving them abilities.</p><h2><a name="an&#95;example"></a>An Example</h2><p>There is a system that asks users different types of questions. One type asks when an event will happen (<code>DateQuestion</code>), one type asks the numerical results of an event (<code>NumberQuestion</code>), and one asks which event will happen given a set of choices (<code>ChoiceQuestion</code>). We have a base <code>Question</code> that each inherits from, and since dates can be represented as numbers, <code>DateQuestion</code> will inherit from <code>NumberQuestion</code>. These questions allow answers, comments, access control lists, and have a specific work flow (create, activate, suspend, close, etc.).</p><p>Later on, the system needs to support a few more types of questions: a numeric range (<code>NumberRangeQuestion</code>), a date range (<code>DateRangeQuestion</code>), a yes/no-only (<code>YesNoQuestion</code>)... you get the point. We need to figure out where these new types go in the inheritance tree – whether one is a child of a <code>DateQuestion</code> (itself a child of <code>NumberQuestion</code>), or if it's just a child of <code>NumberQuestion</code>, or maybe it's its own type and only inherits from the base <code>Question</code> type. We start to bump into complexity issues, that is, unnecessary complexity.</p><h2><a name="i'll&#95;take&#95;a&#95;little&#95;of&#95;this..."></a>I'll Take a Little of This...</h2><p>Let's approach this problem from a different angle. Given our original <code>Question</code> types, we can make them all inherit from a base <code>Question</code> class and then give them abilities as needed. So now our classes look like this:</p><pre><code class="ruby">class Question
   include Commentable
   include AccessListControllable
   include Workflowable
@@ -79,7 +79,7 @@ end
 <div id="post-tags">
     <b>Categories: </b>
     
-    <a href="/categories/design patterns.html">design patterns</a>
+    <a href="/design patterns.html">design patterns</a>
     
 </div>
 
@@ -113,9 +113,9 @@ end
                         
                         <li><a href="/posts/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         
-                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        <li><a href="/posts/2015-05-20-many-ways-to-write-a-unit-test.html">Many Ways to Write a Unit Test</a></li>
                         
-                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        <li><a href="/posts/2015-03-09-trip-report-my-visit-to-the-london-office.html">Trip Report - My Visit to the London Office</a></li>
                         
                     </ul>
                 </div>
@@ -125,67 +125,67 @@ end
                     <h3>Categories</h3>
                     <ul>
                         
-                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        <li><a href="/backbone.html">backbone</a></li>
                         
-                        <li><a href="/categories/book review.html">book review</a></li>
+                        <li><a href="/book review.html">book review</a></li>
                         
-                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        <li><a href="/bugs.html">bugs</a></li>
                         
-                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        <li><a href="/conferences.html">conferences</a></li>
                         
-                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        <li><a href="/design patterns.html">design patterns</a></li>
                         
-                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        <li><a href="/encoding.html">encoding</a></li>
                         
-                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        <li><a href="/interviewing.html">interviewing</a></li>
                         
-                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        <li><a href="/javascript.html">javascript</a></li>
                         
-                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        <li><a href="/jquery.html">jquery</a></li>
                         
-                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        <li><a href="/learning.html">learning</a></li>
                         
-                        <li><a href="/categories/learning.html">learning</a></li>
+                        <li><a href="/marionette.html">marionette</a></li>
                         
-                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        <li><a href="/markdown.html">markdown</a></li>
                         
-                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        <li><a href="/metaldetectr.html">metaldetectr</a></li>
                         
-                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        <li><a href="/modularity.html">modularity</a></li>
                         
-                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        <li><a href="/mysql.html">mysql</a></li>
                         
-                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        <li><a href="/open source.html">open source</a></li>
                         
-                        <li><a href="/categories/open source.html">open source</a></li>
+                        <li><a href="/pair programming.html">pair programming</a></li>
                         
-                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        <li><a href="/productivity.html">productivity</a></li>
                         
-                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        <li><a href="/rails.html">rails</a></li>
                         
-                        <li><a href="/categories/rails.html">rails</a></li>
+                        <li><a href="/refactoring.html">refactoring</a></li>
                         
-                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        <li><a href="/rspec.html">rspec</a></li>
                         
-                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        <li><a href="/ruby.html">ruby</a></li>
                         
-                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        <li><a href="/sass.html">sass</a></li>
                         
-                        <li><a href="/categories/sass.html">sass</a></li>
+                        <li><a href="/soa.html">soa</a></li>
                         
-                        <li><a href="/categories/soa.html">soa</a></li>
+                        <li><a href="/speaking.html">speaking</a></li>
                         
-                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        <li><a href="/testing.html">testing</a></li>
                         
-                        <li><a href="/categories/testing.html">testing</a></li>
+                        <li><a href="/tests.html">tests</a></li>
                         
-                        <li><a href="/categories/tests.html">tests</a></li>
+                        <li><a href="/tools.html">tools</a></li>
                         
-                        <li><a href="/categories/tools.html">tools</a></li>
+                        <li><a href="/user interface.html">user interface</a></li>
                         
-                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        <li><a href="/vim.html">vim</a></li>
                         
-                        <li><a href="/categories/vim.html">vim</a></li>
+                        <li><a href="/work.html">work</a></li>
                         
                     </ul>
                 </div>
@@ -193,12 +193,12 @@ end
             </div>
         </div>
     </div>
-    <footer>Copyright &copy; 2015 Danny Olson
+    <footer>Copyright &copy;  Danny Olson
         <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

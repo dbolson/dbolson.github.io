@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
-    <link href="../css/screen.css" rel="stylesheet" type="text/css" />
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 
@@ -55,7 +55,7 @@
 </div>
 <div>
     
-    <p><a href='http://confreaks.com/videos/641-gogaruco2011-fast-rails-tests'>Corey Haines</a> first brought testing parts of Rails applications without loading Rails to my attention and excitement a few months ago, and I've been looking at how other developers do similar techniques. Having recently finished [<em>Objects on Rails</em>][2] and working through the <a href='https://www.destroyallsoftware.com/screencasts'>Destroy All Software</a> videos, I've been constantly looking at ways to make my Rails code better and faster to test. I believe these are related and that there is a lot of value in working to make the code easy to test and fast.</p><p>An example of some code I've written that doesn't rely on Rails is an <a href='https://github.com/rails/rails-observers'>observer</a>. The observer inherits from <code>ActiveRecord::Observer</code> and would normally need Rails loaded to exercise its full functionality with the model it's observing. But if we try to keep Rails out and only load what we need, we can drive the design of the observer.</p><p>Here we save an activity, which is used as a generic Facebook-style activity stream item, after someone answers a question.</p><pre><code class="ruby">class AnswerObserver &lt; ActiveRecord::Observer
+    <p><a href='http://confreaks.com/videos/641-gogaruco2011-fast-rails-tests'>Corey Haines</a> first brought testing parts of Rails applications without loading Rails to my attention and excitement a few months ago, and I've been looking at how other developers do similar techniques. Having recently finished <a href='http://devblog.avdi.org/2011/11/15/early-access-beta-of-objects-on-rails-now-available-2/'><em>Objects on Rails</em></a> and working through the <a href='https://www.destroyallsoftware.com/screencasts'>Destroy All Software</a> videos, I've been constantly looking at ways to make my Rails code better and faster to test. I believe these are related and that there is a lot of value in working to make the code easy to test and fast.</p><p>An example of some code I've written that doesn't rely on Rails is an <a href='https://github.com/rails/rails-observers'>observer</a>. The observer inherits from <code>ActiveRecord::Observer</code> and would normally need Rails loaded to exercise its full functionality with the model it's observing. But if we try to keep Rails out and only load what we need, we can drive the design of the observer.</p><p>Here we save an activity, which is used as a generic Facebook-style activity stream item, after someone answers a question.</p><pre><code class="ruby">class AnswerObserver &lt; ActiveRecord::Observer
   def after&#95;create&#40;answer&#41;
     Activity.question&#95;answered&#40;answer&#41;
   end
@@ -87,13 +87,13 @@ end
     end
   end
 end
-</code></pre><p>To quote Avdi:</p><blockquote><p> This method uses <code>#const&#95;get</code> to attempt to reference the given module. If the module is > defined, or if calling <code>#const&#95;get</code> causes it to be auto-loaded, the method does nothing more. But > if <code>#const&#95;get</code> fails to turn up the module, it defines an anonymous empty module to act as a > placeholder. </p></blockquote><p>Looking back at the spec file, we see a similar call to <code>stub&#95;class</code> which does the same thing for classes. We also include the actual file of the code we're testing.</p><p>We create an empty <code>Activity</code> class, normally an <code>ActiveRecord</code> model, since we don't care what it's doing, just that it receives messages we're going to send to it. That's all this test does, really: we check that the Activity class gets a specific message passed to it with specific parameters.</p><p>Testing this way drives the code to be <a href='http://en.wikipedia.org/wiki/Coupling<i>(computer</i>science)'>loosely coupled</a> with objects this class needs to communicate with. We could have put all the activity action in the <code>after&#95;create</code> callback and we'd be able to see what's going on, but we'd need to mock and stub a lot of interactions, or we'd have to go back to loading Rails, slowing our tests down. Plus we'd have a lot of code that has <a href='http://c2.com/cgi/wiki?FeatureEnvySmell'>feature envy</a> and would be difficult to maintain.</p><p>We know the test works because changing the functionality of the callback will break the test, and doing BDD will ensure that we're writing failing tests before we add functionality that could be skipped by our mocks. Of course, this problem exists with slower, more integration-like tests, so it's not like running through the full stack is a silver bullet.</p><p>There is a point where there can be too much mocking and stubbing, and I'll get to that in another post. For now, being able to run an entire suite of tests in less than half a second helps keep me in <a href='http://en.wikipedia.org/wiki/Flow_(psychology)'>flow</a> to write better software.</p>
+</code></pre><p>To quote Avdi:</p><blockquote><p> This method uses <code>#const&#95;get</code> to attempt to reference the given module. If the module is  defined, or if calling <code>#const&#95;get</code> causes it to be auto-loaded, the method does nothing more. But  if <code>#const&#95;get</code> fails to turn up the module, it defines an anonymous empty module to act as a  placeholder. </p></blockquote><p>Looking back at the spec file, we see a similar call to <code>stub&#95;class</code> which does the same thing for classes. We also include the actual file of the code we're testing.</p><p>We create an empty <code>Activity</code> class, normally an <code>ActiveRecord</code> model, since we don't care what it's doing, just that it receives messages we're going to send to it. That's all this test does, really: we check that the Activity class gets a specific message passed to it with specific parameters.</p><p>Testing this way drives the code to be <a href='http://en.wikipedia.org/wiki/Coupling_(computer_science)'>loosely coupled</a> with objects this class needs to communicate with. We could have put all the activity action in the <code>after&#95;create</code> callback and we'd be able to see what's going on, but we'd need to mock and stub a lot of interactions, or we'd have to go back to loading Rails, slowing our tests down. Plus we'd have a lot of code that has <a href='http://c2.com/cgi/wiki?FeatureEnvySmell'>feature envy</a> and would be difficult to maintain.</p><p>We know the test works because changing the functionality of the callback will break the test, and doing BDD will ensure that we're writing failing tests before we add functionality that could be skipped by our mocks. Of course, this problem exists with slower, more integration-like tests, so it's not like running through the full stack is a silver bullet.</p><p>There is a point where there can be too much mocking and stubbing, and I'll get to that in another post. For now, being able to run an entire suite of tests in less than half a second helps keep me in <a href='http://en.wikipedia.org/wiki/Flow_(psychology)'>flow</a> to write better software.</p>
 </div>
 
 <div id="post-tags">
     <b>Categories: </b>
     
-    <a href="/categories/tests.html">tests</a>
+    <a href="/tests.html">tests</a>
     
 </div>
 
@@ -129,9 +129,9 @@ end
                         
                         <li><a href="/posts/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         
-                        <li><a href="/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html">How to Set up a Service Oriented Architecture for Development</a></li>
+                        <li><a href="/posts/2015-05-20-many-ways-to-write-a-unit-test.html">Many Ways to Write a Unit Test</a></li>
                         
-                        <li><a href="/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation</a></li>
+                        <li><a href="/posts/2015-03-09-trip-report-my-visit-to-the-london-office.html">Trip Report - My Visit to the London Office</a></li>
                         
                     </ul>
                 </div>
@@ -141,67 +141,67 @@ end
                     <h3>Categories</h3>
                     <ul>
                         
-                        <li><a href="/categories/backbone.html">backbone</a></li>
+                        <li><a href="/backbone.html">backbone</a></li>
                         
-                        <li><a href="/categories/book review.html">book review</a></li>
+                        <li><a href="/book review.html">book review</a></li>
                         
-                        <li><a href="/categories/book reviews.html">book reviews</a></li>
+                        <li><a href="/bugs.html">bugs</a></li>
                         
-                        <li><a href="/categories/bugs.html">bugs</a></li>
+                        <li><a href="/conferences.html">conferences</a></li>
                         
-                        <li><a href="/categories/conferences.html">conferences</a></li>
+                        <li><a href="/design patterns.html">design patterns</a></li>
                         
-                        <li><a href="/categories/design patterns.html">design patterns</a></li>
+                        <li><a href="/encoding.html">encoding</a></li>
                         
-                        <li><a href="/categories/encoding.html">encoding</a></li>
+                        <li><a href="/interviewing.html">interviewing</a></li>
                         
-                        <li><a href="/categories/interviewing.html">interviewing</a></li>
+                        <li><a href="/javascript.html">javascript</a></li>
                         
-                        <li><a href="/categories/javascript.html">javascript</a></li>
+                        <li><a href="/jquery.html">jquery</a></li>
                         
-                        <li><a href="/categories/jquery.html">jquery</a></li>
+                        <li><a href="/learning.html">learning</a></li>
                         
-                        <li><a href="/categories/learning.html">learning</a></li>
+                        <li><a href="/marionette.html">marionette</a></li>
                         
-                        <li><a href="/categories/marionette.html">marionette</a></li>
+                        <li><a href="/markdown.html">markdown</a></li>
                         
-                        <li><a href="/categories/markdown.html">markdown</a></li>
+                        <li><a href="/metaldetectr.html">metaldetectr</a></li>
                         
-                        <li><a href="/categories/metaldetectr.html">metaldetectr</a></li>
+                        <li><a href="/modularity.html">modularity</a></li>
                         
-                        <li><a href="/categories/modularity.html">modularity</a></li>
+                        <li><a href="/mysql.html">mysql</a></li>
                         
-                        <li><a href="/categories/mysql.html">mysql</a></li>
+                        <li><a href="/open source.html">open source</a></li>
                         
-                        <li><a href="/categories/open source.html">open source</a></li>
+                        <li><a href="/pair programming.html">pair programming</a></li>
                         
-                        <li><a href="/categories/pair programming.html">pair programming</a></li>
+                        <li><a href="/productivity.html">productivity</a></li>
                         
-                        <li><a href="/categories/productivity.html">productivity</a></li>
+                        <li><a href="/rails.html">rails</a></li>
                         
-                        <li><a href="/categories/rails.html">rails</a></li>
+                        <li><a href="/refactoring.html">refactoring</a></li>
                         
-                        <li><a href="/categories/refactoring.html">refactoring</a></li>
+                        <li><a href="/rspec.html">rspec</a></li>
                         
-                        <li><a href="/categories/rspec.html">rspec</a></li>
+                        <li><a href="/ruby.html">ruby</a></li>
                         
-                        <li><a href="/categories/ruby.html">ruby</a></li>
+                        <li><a href="/sass.html">sass</a></li>
                         
-                        <li><a href="/categories/sass.html">sass</a></li>
+                        <li><a href="/soa.html">soa</a></li>
                         
-                        <li><a href="/categories/soa.html">soa</a></li>
+                        <li><a href="/speaking.html">speaking</a></li>
                         
-                        <li><a href="/categories/speaking.html">speaking</a></li>
+                        <li><a href="/testing.html">testing</a></li>
                         
-                        <li><a href="/categories/testing.html">testing</a></li>
+                        <li><a href="/tests.html">tests</a></li>
                         
-                        <li><a href="/categories/tests.html">tests</a></li>
+                        <li><a href="/tools.html">tools</a></li>
                         
-                        <li><a href="/categories/tools.html">tools</a></li>
+                        <li><a href="/user interface.html">user interface</a></li>
                         
-                        <li><a href="/categories/user interface.html">user interface</a></li>
+                        <li><a href="/vim.html">vim</a></li>
                         
-                        <li><a href="/categories/vim.html">vim</a></li>
+                        <li><a href="/work.html">work</a></li>
                         
                     </ul>
                 </div>
@@ -209,12 +209,12 @@ end
             </div>
         </div>
     </div>
-    <footer>Copyright &copy; 2015 Danny Olson
+    <footer>Copyright &copy;  Danny Olson
         <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
 </div>
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="../js/highlight.pack.js" type="text/javascript"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
