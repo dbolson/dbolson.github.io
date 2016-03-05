@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Your Backbone Can&#39;t Save You Now - Why We Use Backbone Marionette</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">November 9, 2013</div>
+        
+    </div>
+    <h2>Your Backbone Can&#39;t Save You Now - Why We Use Backbone Marionette</h2>
+</div>
+<div>
+    
+    <h2></h2><p>The <a href='http://en.wikipedia.org/wiki/Big_ball_of_mud'>big ball of mud</a> is a well understood software anti-pattern, and we've all experienced it at some point in our careers (sometimes on the receiving end but all too often as the creator). There is never a specific event where we can look back and say, "this is what caused the problems we're experiencing right now." It's cumulative, subtle, and it takes time to manifest.</p><p>But how does this happen? We're <a href='http://en.wikipedia.org/wiki/Agile_software_development'>agile</a>. We pair program for instant code reviews. We follow the <a href='http://en.wikipedia.org/wiki/You_aren't_gonna_need_it'>YAGNI</a> principle and only write the functionality we need. And yet, we can often end up with code that is difficult to understand, change, and test. New features take much longer to add because we don't understand the code we're working on and any change we make breaks another part of the code base.</p><h2><a name="the&#95;situation"></a>The situation</h2><p>We have an input form to let a user create a new ad creative. It's sufficiently complicated because a creative has a lot of moving parts, some required, some optional, and the user needs to be able to edit any of those parts. There is the content of the creative, information about the targeting, and the budget information. We also want to show the user what the ad unit will look like as the user enters information. It ain't trivial.</p><p>We use <a href='http://backbonejs.org/'>backbone.js</a> to organize our JavaScript. It gives us powerful ways to organize our code, but it doesn't provide everything we need in a framework. True, it's easy to shoot yourself in the foot with any code, but Backbone's lack of opinion makes it easier. The documentation says that it "is an attempt to discover the minimal set of data-structuring (models and collections) and user interface (views and URLs) primitives that are generally useful when building web applications with JavaScript." Developers have the freedom to use Backbone as they wish, but it's not a fully-featured framework.</p><p>It turns out that we have a bit too much freedom and now we have some major concerns in our code.</p><h2><a name="structure"></a>Structure</h2><p>Our back end code is written in Ruby on Rails. Rails has a specific file structure based on its role (eg, controllers, models, or views) and uses "magic" to autoload the files. This design decision makes sense for Rails, but it doesn't make sense in our situation. Take a look:</p><pre><code>backbone/
+  helpers/
+  routers/
+  views/
+</code></pre><p>These folders don't give us a lot of information about the domain of what we're trying to model. It does tell us what types of files we have, but this is not very helpful.</p><h2><a name="dom&#95;spaghetti"></a>DOM spaghetti</h2><p>Backbone views are the heart of an application. The documentation states, "The general idea is to organize your interface into logical views, backed by models, each of which can be updated independently when the model changes, without having to redraw the page." There is some structure, but it's easy to make views junk drawers that are organized haphazardly. A critique of jQuery is that it's easy to create a lot of selectors that are difficult to organize, and Backbone.js views can easily consist of this mess instead of breaking it up into organized units.</p><h2><a name="testing&#95;is&#95;hard"></a>Testing is hard</h2><p>We test our JavaScript with <a href='http://jasmine.github.io/'>Jasmine</a>, and the setup required for some of our tests is intimidating. There are tests that recreate a large part of the DOM in fixtures, use a lot of selectors to grab various bits, and then do logic on multiple pieces at once.</p><p>This coupling makes changing anything very difficult since the change can affect so many different parts. Difficult tests are no fun for anyone.</p><h2><a name="won't&#95;someone&#95;<em>do</em>&#95;something!"></a>Won't someone <em>do</em> something!</h2><p>With all this, we were still putting out new features, although they were small and easily understood. We recently planned work for a much larger feature that would make our creatives much more powerful. After evaluating what this feature requires, we realized that it would be very difficult to add to the code base in its existing form. We decided we needed to give our code more structure.</p><p>Backbone Marionette: Our New Puppet Master</p><p><a href='http://lostechies.com/derickbailey/2012/06/13/why-should-i-use-backbone-marionette-instead-of-%E2%80%A6/'>Derick Bailey explains his reasoning for using Marionette</a>, and it's compelling. Here are his reasons and what we think of them:</p><h3><a name="composite&#95;application&#95;architecture"></a>Composite application architecture</h3><p>We get much more value out of our code when we <a href='http://en.wikipedia.org/wiki/Composition_over_inheritance'>prefer composition over inheritance</a>.</p><h3><a name="enterprise&#95;messaging&#95;pattern&#95;influence"></a>Enterprise messaging pattern influence</h3><p>The <a href='http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern'>pub/sub</a> pattern gives us loose coupling, letting us create multiple smaller components instead of one large, monolithic application.</p><h3><a name="modularization&#95;options"></a>Modularization options</h3><p>We don't use any existing <a href='http://requirejs.org/docs/whyamd.html'>module</a> <a href='http://wiki.commonjs.org/wiki/CommonJS'>libraries</a> so Marionette's module system works well for us.</p><h3><a name="incremental&#95;use&#95;(no&#95;all-or-nothing&#95;requirement)"></a>Incremental use (no all-or-nothing requirement)</h3><p>Since we've got an existing application, it makes more sense to add or change functionality in pieces instead of all at once.</p><h3><a name="no&#95;server&#95;lock-in"></a>No server lock-in</h3><p>Our backend is Rails without any plans to change it, so this isn't too relevant except that it allows us to use our preferred back-end technology.</p><h3><a name="easily&#95;change&#95;the&#95;defaults"></a>Easily change the defaults</h3><p>All applications seem to need more than what a framework provides by default, so making this easy makes developers happy.</p><h3><a name="code&#95;as&#95;configuration"></a>Code as configuration</h3><p>This goes with the previous reason. The frameworks author's conventions probably overlap a lot with ours, but it won't be 100%.</p><p>We'll next discuss specific benefits we get from using Marionette.js on top of Backbone.js. Stay tuned!</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/tags-output/backbone.html">backbone</a>
+    
+    <a href="/tags-output/javascript.html">javascript</a>
+    
+    <a href="/tags-output/marionette.html">marionette</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts-output/2013-11-27-refactoring-to-a-query-object.html">&laquo; Refactoring to a Query Object</a>
+        
+        
+        <a class="right" href="/posts-output/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html">UI Integration Tests with RSpec and Capybara &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
+                        
+                        <li><a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Many Ways to Write a Unit Test</a></li>
+                        
+                        <li><a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Trip Report - My Visit to the London Office</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/tags-output/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags-output/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags-output/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags-output/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags-output/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/tags-output/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags-output/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags-output/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags-output/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags-output/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags-output/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags-output/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags-output/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags-output/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags-output/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags-output/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags-output/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags-output/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags-output/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags-output/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags-output/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags-output/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags-output/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags-output/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags-output/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags-output/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags-output/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags-output/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags-output/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags-output/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags-output/work.html">work</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy;  Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

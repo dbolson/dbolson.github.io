@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: UI Integration Tests with RSpec and Capybara</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,112 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">September 20, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>UI Integration Tests with RSpec and Capybara</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Now that our form object is sufficiently complex, but mostly because sales found a bug, we decided we need to have UI tests for the happy paths for new and edit actions.</p><p>We did not want to use Cucumber because we <a href='http://blog.8thlight.com/kevin-liddle/2013/09/18/a-case-against-cucumber.html'>didn't see its value compared to its overhead</a>, so we kept the tests to <a href='https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec'>RSpec features</a> and Capybara. Features let us test the UI as a user would and Capybara loads a browser so we have JavaScript available.</p><p>Here's an example of signing in a user, navigating to the form, filling it out, and submitting it. We want the form to successfully save and redirect to another page.</p><pre><code class="ruby"># spec/features/content&#95;form&#95;spec.rb
+
+require 'capybara/rails'
+require 'spec&#95;helper'
+
+feature 'User creates content' do
+  scenario 'with valid parameters', :integration, js: true do
+    sign&#95;in
+
+    visit '/contents/new'
+    fill&#95;in 'URL', with: 'http://www.youtube.com/watch?v=SfammxKoUYs'
+    fill&#95;in 'Title', with: 'The Ultimate Dog Shaming : Cute Dog Maymo'
+    fill&#95;in 'Description', with: 'The Ultimate Dog Shaming : Cute Dog Maymo'
+    page.execute&#95;script&#40;&quot;$&#40;'#action'&#41;.val&#40;'video'&#41;&quot;&#41; # needed until form can submit without Content#action field
+    attach&#95;file&#40;'Thumbnail', Rails.root + 'app/assets/images/logo.png'&#41;
+    click&#95;button 'Save &amp; Submit'
+
+    expect&#40;page&#41;.to have&#95;text&#40;'Content was successfully created.'&#41;
+  end
+end
+</code></pre><pre><code class="ruby"># spec/support/features/session&#95;helpers.rb
+
+module Features
+  module SessionHelpers
+    def create&#95;user
+      user = create&#40;:user&#41;
+    end
+
+    def sign&#95;in&#95;with&#40;email, password&#41;
+      visit '/users/sign&#95;in'
+      fill&#95;in 'Email', with: email
+      fill&#95;in 'Password', with: password
+      click&#95;button 'Sign In'
+    end
+
+    def sign&#95;in
+      sign&#95;in&#95;with&#40;user.email, user.password&#41;
+    end
+  end
+end
+</code></pre><pre><code class="ruby"># spec/spec&#95;helper.rb
+
+config.use&#95;transactional&#95;fixtures = false
+
+RSpec.configure do |config|
+  config.include Features::SessionHelpers, type: :feature
+end
+</code></pre><pre><code class="ruby"># spec/support/database&#95;cleaner.rb
+
+RSpec.configure do |config|
+  config.before&#40;:suite&#41; do
+    DatabaseCleaner.clean&#95;with&#40;:truncation&#41;
+  end
+
+  config.before&#40;:each&#41; do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before&#40;:each, js: true&#41; do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before&#40;:each&#41; do
+    DatabaseCleaner.start
+  end
+
+  config.after&#40;:each&#41; do
+    DatabaseCleaner.clean
+  end
+end
+</code></pre><h2><a name="notes"></a>Notes</h2><ul><li>We set <code>js: true</code> to load Capybara since we need to execute JavaScript in the test (more on that  below). This was what loads the browser and slowed down tests, so don't use it unless you need  it.</li><li>We then used the helper method <code>sign&#95;in</code> to set up the user and sign the user in. We had a few  helpers that let us compose the setup we needed for each test, and we can build on them to make  our tests more readable and maintainable.</li><li>While filling out the form, we needed to execute JavaScript to fill in a hidden field.</li><li>After submitting, we expected the page to redirect and flash a success message.</li><li>We also needed to change RSpec to not use transactional fixtures by default. More about that  <a href='http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/'>here</a>.</li></ul><h2><a name="results"></a>Results</h2><p>We now know if the form breaks for a normal new or update action. We can and probably will add to these tests and we discover bugs and add new features, but we now have the plumbing in place to do so.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/testing.html">testing</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rspec.html">rspec</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html">&laquo; Your Backbone Can&#39;t Save You Now - Why We Use Backbone Marionette</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html">The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

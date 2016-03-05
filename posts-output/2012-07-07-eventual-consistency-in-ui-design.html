@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Eventual Consistency In UI Design</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,38 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 7, 2012</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Eventual Consistency In UI Design</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>A <a href='http://lostechies.com/jimmybogard/2012/06/26/eventual-consistency-cqrs-and-interaction-design/'>recent article</a> from Los Techies resonated with something I also did recently at work, and it's nice to see others come up with similar ideas independently. <a href='http://i.mobavatar.com/what-s-on-your-mind/great-minds-think-alike.jpg'>Hopefully</a> that means they're good ideas.</p><p>"Eventual consistency in interaction design" presents the idea of giving the user immediate feedback for an action that is not immediate. It combines a synchronous call (a message to a user after he interacts with a page) with an asynchronous one (processing the results of that action in a background task). The benefits are obvious: the user gets immediate feedback that something happened, and he knows that, while it may not have happened right away, he's not stuck in spinner hell, waiting for some sort of response.</p><p>When a user does certain actions on our site, we create an activity to put it in a feed to either display or to send it off to a third party. We create the activity immediately and put it in a job queue to do whatever functionality it requires later. The job queue is fast, but it can take a minute or so before it processes the new activity.</p><p>That's a minute the user shouldn't need to wait for.</p><p>So when we schedule the job, we also save the related data, the data we're sending off to a third party site, so the user sees the results immediately. To him, his action happened in real time and he never notices the difference.</p><p>One obvious question is what if the user tries to do something on our site with the data that is supposedly linked to another site because he assumes they've been synchronized? Since everything that goes to the other site is done asynchronously, his other actions just get added to the job queue after the first action. If he goes to the other site, the job is generally fast enough that it will have processed the original activity (again, since most jobs run in under a minute). If it becomes a problem where users are getting to the other site too quickly, we'll be able to come up with language more akin to "we're processing your request." But this current implementation provides a nice solution for now.</p><p>Like the article mentions, "If you have users that have to wait to have the view model updated to see their results, you have built the wrong user interface." In our case, the user does not have to wait for an update, even if that update hasn't happened yet.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/user interface.html">user interface</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
-    
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2012-08-28-mysql-installation-woes-on-mountain-lion.html">&laquo; MySQL installation woes on Mountain Lion</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2012-06-20-squashing-bugs-with-git.html">Squashing bugs with Git &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

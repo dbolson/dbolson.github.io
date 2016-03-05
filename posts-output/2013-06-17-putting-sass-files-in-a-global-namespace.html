@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Putting Sass files in a global namespace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,65 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 17, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Putting Sass files in a global namespace</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Rails makes it easy to package our CSS files using the asset pipeline – just put all the <code>.scss</code> files in the <code>application.css</code> manifest file or set <code>require&#95;tree .</code> to automatically pull in all the appropriate files.</p><h2><a name="if&#95;only&#95;it&#95;were&#95;that&#95;easy..."></a>If only it were that easy...</h2><p>Using the asset pipeline keeps each <code>.scss</code> file in its own namespace, so you will need to import any files that have variables we want to use in the current file.</p><pre><code class="scss"># layouts.scss
+@import &quot;variables&quot;;
+
+#my-selector {
+  background-color: @background-color; # imported from layouts.scss
+}
+</code></pre><p><code>layouts.scss</code> doesn't know about the contents of <code>variables.scss</code>, so it can't access <code>@background-color</code> that's set within <code>variables.scss</code>. Now we need to import that file that's probably included in the manifest file, so we're going to have two declarations of the contents of <code>variables.scss</code> and the dependency of importing it within any file that needs its content.</p><p><a href='https://github.com/seyhunak/twitter-bootstrap-rails'>twitter-bootstrap-rails</a> generates a <code>bootstrap&#95;and&#95;overrides.css.scss</code> file that imports the Bootstrap files, so we can use the variables and mixins from Bootstrap in that file, but it won't work for any other files we have. It would be much nicer to organize our <code>.scss</code> files semantically, eg.,</p><pre><code>forms.scss
+layout.scss
+header.scss
+footer.scss
+notification.scss
+# ... etc.
+</code></pre><p>Each of these files will probably want to have access to Bootstrap variables and site-wide variables, but we will need to import everything we want to use.</p><h2><a name="a&#95;dryer&#95;way"></a>A DRYer way</h2><p>h/t to <a href='https://blog.pivotal.io/pivotal-labs/labs/structure-your-sass-files-with-import'>Pivotal Labs</a> for the implementation and the <a href='http://guides.rubyonrails.org/asset_pipeline.html'>link</a> to the docs:</p><blockquote><p> If you want to use multiple Sass files, you should generally use the Sass @import rule instead of these Sprockets directives. Using Sprockets directives all Sass files exist within their own scope, making variables or mixins only available within the document they were defined in. </p></blockquote><p>Here's what the results look like:</p><pre><code class="javascript"># application.scss
+// &#42;= require bootstrap-datepicker
+
+@import &quot;twitter/bootstrap/bootstrap&quot;;
+@import &quot;twitter/bootstrap/sprites&quot;;
+
+// Site files
+@import &quot;custom-variables&quot;;
+@import &quot;custom-other&quot;;
+
+@import &quot;forms&quot;;
+@import &quot;header&quot;;
+@import &quot;footer&quot;;
+@import &quot;content&quot;;
+# ... etc.
+</code></pre><p>A few notes about this:</p><ul><li>We renamed application.css to application.scss. This will allow us to use include a manifest and  use <code>.scss</code> syntax.</li><li>We are still using the manifest for third-party CSS files. Since <code>bootstrap-datepicker</code> comes in  through a <a href='https://github.com/Nerian/bootstrap-datepicker-rails/'>gem</a>, we can just reference the CSS and let it do its thing automatically.</li><li>We could load each Bootstrap file individually if we want to reduce its footprint, but loading  the entire library is easier to illustrate here.</li></ul><h2><a name="results"></a>Results</h2><p>We can make our code more modular by easily reusing variables and mixins. Maybe we can even work toward more <a href='http://ruby.bvision.com/blog/please-stop-embedding-bootstrap-classes-in-your-html'>semantic naming</a>...</p><h2><a name="one&#95;caveat"></a>One caveat</h2><p>We had to remove the <code>spec/javascripts/spec.css</code> file that loaded the manifest file since that is now <code>.scss</code> and not <code>.css</code>. This upset <a href='http://jasmine.github.io/'>Jasmine</a>, and we don't like it when Jasmine is upset.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/sass.html">sass</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
-    
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-06-24-working-with-sass-and-web-fonts.html">&laquo; Working with Sass and web fonts</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-06-01-factorygirl-fun-with-associations-with-associations.html">FactoryGirl fun with associations with associations &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

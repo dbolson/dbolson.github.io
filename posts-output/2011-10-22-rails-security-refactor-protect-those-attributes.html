@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Rails Security Refactor - Protect Those Attributes</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,62 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">October 22, 2011</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Rails Security Refactor - Protect Those Attributes</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Rails in the enterprise is still a fairly new concept, but the same web development principles we have also exist in this new realm. One no-brainer is security, and one no-brainer part of security is protecting data from malicious user input.</p><p>The basic Rails ways to protect attributes on a model are <code>attr&#95;protected</code> and <code>attr&#95;accessible</code>. If neither are set, it's easy to imagine a situation where a user updates his attributes and the corresponding model has a boolean admin field on it. The user can trivially submit post data that looks like this:</p><pre><code class="ruby">params: { &quot;user&quot; =&gt; { :email =&gt; &quot;foo@bar.com&quot;, :first&#95;name =&gt; &quot;Joe&quot;, :last&#95;name =&gt; &quot;Hacker&quot;, :admin =&gt; &quot;true&quot; }}
+</code></pre><p>Oops! Now Mr. Hacker is Mr. Admin!</p><p>So how do we get from here to (more) secure? Throwing <code>attr&#95;accessible</code> on the model to whitelist is the safest, but it can cause a lot of unknown breakage if there aren't tests around the fields, which there probably aren't because why would someone test the fields for accessibility if they are automatically accessible? An interim step is to create a blacklist) using <code>attr&#95;protected</code> to only protect specified fields, get tests around these protected fields, and then upgrade to <code>attr&#95;accessible</code>.</p><p>For our user model, let's protect that admin field:</p><pre><code class="ruby">Class User &lt; ActiveRecord::Base
+  attr&#95;protected :admin
+end
+</code></pre><p>And the tests:</p><pre><code class="ruby">describe User do
+  describe &quot;with protected fields&quot; do
+    context &quot;including admin&quot; do
+      let&#40;:user&#41; { Factory.build&#40;:user, :admin =&gt; false&#41; }
+
+      it &quot;cannot mass-update&quot; do
+        user.update&#95;attributes&#40;{ :admin =&gt; true }&#41;
+        user.admin.should be&#95;false
+      end
+    end
+  end
+end
+</code></pre><p>We instantiate a user object with admin set to false, try to update that field, and ensure that it did not get updated. If we use <code>user.update&#95;attribute&#40;:admin, true&#41;</code>, the test would fail because that skips all the ActiveRecord protection, so we use <code>user.update&#95;attributes</code>. Doing this for all the fields we want to protect will eventually get us to the point where we can swap out <code>attr&#95;protected</code> with the easier to deal with <code>attr&#95;accessible</code>. Since we need to be explicit with <code>attr&#95;protected</code>, it can get to be difficult to maintain quickly since we need to remember to add each new field we want to protect to the list and test it.</p><pre><code class="ruby">Class User &lt; ActiveRecord::Base
+  # attr&#95;protected :id, :admin, :awesomeness&#95;rating, :money
+  attr&#95;accessible :email, :first&#95;name, :last&#95;name
+end
+</code></pre><p>That's better. Tests and iterative development to the rescue!</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/testing.html">testing</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rails.html">rails</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html">&laquo; Rails 2.3.5 Bug With accepts_nested_attributes_for</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2011-10-07-our-interview-process.html">Our Interview Process &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

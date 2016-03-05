@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Creating a presenter in Rails</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,61 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">May 19, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Creating a presenter in Rails</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>There are a <a href='https://github.com/drapergem/draper'>lot</a> of <a href='https://github.com/ihoka/viewtastic'>presenter</a> <a href='https://github.com/jamesgolick/active_presenter'>pattern</a> <a href='https://github.com/apotonick/cells'>implementations</a> out there, but I wanted to roll my own because I only needed one class and it's fun.</p><p>It needs to have <code>content&#95;tag&#40;&#41;</code> and named routes available, so it looks like the following:</p><pre><code class="ruby">class FooPresenter
+  include Rails.application.routes.url&#95;helpers
+
+  def initialize&#40;context&#41;
+    @context = context
+  end
+
+  def bar&#40;arg=nil&#41;
+    if arg
+      context.content&#95;tag&#40;:a, 'hey there', href: foo&#95;path&#41;
+    else
+      'Nothing to see here'
+    end
+  end
+
+  private
+
+  attr&#95;accessor :context
+end
+</code></pre><p>Then, in the controller:</p><pre><code class="ruby">@foo = FooPresenter.new&#40;view&#95;context&#41;
+</code></pre><p>And in the view:</p><pre><code class="ruby">@foo.bar&#40;'yup'&#41;
+</code></pre><p>Which creates a link to <code>foo&#95;path</code>.</p><h2><a name="what's&#95;going&#95;on?"></a>What's going on?</h2><p>We need to include <code>url&#95;helpers&#40;&#41;</code> to get the named routes to access <code>foo&#95;path&#40;&#41;</code>.</p><p>We also need to instantiate the presenter with the <a href='http://apidock.com/rails/AbstractController/Rendering/view_context'><code>view&#95;context</code></a> from the controller, which is</p><blockquote><p> An instance of a view class. The default view class is <code>ActionView::Base</code>  The view class must have the following methods: <code>View.new&#91;lookup&#95;context, assigns, controller&#93;</code> </p></blockquote><p>This gives us access to helper methods like <code>content&#95;tag&#40;&#41;</code>.</p><h2><a name="isn't&#95;this&#95;still&#95;overkill?"></a>Isn't this still overkill?</h2><p>Many have <a href='http://blog.steveklabnik.com/posts/2011-09-09-better-ruby-presenters'>discussed</a> this before, so I'll just reiterate that OOP is nicer than procedural code, so there.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rails.html">rails</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-05-25-when-to-use-ruby-s-object-send.html">&laquo; When to use Ruby&#39;s Object#send</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html">Setting default arguments in Ruby the right way &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

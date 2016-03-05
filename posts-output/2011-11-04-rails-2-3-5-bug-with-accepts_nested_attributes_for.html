@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Rails 2.3.5 Bug With accepts_nested_attributes_for</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,57 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">November 4, 2011</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Rails 2.3.5 Bug With accepts_nested_attributes_for</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>At work, our application has a series of questions it asks users, and an administrator can set a target of what he thinks (or wants) the answer to be.</p><pre><code class="ruby">class Question &lt; ActiveRecord::Base
+  has&#95;many :targets
+  accepts&#95;nested&#95;attributes&#95;for :targets, :allow&#95;destroy =&gt; true
+end
+
+class Target &lt; ActiveRecord::Base
+  belongs&#95;to :question
+end
+</code></pre><p>The administrator fills the form out, choosing a target or not, and Rails will save, update, or destroy it as normal. Well, almost. <a href='https://github.com/rails/rails/commit/146a7505680cbb646c0b9d55dca7cc8494b36e47'>Apparently</a> there is a bug in Rails 2.3.5 that will save the child model twice, and we're experiencing that now.</p><h2><a name="what&#95;i&#95;want&#95;to&#95;do"></a>What I want to do</h2><p>Upgrade to Rails 3.1, get all the new hotness and bug fixes, and not worry about this problem.</p><h2><a name="what&#95;i'm&#95;going&#95;to&#95;do"></a>What I'm going to do</h2><p>Since we don't have the resources to upgrade Rails (yet…), we need a workaround. Here's what we came up with.</p><pre><code class="ruby">after&#95;save :ensure&#95;one&#95;target&#95;while&#95;in&#95;draft
+
+def ensure&#95;one&#95;target&#95;while&#95;in&#95;draft
+  if draft? &amp;&amp; targets.count &gt; 1
+    targets&#91;1..-1&#93;.each { |t| t.destroy }
+  end
+end
+</code></pre><p>This problem only comes up when a question has not been activated and is still in draft mode. Once it's activated, the administrator cannot change the target but only add additional ones. So while in that state, and if there are multiple targets, destroy all but the first. This needs to be in an <code>after&#95;save</code> callback because the double-save does not happen until after the question is saved. It's not elegant, but it works. I don't want to try to patch Rails and remember to deal with that later when we finally do upgrade, and the situation is isolated enough that there isn't a performance hit and it's easy to remove once it's no longer necessary. Elegant? No. But it's a bug fix for the framework, it's well documented in the code, and it works.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/bugs.html">bugs</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rails.html">rails</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2011-11-18-welcome-the-new-guys.html">&laquo; Welcome the New Guys</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2011-10-22-rails-security-refactor-protect-those-attributes.html">Rails Security Refactor - Protect Those Attributes &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,45 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">September 10, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>It started innocently enough. We had a story to make a few UI changes to a small JavaScript app. There would be no functionality changes, so it was going to be an easy morning. Maybe even an early lunch? When we fired up Vim we saw that lunch was going to be a bit later than expected and that we were having...<a href='http://dundundun.net/'>spaghetti</a>.</p><p>Let's break it down, starting with the symptoms:</p><ul><li>0 lines in the repository's README</li><li>1 JavaScript file</li><li>16 global functions</li><li>15 tests</li></ul><p>This application was created using a "wouldn't it be cool if..." design process. Since this would be a one-off application that would only get a little internal use, if any at all beyond the initial excitement, it made sense to get something out, quick and dirty, and move on to more valuable work. Given the wholly experimental nature (read: risky), this seemed reasonable.</p><p>It turns out that we created a popular tool and it wasn't going away anytime soon. And now we had a dilemma: Do we make the quick code change and worry about <a href='http://en.wikipedia.org/wiki/Technical_debt'>maintainability later</a>, or do we <a href='http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule'>clean up the code now</a>, spending more time than anyone planned for this feature?</p><p>Would you keep reading this post if we wrote the feature, leaving a trail of shattered dreams behind us?</p><p>We use <a href='http://backbonejs.org/'>backbone.js</a> for most of our JavaScript applications, so it was the logical choice to organize this application. It turned out that the tests were not very helpful since they were so coupled to the implementation of the global functions, so out they went. One even questions the utility of testing during raw experimentation (is testing code you're likely to shortly toss be considered a form of <a href='https://en.wikipedia.org/wiki/Toyota_Production_System'>waste</a> in the Lean sense)?</p><p>We also decided not to practice TDD since we were essentially backfilling tests and it's [not really TDD anymore][6].</p><h2><a name="let&#95;the&#95;retrofitting&#95;begin"></a>Let the Retrofitting Begin</h2><ol><li>Find the next function that's called</li><li>Move it to the appropriate backbone view or model without changing the internals of the  function</li><li>Manually test the application in the browser</li><li>Clean up the code we just moved (extracting functions, moving DOM selectors, event handlers,  and callbacks)</li><li>Manually test the application in the browser again</li><li>Repeat the above steps until there are no more global functions</li></ol><p>We made slow and steady progress using the above process. If a change broke existing functionality, we'd revert the change and make another attempt. Using small iterations and only changing one thing at a time, we made progress and soon ended up with a much cleaner codebase.</p><p>Now our code is in a much better place for adding functionality. Before it would have been too difficult to add tests because they would be so brittle, but now our code is much easier to test since it's properly set up with appropriate models and views.</p><p>As a bonus, working through each function revealed a lot of dead code that we were able to get rid of. There are few things better than deleting code.</p><p>As evidence of our total victory, <code>application.js</code> is now this:</p><pre><code class="javascript">$&#40;function&#40;&#41; {
+  App.init&#40;&#41;;
+}&#41;;
+</code></pre><h2><a name="take-aways"></a>Take-aways</h2><ul><li><strong>We must always be professionals</strong>: Assume any code you're paid to write is going to get used.  As a professional and a craftsman, we strive to create value with our work. We must use the best  tools for the job and write software to the best of our abilities.</li><li><strong>Speed at the cost of maintainability isn't true speed</strong>: Working so quickly created a lot of  technical debt that we eventually had to pay back. When we did, our initial development time  slowed to a crawl. A one hour change turned into four days of work.</li><li><strong>Write code for the benefit of the next person</strong>: Our code should always be written so it's  easy to change since we're always getting new feature requests. Someone will have to write these  new features, and that someone needs to be able to understand the code quickly or spend valuable  time getting up to speed. That person could easily be the same person who wrote the code (we've  all experienced running git blame and seeing a familiar name listed). Remove code that's no  longer used, document the code properly, and use proper naming.</li></ul>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/backbone.html">backbone</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/javascript.html">javascript</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/jquery.html">jquery</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html">&laquo; UI Integration Tests with RSpec and Capybara</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html">Greater Test Control with RSpec&#39;s Tag Filters &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

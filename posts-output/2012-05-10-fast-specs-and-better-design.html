@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Fast specs and better design</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,70 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">May 10, 2012</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Fast specs and better design</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p><a href='http://confreaks.com/videos/641-gogaruco2011-fast-rails-tests'>Corey Haines</a> first brought testing parts of Rails applications without loading Rails to my attention and excitement a few months ago, and I've been looking at how other developers do similar techniques. Having recently finished <a href='http://devblog.avdi.org/2011/11/15/early-access-beta-of-objects-on-rails-now-available-2/'><em>Objects on Rails</em></a> and working through the <a href='https://www.destroyallsoftware.com/screencasts'>Destroy All Software</a> videos, I've been constantly looking at ways to make my Rails code better and faster to test. I believe these are related and that there is a lot of value in working to make the code easy to test and fast.</p><p>An example of some code I've written that doesn't rely on Rails is an <a href='https://github.com/rails/rails-observers'>observer</a>. The observer inherits from <code>ActiveRecord::Observer</code> and would normally need Rails loaded to exercise its full functionality with the model it's observing. But if we try to keep Rails out and only load what we need, we can drive the design of the observer.</p><p>Here we save an activity, which is used as a generic Facebook-style activity stream item, after someone answers a question.</p><pre><code class="ruby">class AnswerObserver &lt; ActiveRecord::Observer
+  def after&#95;create&#40;answer&#41;
+    Activity.question&#95;answered&#40;answer&#41;
+  end
+end
+</code></pre><p>Here's the entire spec file.</p><pre><code class="ruby">require 'fast&#95;spec/spec&#95;helper'
+stub&#95;class 'ActiveRecord::Observer'
+require 'app/models/observers/answer&#95;observer'
+
+class Activity; end
+
+describe AnswerObserver do
+  let&#40;:observer&#41; { AnswerObserver.new }
+
+  describe &quot;#after&#95;create&quot; do
+    let&#40;:answer&#41; { stub }
+
+    it &quot;creates an activity&quot; do
+      Activity.should&#95;receive&#40;:question&#95;answered&#41;.with&#40;answer&#41;
+      observer.after&#95;create&#40;answer&#41;
+    end
+  end
+end
+</code></pre><p>We do a few things here. The first is loading <code>fast&#95;spec/spec&#95;helper.rb</code> instead of the regular <code>spec&#95;helper.rb</code> that loads the Rails environment. The fast spec helper requires a few utility files like <code>awesome&#95;print</code> and <code>logger</code>, and a <code>module&#95;stub</code> file that has a convenience method stolen from Avdi Grimm:</p><pre><code class="ruby">def stub&#95;module&#40;full&#95;name&#41;
+  full&#95;name.to&#95;s.split&#40;/::/&#41;.inject&#40;Object&#41; do |context, name|
+    begin
+      context.const&#95;get&#40;name&#41;
+    rescue NameError
+      context.const&#95;set&#40;name, Module.new&#41;
+    end
+  end
+end
+</code></pre><p>To quote Avdi:</p><blockquote><p> This method uses <code>#const&#95;get</code> to attempt to reference the given module. If the module is  defined, or if calling <code>#const&#95;get</code> causes it to be auto-loaded, the method does nothing more. But  if <code>#const&#95;get</code> fails to turn up the module, it defines an anonymous empty module to act as a  placeholder. </p></blockquote><p>Looking back at the spec file, we see a similar call to <code>stub&#95;class</code> which does the same thing for classes. We also include the actual file of the code we're testing.</p><p>We create an empty <code>Activity</code> class, normally an <code>ActiveRecord</code> model, since we don't care what it's doing, just that it receives messages we're going to send to it. That's all this test does, really: we check that the Activity class gets a specific message passed to it with specific parameters.</p><p>Testing this way drives the code to be <a href='http://en.wikipedia.org/wiki/Coupling_(computer_science)'>loosely coupled</a> with objects this class needs to communicate with. We could have put all the activity action in the <code>after&#95;create</code> callback and we'd be able to see what's going on, but we'd need to mock and stub a lot of interactions, or we'd have to go back to loading Rails, slowing our tests down. Plus we'd have a lot of code that has <a href='http://c2.com/cgi/wiki?FeatureEnvySmell'>feature envy</a> and would be difficult to maintain.</p><p>We know the test works because changing the functionality of the callback will break the test, and doing BDD will ensure that we're writing failing tests before we add functionality that could be skipped by our mocks. Of course, this problem exists with slower, more integration-like tests, so it's not like running through the full stack is a silver bullet.</p><p>There is a point where there can be too much mocking and stubbing, and I'll get to that in another post. For now, being able to run an entire suite of tests in less than half a second helps keep me in <a href='http://en.wikipedia.org/wiki/Flow_(psychology)'>flow</a> to write better software.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/tests.html">tests</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
-    
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2012-05-15-getting-things-done.html">&laquo; Getting Things Done</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html">Don&#39;t be lazy with route resources and allow unused ones &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

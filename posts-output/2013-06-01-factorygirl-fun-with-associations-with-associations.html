@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: FactoryGirl fun with associations with associations</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,114 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 1, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>FactoryGirl fun with associations with associations</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Ah, <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md'>factories</a>. Such a powerful feature that's so easy to abuse and make our tests slow and unhappy. But they're just so convenient, if we can only manage to keep them doing exactly what we want and not create extra database records.</p><p>The main problem comes from associations because each one will insert a new record into the database unless it's specified at creation. Using <a href='https://blog.pivotal.io/pivotal-labs/labs/how-to-use-factorygirl-effectively'>composition</a> helps, but there is still another problem: if we have an association that itself has an association, the original association still saves a new record in the database for its association. An example will help.</p><pre><code class="ruby"># models/widget.rb
+class Widget &lt; ActiveRecord::Base
+  belongs&#95;to :account
+  belongs&#95;to :doodad
+end
+
+# models/doodad.rb
+class Doodad &lt; ActiveRecord::Base
+  belongs&#95;to :account
+end
+
+# spec/factories/widgets.rb
+FactoryGirl.define do
+  factory :widget do
+  end
+
+  trait :with&#95;doodad do
+    association :doodad
+  end
+
+  trait :with&#95;account do
+    association :account
+  end
+end
+
+# spec/factories/doodads.rb
+FactoryGirl.define do
+  factory :doodad do
+  end
+
+  trait :with&#95;account do
+    association :account
+  end
+end
+
+widget = FactoryGirl.create&#40;:widget, :with&#95;doodad&#41;
+widget.account == widget.doodad.account # =&gt; false
+</code></pre><p>The instance of <code>Doodad</code> has an account that's created when it's created, so <code>widget</code>'s account and <code>doodad</code>'s account will be different accounts. This can be a problem if it matters that both belong to the same account.</p><h2><a name="yo&#95;dawg,&#95;i&#95;heard&#95;you&#95;like&#95;associations..."></a>Yo dawg, I heard you like associations...</h2><p>We can use <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#lazy-attributes'>lazy attributes</a> to set the <code>doodad</code>'s account to be the same as the <code>Widget</code>'s.</p><pre><code class="ruby">FactoryGirl.define do
+  factory :widget do
+    account
+    doodad { |w| w.association&#40;:doodad, account: w.account&#41; }
+  end
+end
+</code></pre><p>We now have one account that's associated with both the <code>widget</code> and the <code>doodad</code>.</p><p>This is also nice for a model for a join table used for <code>has&#95;many :through</code> associations.</p><pre><code class="ruby"># models/assignment.rb
+class Assignment &lt; ActiveRecord::Base
+  belongs&#95;to :account
+  belongs&#95;to :programmer
+  belongs&#95;to :project
+end
+
+# models/programmer.rb
+class Programmer &lt; ActiveRecord::Base
+  belongs&#95;to :account
+  has&#95;many :assignments
+  has&#95;many :projects, through: :assignments
+end
+
+# models/project.rb
+class Project &lt; ActiveRecord::Base
+  belongs&#95;to :account
+  has&#95;many :assignments
+  has&#95;many :programmers, through: :assignments
+end
+
+# spec/factories/assignments.rb
+FactoryGirl.define do
+  factory :assignment do
+    association :account
+    programmer { |a| a.association&#40;:programmer, account: a.account&#41; }
+    project { |a| a.association&#40;:project, account: a.account&#41; }
+  end
+end
+</code></pre>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/testing.html">testing</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rspec.html">rspec</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-06-17-putting-sass-files-in-a-global-namespace.html">&laquo; Putting Sass files in a global namespace</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-05-25-when-to-use-ruby-s-object-send.html">When to use Ruby&#39;s Object#send &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

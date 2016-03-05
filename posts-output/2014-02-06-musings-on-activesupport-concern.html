@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Musings on ActiveSupport::Concern</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,68 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">February 6, 2014</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Musings on ActiveSupport::Concern</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>I saw a <code>UserConcern</code> class for dealing with accepting terms and conditions show up in our code base the other day. Concerns are a <a href='http://blog.coreyhaines.com/2012/12/why-i-dont-use-activesupportconcern.html'>contentious</a> <a href='http://37signals.com/svn/posts/3372-put-chubby-models-on-a-diet-with-concerns'>topic</a>, so there isn't necessarily a wrong answer, but I do side with Corey on this one.</p><p>The <code>Concern</code> mixes in additional functionality that's available at all times. It doesn't really remove the functionality so much as move it around, and now it's in less obvious place. The object still contains all the same methods, but we don't have a single place for these methods, so we need to dig around more to find them.</p><p>An alternative approach would be to <a href='http://robots.thoughtbot.com/evaluating-alternative-decorator-implementations-in'>decorate</a> the instance with the additional functionality that's only needed in its current context. So we could do something like:</p><pre><code class="ruby">class FooController
+  before&#95;action :enforce&#95;tos
+
+  def index
+  end
+
+  private
+
+  def enforce&#95;tos
+    unless AcceptedTOSUser.new&#40;current&#95;user&#41;.accepted&#95;tos?
+      redirect&#95;to :terms&#95;path
+    end
+  end
+end
+
+class AcceptedTOSUser
+  def initialize&#40;user&#41;
+    @user = user
+  end
+
+  def accepted&#95;tos?
+    @user.accepted&#95;terms&#95;of&#95;service?
+  end
+
+  def accept&#95;tos!
+    @user.update&#95;attributes!&#40;accepted&#95;terms&#95;of&#95;service&#95;at: Time.current&#41;
+  end
+end
+</code></pre><p>This makes sure the user has already accepted the terms and conditions before he can access the <code>index</code> action. There is also additional functionality to do the TOS accept that would occur somewhere else. This keeps all the TOS accepting functionality in the same class (nice and DRY) and doesn't pollute the <code>User</code> space.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/refactoring.html">refactoring</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rails.html">rails</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2014-02-06-notes-on-markdown.html">&laquo; Notes on Markdown</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-11-27-refactoring-to-a-query-object.html">Refactoring to a Query Object &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

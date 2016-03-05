@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Metal Archives&#39; JSON Results Parsing</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,85 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 11, 2011</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Metal Archives&#39; JSON Results Parsing</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Some further explanation of how to get Metal Archives' JSON data from a <a href='/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html.html'>recent post</a> is necessary. Through reading the markup and trial and error, I found the URL to receive the data I needed.</p><pre><code>http://www.metal-archives.com/search/ajax-advanced/searching/albums \
+/?&amp;releaseYearFrom=2011&amp;releaseMonthFrom=1&amp;releaseYearTo=2011 \
+&amp;releaseMonthTo=12&amp;&#95;=1&amp;sEcho=0&amp;iColumns=4&amp;sColumns=&amp;iDisplayStart=1&amp; \
+iDisplayLength=100&amp;sNames=%2C%2C%2C
+</code></pre><p>This returns a result set that looks like this:</p><pre><code>{
+ &quot;error&quot;: &quot;&quot;,
+ &quot;iTotalRecords&quot;: 3637,
+ &quot;iTotalDisplayRecords&quot;: 3637,
+ &quot;sEcho&quot;: 0,
+ &quot;aaData&quot;: &#91;
+   &#91;
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/bands/037/3540277845\&quot; title=\&quot;037 &#40;ES&#41;\&quot;&gt;037&lt;/a&gt;&quot;,
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/albums/037/Los&#95;Fuertes&#95;Sobreviven/307703\&quot;&gt;Los Fuertes Sobreviven&lt;/a&gt;&quot;,
+    &quot;Full-length&quot;,
+    &quot;May 24th, 2011 &lt;!-- 2011-05-24 --&gt;&quot;
+  &#93;,
+  &#91;
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/bands/037/3540277845\&quot; title=\&quot;037 &#40;ES&#41;\&quot;&gt;037&lt;/a&gt;&quot;,
+    &quot;&lt;a href=\&quot;http://www.metal-archives.com/albums/037/Tantas&#95;Vidas/306172\&quot;&gt;Tantas Vidas&lt;/a&gt;&quot;,
+    &quot;Single&quot;,
+    &quot;May 6th, 2011 &lt;!-- 2011-05-06 --&gt;&quot;
+  &#93;
+}
+</code></pre><p>You'll notice the <code>iTotalRecords</code> field which conveniently provides the total amount to releases available. You'll also notice the <code>iDisplayStart</code> parameter in the URL that lets us step through the results 100 at a time. By looping through <code>&#40;iTotalRecords / 100 + 1&#41;</code> times, incrementing <code>iDispalyStart</code> by <code>i &#42; 100</code>, we can get a result set for all the records very quickly.</p><p>Now that we have the results, we just need a little regular expression magic to pull out all the information.</p><pre><code class="ruby">BAND&#95;NAME&#95;AND&#95;COUNTRY&#95;REGEXP = /&#40;.+&#41;\s{1}\&#40;&#40;&#91;a-zA-Z&#93;{2}&#41;\&#41;/
+ALBUM&#95;URL&#95;AND&#95;NAME&#95;REGEXP = /&quot;&#40;.+&#41;&quot;&gt;&#40;.+&#41;&lt;\/a&gt;/
+RELEASE&#95;DATE&#95;REGEXP = /&lt;!--\s&#40;.{10}&#41;\s--&gt;/
+</code></pre><p>There was a strange situation where an album didn't have a band page but displayed a message that the band didn't exist, so there is one last regular expression used to guard against a slightly alternative format for the data:</p><pre><code class="ruby">NO&#95;BAND&#95;REGEXP = /span.+&lt;\/span/
+</code></pre><p>The data are much easier to gather and never time out now, so I was able to get rid of all the intermediate saving steps such as after gathering the paginated links and saving the last release searched when the site times out. I'll probably have to add it back in to get the record label of the release since you'll notice it's absent in the JSON but it is available on the release's page.</p><p>The code to save the albums now looks like this:</p><pre><code class="ruby">agent = ::MetalArchives::Agent.new
+agent.paginated&#95;albums.each&#95;with&#95;index do |album&#95;page, index|
+  album&#95;page.each do |album|
+    if album&#91;0&#93;.match&#40;::MetalArchives::Agent::NO&#95;BAND&#95;REGEXP&#41;.nil?
+      Release.create&#40;
+        :name =&gt; agent.album&#95;name&#40;album&#41;,
+        :band =&gt; agent.band&#95;name&#40;album&#41;,
+        :format =&gt; agent.release&#95;type&#40;album&#41;,
+        :url =&gt; agent.album&#95;url&#40;album&#41;,
+        :country =&gt; agent.country&#40;album&#41;,
+        :us&#95;date =&gt; agent.release&#95;date&#40;album&#41;
+      &#41;
+    end
+    CompletedStep.find&#95;or&#95;create&#95;by&#95;step&#40;CompletedStep::ReleasesCollected&#41;
+  end
+end
+</code></pre><p>Quick and simple.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/metaldetectr.html">metaldetectr</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/rails.html">rails</a>
     
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2011-06-26-a-real-life-github-success-story.html">&laquo; A Real Life GitHub Success Story</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2011-05-31-histograms-in-ruby-with-seer.html">Histograms in Ruby With Seer &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Setting default arguments in Ruby the right way</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,69 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">May 15, 2013</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Setting default arguments in Ruby the right way</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>For setting default arguments, my regular idiom has been:</p><pre><code class="ruby">def initialize&#40;options={}&#41;
+  @param = options&#91;:param&#93; || false
+end
+</code></pre><p>Recently, Josh Susser <a href='https://twitter.com/joshsusser/status/332302920752197633'>tweeted</a> that this is bad.</p><blockquote><p> Ruby API protip: don't use ||= to set defaults in an options hash. That blocks users being able  to pass false as a value. #lolrails </p></blockquote><p>Here's an example of what he's talking about:</p><pre><code class="ruby">class Foo
+  def initialize&#40;options={}&#41;
+    @param = options&#91;:param&#93; || true
+  end
+
+  def foo
+    puts &quot;param: #{@param.inspect}&quot;
+  end
+end
+
+Foo.new&#40;param: true&#41;.foo  # =&gt; &quot;param: true&quot;
+Foo.new&#40;param: nil&#41;.foo   # =&gt; &quot;param: true&quot;
+Foo.new&#40;param: false&#41;.foo # =&gt; &quot;param: true&quot;
+</code></pre><p>We can't set the parameter to be nil or false since it will evaluate the line logically to be true.</p><p>The Fix</p><p>Let's rewrite the line in the initializer to use #fetch.</p><pre><code class="ruby">class Foo
+  def initialize&#40;options={}&#41;
+    @param = options.fetch&#40;:param, true&#41;
+  end
+
+  def foo
+    puts &quot;param: #{@param.inspect}&quot;
+  end
+end
+
+Foo.new&#40;param: true&#41;.foo  # =&gt; &quot;param: true&quot;
+Foo.new&#40;param: nil&#41;.foo   # =&gt; &quot;param: nil&quot;
+Foo.new&#40;param: false&#41;.foo # =&gt; &quot;param: false&quot;
+Foo.new.foo # =&gt; &quot;param: nil&quot;
+</code></pre><p>Now we get the results we want for the parameter we pass in. But don't worry, we can still get the default when we don't pass in a value:</p><pre><code class="ruby">Foo.new.foo # =&gt; &quot;param: true&quot;
+</code></pre>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
-    
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2013-05-19-creating-a-presenter-in-rails.html">&laquo; Creating a presenter in Rails</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2013-05-12-rspec-message-expectations-with-dates.html">RSpec message expectations with dates &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

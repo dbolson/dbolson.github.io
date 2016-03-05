@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Adding Field Separation for List Data</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,111 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 13, 2011</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Adding Field Separation for List Data</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p><a href='https://github.com/dbolson/metaldetectr'>MetalDetectr</a> is effectively a list of data as specific as a user wishes to see. It will show only a list of releases a user has in his <a href='http://www.last.fm/'>last.fm</a> library to a list of everything on <a href='http://www.metal-archives.com/'>metal-archives.com</a>. A big concern is presenting it properly, and one method is to delineate releases by whatever sort method a user wants to see. This can be by release date, by the band's name, by the release's name, or by the release's format (eg, EP, full-length, DVD).</p><h2><a name="the&#95;algorithm"></a>The algorithm</h2><ul><li>Start with a table row showing the earliest or most recent, depending on sort order, of theselected sort column.</li><li>Loop through the releases.</li><li>If the current release's relevant field is greater/less than the preceding one, show anothertable row with the current release's field value.</li><li>Show the release.</li></ul><p>For example, the default sort is by US release date starting at the earliest date (and the current month so there's less noise). The list will display the current month and every album released during that month. When a release is next month, it will show next month and then all releases from that month. Continue on through the rest of the releases. If the user wants to see the list in descending order, it will show the last month first and work its way to the most current month.</p><h2><a name="the&#95;code"></a>The code</h2><p>First find the first value and display it in a full column span table row:</p><pre><code># views/releases/index,html.haml
+- comparison&#95;value = @releases.first.chain&#95;methods&#40;Release::FIELDS&#95;WITH&#95;METHODS&#91;Release.default&#95;sort&#40;params&#91;:s&#93;&#41;&#93;&#41;
+= separator&#95;row&#40;comparison&#95;value&#41;
+</code></pre><p>These two lines use the following methods:</p><pre><code class="ruby"># models/release.rb
+# Sets the sort order to what's passed or us&#95;date.
+def self.default&#95;sort&#40;sort&#41;
+  sort || 'us&#95;date'
+end
+
+# models/release.rb
+# Takes an array of symbols and calls them on the release instance if it
+# responds to them.
+# Example: release.chain&#95;methods&#40;&#91;:us&#95;date, :month&#93;&#41; =&gt; release.us&#95;date.month
+def chain&#95;methods&#40;methods&#41;
+  methods.inject&#40;nil&#41; do |memo, acc|
+    target = memo ? memo : self
+    target.respond&#95;to?&#40;acc&#41; ? target.send&#40;acc&#41; : memo
+  end
+end
+
+# helpers/releases&#95;helper.rb
+# Creates a row with a full colspan for the value.
+def separator&#95;row&#40;value&#41;
+  value = Date::MONTHNAMES&#91;value&#93; if value.is&#95;a?&#40;Fixnum&#41;
+  content&#95;tag&#40;:tr, :class =&gt; cycle&#40;'even', 'odd'&#41;&#41; do
+    content&#95;tag&#40;:td, value, :class =&gt; 'separator&#95;row', :colspan =&gt; 7&#41;
+  end
+end
+</code></pre><p><code>FIELDS&#95;WITH&#95;METHODS</code> is a constant that contains a mapping of field names and methods to call on them to display properly:</p><pre><code class="ruby"># models/release.rb
+FIELDS&#95;WITH&#95;METHODS = {
+  'band' =&gt; &#91;:band, :first, :downcase&#93;,
+  'name' =&gt; &#91;:name, :first, :downcase&#93;,
+  'us&#95;date' =&gt; &#91;:us&#95;date, :month&#93;,
+  'euro&#95;date' =&gt; &#91;:euro&#95;date, :month&#93;,
+  'format' =&gt; &#91;:format&#93;,
+  nil =&gt; &#91;:us&#95;date, :month&#93;
+}
+</code></pre><p>Then we loop through each release, updating the comparison value when we get to the next one:</p><pre><code># views/releases/index,html.haml
+- @releases.each do |release|
+  - current&#95;value = release.chain&#95;methods&#40;Release::FIELDS&#95;WITH&#95;METHODS&#91;Release.default&#95;sort&#40;params&#91;:s&#93;&#41;&#93;&#41;
+  - if Release.values&#95;compared?&#40;current&#95;value, comparison&#95;value, params&#91;:d&#93;&#41;
+    - comparison&#95;value = current&#95;value
+    = separator&#95;row&#40;comparison&#95;value&#41;
+  - else
+    - comparison&#95;value = current&#95;value
+  = render release
+</code></pre><p>Compare the two values based on the sort order:</p><pre><code class="ruby"># models/release.rb
+# Sets the comparison operator to be greater than if the direction is nil or ascending,
+# or less than if the direction is descending.
+def self.comparison&#95;operator&#40;direction&#41;
+  &#40;direction.nil? || direction == 'asc'&#41; ? :&gt; : :&lt;
+end
+
+# models/release.rb
+# True if both value and comparison exist and
+# if the direction is ascending:
+#   true if value &gt; comparison, false otherwise
+# if the direction is descending:
+#   true if value &lt; comparison, false otherwise
+def self.values&#95;compared?&#40;value, comparison, direction&#41;
+  value &amp;&amp;
+  comparison &amp;&amp;
+  value.send&#40;
+    Release.comparison&#95;operator&#40;direction&#41;,
+    comparison
+  &#41;
+end
+</code></pre><p>We tried to abstract the comparisons and what's displayed so we can add new fields and only need to update the field-method mapping. There is always the possibility that a field is nil, since we don't always get all the possible data for every release, so <code>chain&#95;methods</code> will call all the methods it can on a release instance until it finishes or returns nil. We could have chained a bunch of <code>try</code>s together, but that didn't look right.</p><p>We also tried to get as much code out of the view as we could, and it can be improved, but it's okay for now.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/modularity.html">modularity</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/metaldetectr.html">metaldetectr</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
+    <a href="/tags-output/rails.html">rails</a>
+    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2011-09-06-my-name-is-danny-and-i-make-mistakes.html">&laquo; My name is Danny...and I make mistakes</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2011-07-08-namespacing-lib-files-and-rspec.html">Namespacing lib files and RSpec &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

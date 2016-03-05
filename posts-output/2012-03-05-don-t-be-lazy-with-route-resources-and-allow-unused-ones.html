@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Don&#39;t be lazy with route resources and allow unused ones</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,47 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">March 5, 2012</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Don&#39;t be lazy with route resources and allow unused ones</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Refactoring controllers to make them <a href='http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model'>skinny</a> is usually a multi-step affair. The common process is to get current functionality tested and them refactor the business logic where it needs to go, moving the tests along with them to their corresponding test files. As the code is moved (to models or service objects, etc.), we can stub out those calls in the controller. Eventually, hopefully, the controller actions will be only a few assignments and a render call. Since the effects can reach across the entire Rails architecture (the M, V, and C, if you will), I find <a href='http://en.wikipedia.org/wiki/Smoke_testing#Software_development'>smoke testing</a> often a necessary step in the process.</p><p>Which brings me to two sources of frustration: the default Rails (2.0) routes and default restful routes.</p><pre><code class="ruby">map.connect ':controller/:action/:id.:format'
+</code></pre><p>This is just ripe for annoyance. Having a list of all the routes set up and not being able to find the one that I need? This guys fault. Rails has a lot of magic, but this has become a major pain because of the implicit and non-obvious nature of allowing anything one wants to sit next to a specified list. But then again, that specific list can have problems of its own too.</p><pre><code class="ruby">map.resources :photos
+</code></pre><p>This can be fantastic. One line gives us so much power and ease: 7 actions for the price of one. What's the problem? Well, when I was recently working on some <a href='http://en.wikipedia.org/wiki/Technical_debt'>technical debt</a>, I thought I found some unused actions. But how did I know for sure? I had to do a lot of <a href='http://en.wikipedia.org/wiki/Grep'>grepping</a> and manual testing to make sure these really weren't used. It turned out that one I thought wasn't was actually called in one specific case, so I had to back out my changes.</p><p>This would have been less painful if the code coverage was better, but that's sometimes the nature of old code, isn't it? If there are methods in the controller that aren't used, it's one thing to not have them declared, but what happens when there is code for an action that goes unused? I decided to be explicit about which routes to use so I didn't have to deal with the same problems later on (I can be my own worst enemy sometimes).</p><p>Let's lock down those resources:</p><pre><code class="ruby">map.resources :foobars, :only =&gt; &#91;:index, :show, :new, :create&#93;
+</code></pre><p>If we're not using <code>:edit</code>, <code>:update</code>, and <code>:destroy</code>, let's not clutter things up with implications.</p><p>Maybe it's overkill, but tech debt can be painful to pay back, and I don't want to piss off my future self if this were to happen again.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/testing.html">testing</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/ruby.html">ruby</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/bugs.html">bugs</a>
     
+    <a href="/tags-output/rails.html">rails</a>
+    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2012-05-10-fast-specs-and-better-design.html">&laquo; Fast specs and better design</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2012-02-12-vimprovements.html">Vimprovements &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

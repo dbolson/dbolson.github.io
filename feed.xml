@@ -12,23 +12,23 @@ https://dbolson.github.io
 Thinking out loud, on the internet
 </description>
 <lastBuildDate>
-Sun, 13 Dec 2015 10:45:27 -0800
+Sat, 05 Mar 2016 14:28:29 -0800
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
 <item>
 <guid>
-https://dbolson.github.io/posts/2015-12-13-find-and-replace-in-vim.html
+https://dbolson.github.io/posts-output/2015-12-13-find-and-replace-in-vim.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2015-12-13-find-and-replace-in-vim.html
+https://dbolson.github.io/posts-output/2015-12-13-find-and-replace-in-vim.html
 </link>
 <title>
 Find and Replace in Vim
 </title>
 <description>
-&lt;p&gt;Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;a href='http://jezenthomas.com/how-i-find-and-replace-in-vim'&gt;How I Find and Replace in Vim&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;This requires &lt;a href='http://beyondgrep.com/'&gt;ack&lt;/a&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code&gt;:args `ack -l '\b{text to replace}\b' --ignore-dir=compiled --ignore-file=is:tags`
+&lt;p&gt;Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: &lt;a href='http://jezenthomas.com/how-i-find-and-replace-in-vim'&gt;&lt;em&gt;How I Find and Replace in Vim&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Note: This requires &lt;a href='http://beyondgrep.com/'&gt;ack&lt;/a&gt;.&lt;/p&gt;&lt;pre&gt;&lt;code&gt;:args `ack -l '\b{text to replace}\b' --ignore-dir=compiled --ignore-file=is:tags`
 :argdo %s/\&amp;lt;{text to replace}\&amp;gt;/{replacing text}/gc | update
 &lt;/code&gt;&lt;/pre&gt;
 </description>
@@ -41,10 +41,90 @@ Sun, 13 Dec 2015 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
+https://dbolson.github.io/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
+https://dbolson.github.io/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html
+</link>
+<title>
+Many Ways to Write a Unit Test
+</title>
+<description>
+&lt;p&gt;Read a post about how &lt;a href='https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/'&gt;to unit test&lt;/a&gt;.&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Wed, 20 May 2015 00:00:00 -0700
+</pubDate>
+</item>
+<item>
+<guid>
+https://dbolson.github.io/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html
+</guid>
+<link>
+https://dbolson.github.io/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html
+</link>
+<title>
+Trip Report - My Visit to the London Office
+</title>
+<description>
+&lt;p&gt;Read a post about my &lt;a href='https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/'&gt;trip to London&lt;/a&gt;.&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Mon, 09 Mar 2015 00:00:00 -0700
+</pubDate>
+</item>
+<item>
+<guid>
+https://dbolson.github.io/posts-output/2015-03-02-our-interview-process.html
+</guid>
+<link>
+https://dbolson.github.io/posts-output/2015-03-02-our-interview-process.html
+</link>
+<title>
+Our Interview Process
+</title>
+<description>
+&lt;p&gt;Read a post about how &lt;a href='https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/'&gt;Funding Circle interviews&lt;/a&gt;.&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Mon, 02 Mar 2015 00:00:00 -0800
+</pubDate>
+</item>
+<item>
+<guid>
+https://dbolson.github.io/posts-output/2015-02-09-our-values-respect.html
+</guid>
+<link>
+https://dbolson.github.io/posts-output/2015-02-09-our-values-respect.html
+</link>
+<title>
+Our Values - Respect
+</title>
+<description>
+&lt;p&gt;Read a post about the &lt;a href='https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/'&gt;Funding Circle values&lt;/a&gt;.&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Mon, 09 Feb 2015 00:00:00 -0800
+</pubDate>
+</item>
+<item>
+<guid>
+https://dbolson.github.io/posts-output/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
+</guid>
+<link>
+https://dbolson.github.io/posts-output/2014-07-17-how-to-set-up-a-service-oriented-architecture-for-development.html
 </link>
 <title>
 How to Set up a Service Oriented Architecture for Development
@@ -137,16 +217,16 @@ Thu, 17 Jul 2014 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
+https://dbolson.github.io/posts-output/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
+https://dbolson.github.io/posts-output/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html
 </link>
 <title>
 What Do You Get When You Send an Engineer to Poland to Give His First Presentation
 </title>
 <description>
-&lt;p&gt;A version of this post can be found &lt;a href='http://engineering.sharethrough.com/blog/2014/03/21/what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation/'&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;There are two types of people: producers and consumers. Producers make things that consumers use. We as software developers are both – we build software using software. We also create and consume information: books, &lt;a href='http://engineering.sharethrough.com/'&gt;blog posts&lt;/a&gt;, and conference talks, to name a few.&lt;/p&gt;&lt;p&gt;I recently gave my first conference talk at [wroc_love.rb][3] in Wrocław, Poland. We've had good success with refactoring a complicated form to a form object, and we wanted to share this knowledge. There are &lt;a href='http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/'&gt;many&lt;/a&gt; &lt;a href='http://robots.thoughtbot.com/activemodel-form-objects'&gt;blog&lt;/a&gt; posts that mention form objects, but we found that they only gave an overview of what they are and didn't go into as much detail as we wanted.&lt;/p&gt;&lt;p&gt;Some of the best talks for me go into detail on a specific topic with lots of examples. Attila Domokos' &quot;&lt;a href='http://confreaks.com/videos/2431-railsconf2013-simple-and-elegant-rails-code-with-functional-style'&gt;Simple and Elegant Rails Code with Functional Style&lt;/a&gt;&quot; is one example, and I wanted to emulate that style of deep diving.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;preparation&quot;&gt;&lt;/a&gt;Preparation&lt;/h2&gt;&lt;p&gt;Two great resources were [speaking.io][7] for how to give the talk and [reveal.js][8] for the presentation. Reveal.js was super simple to set up, and it let me use Markdown for the content. These constrained me to keep the slides basic and not get caught up with all the fancy features of typical presentation software.&lt;/p&gt;&lt;p&gt;My goals were to draw the audience into why one would want to use a form object and to be (somewhat) entertaining. I framed the talk around a scenario of building a form that needs to persist to multiple database tables, and then adding a feature to it to show how quickly things get overly complex with the Rails default ways of making multiple model-backed forms. I'd then show the refactored version that used a form object and how much simpler the same new feature was to implement.&lt;/p&gt;&lt;p&gt;Of course, I had to include &lt;a href='http://upload.wikimedia.org/wikipedia/en/5/5f/Original&lt;i&gt;Doge&lt;/i&gt;meme.jpg'&gt;some silliness&lt;/a&gt; as well. Because internet.&lt;/p&gt;&lt;p&gt;I was nervous about the talk. I thought I would talk too fast, that I would forget everything, that nobody would pay attention and have any questions, that I would be a failure. There were a lot of psychological barriers, but I figured I should just keep going – preparing the code, the slides, the content. My coworkers were a big help, giving me support, feedback, and accountability. After all, I couldn't back out when everyone I work with would know about it.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;conference&quot;&gt;&lt;/a&gt;The conference&lt;/h2&gt;&lt;p&gt;[Wrocław][10] was fun. It's very pretty, has a lot of history (the &lt;a href='http://en.wikipedia.org/wiki/Wroc%C5%82aw%27s_dwarfs'&gt;dwarfs&lt;/a&gt; were a nice touch), and the food was good and plentiful. The conference took place at the &lt;a href='http://en.wikipedia.org/wiki/Wroc%C5%82aw&lt;i&gt;University&lt;/i&gt;of_Technology'&gt;university&lt;/a&gt; and was run very well.&lt;/p&gt;&lt;p&gt;There were about 100 people at the conference, mostly local developers, but I heard a few American accents. I spoke on the second day so there was time to incorporate some of the information from the initial talks into mine. We had plenty of coffee and slow wifi, just like every other conference I've attended.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Highlight&lt;/strong&gt;: Talking to Michael Feathers about &lt;a href='http://en.wikipedia.org/wiki/Pierogi'&gt;pierogi&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Lowlight&lt;/strong&gt;: Jet lag. Boo.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;talk&quot;&gt;&lt;/a&gt;The talk&lt;/h2&gt;&lt;p&gt;Well, it was finally time. I plugged in my computer, set up the microphone, got introduced, and proceeded to rip through my slides at lightening speed. Nerves and tunnel vision do quite a number on ones perception of time, and as Mike Tyson says, &quot;Everybody has a plan until they get punched in the face.&quot; Good thing I had my notes as I could read from those. It was also incredibly important that I went through the talk numerous times, adding notes each time and getting more comfortable with the material. The difference between my first run-through and the last was night and day.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;it's&amp;#95;over&amp;#95;already?&quot;&gt;&lt;/a&gt;It's over already?&lt;/h2&gt;&lt;p&gt;And then I was done. There were a few questions, some definitely because I spoke too fast. After some applause, a dozen audience members came up to the podium to ask more specific questions. We ended up digging through the code of the &lt;a href='https://github.com/dbolson/form-object-presentation'&gt;sample application&lt;/a&gt;. Everyone was very nice and we had some good discussions. It felt good to know that the content resonated enough to talk to me.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;next&amp;#95;steps&quot;&gt;&lt;/a&gt;Next steps&lt;/h2&gt;&lt;p&gt;I can now say that I'm a conference presenter. It feels good, but there's a lot of room to improve. To that end, I've submitted the talk to more upcoming conferences, so hopefully you'll be able to catch the presentation.&lt;/p&gt;&lt;p&gt;The questions provided a lot of good feedback for weaknesses in the content, so I know that the next time will be a much stronger presentation. Plus I will be less nervous (but still nervous) and can present the material more slowly and effectively.&lt;/p&gt;&lt;p&gt;It was a great experience, that I recommend to everyone. We've all have hard-fought experiences that we can teach others. I've done a conference talk and so can you.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;lessons&amp;#95;learned&quot;&gt;&lt;/a&gt;Lessons learned&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;It's going to happen so just keep moving forward.&lt;/li&gt;&lt;li&gt;A support network is invaluable.&lt;/li&gt;&lt;li&gt;Talk even slower.&lt;/li&gt;&lt;li&gt;Practice, practice, practice.&lt;/li&gt;&lt;li&gt;People are nice so don't be afraid of them.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;&lt;a name=&quot;postscript&quot;&gt;&lt;/a&gt;Postscript&lt;/h2&gt;&lt;p&gt;Here are the &lt;a href='http://www.slideshare.net/dannyolson315/objectify-your-forms'&gt;slides&lt;/a&gt; and here is the &lt;a href='https://www.youtube.com/watch?v=NENkGg-wzx8'&gt;video&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;A version of this post can be found &lt;a href='http://engineering.sharethrough.com/blog/2014/03/21/what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation/'&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;There are two types of people: producers and consumers. Producers make things that consumers use. We as software developers are both – we build software using software. We also create and consume information: books, &lt;a href='http://engineering.sharethrough.com/'&gt;blog posts&lt;/a&gt;, and conference talks, to name a few.&lt;/p&gt;&lt;p&gt;I recently gave my first conference talk at &lt;a href='http://wrocloverb.com/'&gt;wroc_love.rb&lt;/a&gt; in Wrocław, Poland. We've had good success with refactoring a complicated form to a form object, and we wanted to share this knowledge. There are &lt;a href='http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/'&gt;many&lt;/a&gt; &lt;a href='http://robots.thoughtbot.com/activemodel-form-objects'&gt;blog&lt;/a&gt; posts that mention form objects, but we found that they only gave an overview of what they are and didn't go into as much detail as we wanted.&lt;/p&gt;&lt;p&gt;Some of the best talks for me go into detail on a specific topic with lots of examples. Attila Domokos' &quot;&lt;a href='http://confreaks.com/videos/2431-railsconf2013-simple-and-elegant-rails-code-with-functional-style'&gt;Simple and Elegant Rails Code with Functional Style&lt;/a&gt;&quot; is one example, and I wanted to emulate that style of deep diving.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;preparation&quot;&gt;&lt;/a&gt;Preparation&lt;/h2&gt;&lt;p&gt;Two great resources were &lt;a href='http://speaking.io/'&gt;speaking.io&lt;/a&gt; for how to give the talk and &lt;a href='http://lab.hakim.se/reveal-js/#/'&gt;reveal.js&lt;/a&gt; for the presentation. Reveal.js was super simple to set up, and it let me use Markdown for the content. These constrained me to keep the slides basic and not get caught up with all the fancy features of typical presentation software.&lt;/p&gt;&lt;p&gt;My goals were to draw the audience into why one would want to use a form object and to be (somewhat) entertaining. I framed the talk around a scenario of building a form that needs to persist to multiple database tables, and then adding a feature to it to show how quickly things get overly complex with the Rails default ways of making multiple model-backed forms. I'd then show the refactored version that used a form object and how much simpler the same new feature was to implement.&lt;/p&gt;&lt;p&gt;Of course, I had to include &lt;a href='http://upload.wikimedia.org/wikipedia/en/5/5f/Original_Doge_meme.jpg'&gt;some silliness&lt;/a&gt; as well. Because internet.&lt;/p&gt;&lt;p&gt;I was nervous about the talk. I thought I would talk too fast, that I would forget everything, that nobody would pay attention and have any questions, that I would be a failure. There were a lot of psychological barriers, but I figured I should just keep going – preparing the code, the slides, the content. My coworkers were a big help, giving me support, feedback, and accountability. After all, I couldn't back out when everyone I work with would know about it.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;conference&quot;&gt;&lt;/a&gt;The conference&lt;/h2&gt;&lt;p&gt;&lt;a href='http://en.wikipedia.org/wiki/Wroc%C5%82aw'&gt;Wrocław&lt;/a&gt; was fun. It's very pretty, has a lot of history (the &lt;a href='http://en.wikipedia.org/wiki/Wroc%C5%82aw%27s_dwarfs'&gt;dwarfs&lt;/a&gt; were a nice touch), and the food was good and plentiful. The conference took place at the &lt;a href='http://en.wikipedia.org/wiki/Wroc%C5%82aw_University_of_Technology'&gt;university&lt;/a&gt; and was run very well.&lt;/p&gt;&lt;p&gt;There were about 100 people at the conference, mostly local developers, but I heard a few American accents. I spoke on the second day so there was time to incorporate some of the information from the initial talks into mine. We had plenty of coffee and slow wifi, just like every other conference I've attended.&lt;/p&gt;&lt;p&gt;**Highlight**: Talking to Michael Feathers about &lt;a href='http://en.wikipedia.org/wiki/Pierogi'&gt;pierogi&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Lowlight&lt;/strong&gt;: Jet lag. Boo.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;talk&quot;&gt;&lt;/a&gt;The talk&lt;/h2&gt;&lt;p&gt;Well, it was finally time. I plugged in my computer, set up the microphone, got introduced, and proceeded to rip through my slides at lightening speed. Nerves and tunnel vision do quite a number on ones perception of time, and as Mike Tyson says, &quot;Everybody has a plan until they get punched in the face.&quot; Good thing I had my notes as I could read from those. It was also incredibly important that I went through the talk numerous times, adding notes each time and getting more comfortable with the material. The difference between my first run-through and the last was night and day.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;it's&amp;#95;over&amp;#95;already?&quot;&gt;&lt;/a&gt;It's over already?&lt;/h2&gt;&lt;p&gt;And then I was done. There were a few questions, some definitely because I spoke too fast. After some applause, a dozen audience members came up to the podium to ask more specific questions. We ended up digging through the code of the &lt;a href='https://github.com/dbolson/form-object-presentation'&gt;sample application&lt;/a&gt;. Everyone was very nice and we had some good discussions. It felt good to know that the content resonated enough to talk to me.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;next&amp;#95;steps&quot;&gt;&lt;/a&gt;Next steps&lt;/h2&gt;&lt;p&gt;I can now say that I'm a conference presenter. It feels good, but there's a lot of room to improve. To that end, I've submitted the talk to more upcoming conferences, so hopefully you'll be able to catch the presentation.&lt;/p&gt;&lt;p&gt;The questions provided a lot of good feedback for weaknesses in the content, so I know that the next time will be a much stronger presentation. Plus I will be less nervous (but still nervous) and can present the material more slowly and effectively.&lt;/p&gt;&lt;p&gt;It was a great experience, that I recommend to everyone. We've all have hard-fought experiences that we can teach others. I've done a conference talk and so can you.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;lessons&amp;#95;learned&quot;&gt;&lt;/a&gt;Lessons learned&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;It's going to happen so just keep moving forward.&lt;/li&gt;&lt;li&gt;A support network is invaluable.&lt;/li&gt;&lt;li&gt;Talk even slower.&lt;/li&gt;&lt;li&gt;Practice, practice, practice.&lt;/li&gt;&lt;li&gt;People are nice so don't be afraid of them.&lt;/li&gt;&lt;/ul&gt;&lt;h2&gt;&lt;a name=&quot;postscript&quot;&gt;&lt;/a&gt;Postscript&lt;/h2&gt;&lt;p&gt;Here are the &lt;a href='http://www.slideshare.net/dannyolson315/objectify-your-forms'&gt;slides&lt;/a&gt; and here is the &lt;a href='https://www.youtube.com/watch?v=NENkGg-wzx8'&gt;video&lt;/a&gt;.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -157,10 +237,10 @@ Sat, 22 Mar 2014 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html
+https://dbolson.github.io/posts-output/2014-02-06-notes-on-markdown.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-02-06-notes-on-markdown.html
+https://dbolson.github.io/posts-output/2014-02-06-notes-on-markdown.html
 </link>
 <title>
 Notes on Markdown
@@ -170,7 +250,7 @@ Notes on Markdown
 au BufRead,BufNewFile &amp;#42;.md setlocal spell &amp;quot; set spelling
 au BufRead,BufNewFile &amp;#42;.md setlocal wrap &amp;quot; set line wrapping
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I use the &lt;a href='http://marked2app.com/'&gt;Marked app&lt;/a&gt; as a preview for the Markdown files. Add this to &lt;code&gt;.vimrc&lt;/code&gt; to open the current file in Marked with &lt;code&gt;leader m&lt;/code&gt;:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;nnoremap &amp;lt;leader&amp;gt;m :silent !open -a Marked.app '%:p'&amp;lt;cr&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This works for personal documents, but it's not perfect for pasting into Gmail. For that I use [markdown-it.github.io][3]. Simply paste (or write) Markdown in the left and copy from the right. You can paste this directly into Gmail while preserving the formatting.&lt;/p&gt;&lt;p&gt;Another tool to try is &lt;a href='http://mouapp.com/'&gt;Mou&lt;/a&gt; for writing Markdown (I still prefer vim).&lt;/p&gt;&lt;p&gt;It's to the point where I write everything that's more than a few sentences in Markdown. Even if I don't convert it to rich text, plain Markdown still looks pretty good.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This works for personal documents, but it's not perfect for pasting into Gmail. For that I use &lt;a href='http://markdown-it.github.io'&gt;markdown-it.github.io&lt;/a&gt;. Simply paste (or write) Markdown in the left and copy from the right. You can paste this directly into Gmail while preserving the formatting.&lt;/p&gt;&lt;p&gt;Another tool to try is &lt;a href='http://mouapp.com/'&gt;Mou&lt;/a&gt; for writing Markdown (I still prefer vim).&lt;/p&gt;&lt;p&gt;It's to the point where I write everything that's more than a few sentences in Markdown. Even if I don't convert it to rich text, plain Markdown still looks pretty good.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -181,10 +261,10 @@ Thu, 06 Feb 2014 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html
+https://dbolson.github.io/posts-output/2014-02-06-musings-on-activesupport-concern.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2014-02-06-musings-on-activesupport-concern.html
+https://dbolson.github.io/posts-output/2014-02-06-musings-on-activesupport-concern.html
 </link>
 <title>
 Musings on ActiveSupport::Concern
@@ -229,10 +309,10 @@ Thu, 06 Feb 2014 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html
+https://dbolson.github.io/posts-output/2013-11-27-refactoring-to-a-query-object.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-11-27-refactoring-to-a-query-object.html
+https://dbolson.github.io/posts-output/2013-11-27-refactoring-to-a-query-object.html
 </link>
 <title>
 Refactoring to a Query Object
@@ -355,20 +435,20 @@ Wed, 27 Nov 2013 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
+https://dbolson.github.io/posts-output/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
+https://dbolson.github.io/posts-output/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html
 </link>
 <title>
 Your Backbone Can't Save You Now - Why We Use Backbone Marionette
 </title>
 <description>
-&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;The &lt;a href='http://en.wikipedia.org/wiki/Big&lt;i&gt;ball&lt;/i&gt;of_mud'&gt;big ball of mud&lt;/a&gt; is a well understood software anti-pattern, and we've all experienced it at some point in our careers (sometimes on the receiving end but all too often as the creator). There is never a specific event where we can look back and say, &quot;this is what caused the problems we're experiencing right now.&quot; It's cumulative, subtle, and it takes time to manifest.&lt;/p&gt;&lt;p&gt;But how does this happen? We're &lt;a href='http://en.wikipedia.org/wiki/Agile&lt;i&gt;software&lt;/i&gt;development'&gt;agile&lt;/a&gt;. We pair program for instant code reviews. We follow the &lt;a href='http://en.wikipedia.org/wiki/You&lt;i&gt;aren't&lt;/i&gt;gonna&lt;i&gt;need&lt;/i&gt;it'&gt;YAGNI&lt;/a&gt; principle and only write the functionality we need. And yet, we can often end up with code that is difficult to understand, change, and test. New features take much longer to add because we don't understand the code we're working on and any change we make breaks another part of the code base.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;situation&quot;&gt;&lt;/a&gt;The situation&lt;/h2&gt;&lt;p&gt;We have an input form to let a user create a new ad creative. It's sufficiently complicated because a creative has a lot of moving parts, some required, some optional, and the user needs to be able to edit any of those parts. There is the content of the creative, information about the targeting, and the budget information. We also want to show the user what the ad unit will look like as the user enters information. It ain't trivial.&lt;/p&gt;&lt;p&gt;We use [backbone.js][4] to organize our JavaScript. It gives us powerful ways to organize our code, but it doesn't provide everything we need in a framework. True, it's easy to shoot yourself in the foot with any code, but Backbone's lack of opinion makes it easier. The documentation says that it &quot;is an attempt to discover the minimal set of data-structuring (models and collections) and user interface (views and URLs) primitives that are generally useful when building web applications with JavaScript.&quot; Developers have the freedom to use Backbone as they wish, but it's not a fully-featured framework.&lt;/p&gt;&lt;p&gt;It turns out that we have a bit too much freedom and now we have some major concerns in our code.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;structure&quot;&gt;&lt;/a&gt;Structure&lt;/h2&gt;&lt;p&gt;Our back end code is written in Ruby on Rails. Rails has a specific file structure based on its role (eg, controllers, models, or views) and uses &quot;magic&quot; to autoload the files. This design decision makes sense for Rails, but it doesn't make sense in our situation. Take a look:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;backbone/
+&lt;h2&gt;&lt;/h2&gt;&lt;p&gt;The &lt;a href='http://en.wikipedia.org/wiki/Big_ball_of_mud'&gt;big ball of mud&lt;/a&gt; is a well understood software anti-pattern, and we've all experienced it at some point in our careers (sometimes on the receiving end but all too often as the creator). There is never a specific event where we can look back and say, &quot;this is what caused the problems we're experiencing right now.&quot; It's cumulative, subtle, and it takes time to manifest.&lt;/p&gt;&lt;p&gt;But how does this happen? We're &lt;a href='http://en.wikipedia.org/wiki/Agile_software_development'&gt;agile&lt;/a&gt;. We pair program for instant code reviews. We follow the &lt;a href='http://en.wikipedia.org/wiki/You_aren't_gonna_need_it'&gt;YAGNI&lt;/a&gt; principle and only write the functionality we need. And yet, we can often end up with code that is difficult to understand, change, and test. New features take much longer to add because we don't understand the code we're working on and any change we make breaks another part of the code base.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;situation&quot;&gt;&lt;/a&gt;The situation&lt;/h2&gt;&lt;p&gt;We have an input form to let a user create a new ad creative. It's sufficiently complicated because a creative has a lot of moving parts, some required, some optional, and the user needs to be able to edit any of those parts. There is the content of the creative, information about the targeting, and the budget information. We also want to show the user what the ad unit will look like as the user enters information. It ain't trivial.&lt;/p&gt;&lt;p&gt;We use &lt;a href='http://backbonejs.org/'&gt;backbone.js&lt;/a&gt; to organize our JavaScript. It gives us powerful ways to organize our code, but it doesn't provide everything we need in a framework. True, it's easy to shoot yourself in the foot with any code, but Backbone's lack of opinion makes it easier. The documentation says that it &quot;is an attempt to discover the minimal set of data-structuring (models and collections) and user interface (views and URLs) primitives that are generally useful when building web applications with JavaScript.&quot; Developers have the freedom to use Backbone as they wish, but it's not a fully-featured framework.&lt;/p&gt;&lt;p&gt;It turns out that we have a bit too much freedom and now we have some major concerns in our code.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;structure&quot;&gt;&lt;/a&gt;Structure&lt;/h2&gt;&lt;p&gt;Our back end code is written in Ruby on Rails. Rails has a specific file structure based on its role (eg, controllers, models, or views) and uses &quot;magic&quot; to autoload the files. This design decision makes sense for Rails, but it doesn't make sense in our situation. Take a look:&lt;/p&gt;&lt;pre&gt;&lt;code&gt;backbone/
   helpers/
   routers/
   views/
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;These folders don't give us a lot of information about the domain of what we're trying to model. It does tell us what types of files we have, but this is not very helpful.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;dom&amp;#95;spaghetti&quot;&gt;&lt;/a&gt;DOM spaghetti&lt;/h2&gt;&lt;p&gt;Backbone views are the heart of an application. The documentation states, &quot;The general idea is to organize your interface into logical views, backed by models, each of which can be updated independently when the model changes, without having to redraw the page.&quot; There is some structure, but it's easy to make views junk drawers that are organized haphazardly. A critique of jQuery is that it's easy to create a lot of selectors that are difficult to organize, and Backbone.js views can easily consist of this mess instead of breaking it up into organized units.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;testing&amp;#95;is&amp;#95;hard&quot;&gt;&lt;/a&gt;Testing is hard&lt;/h2&gt;&lt;p&gt;We test our JavaScript with &lt;a href='http://jasmine.github.io/'&gt;Jasmine&lt;/a&gt;, and the setup required for some of our tests is intimidating. There are tests that recreate a large part of the DOM in fixtures, use a lot of selectors to grab various bits, and then do logic on multiple pieces at once.&lt;/p&gt;&lt;p&gt;This coupling makes changing anything very difficult since the change can affect so many different parts. Difficult tests are no fun for anyone.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;won't&amp;#95;someone&amp;#95;&lt;em&gt;do&lt;/em&gt;&amp;#95;something!&quot;&gt;&lt;/a&gt;Won't someone &lt;em&gt;do&lt;/em&gt; something!&lt;/h2&gt;&lt;p&gt;With all this, we were still putting out new features, although they were small and easily understood. We recently planned work for a much larger feature that would make our creatives much more powerful. After evaluating what this feature requires, we realized that it would be very difficult to add to the code base in its existing form. We decided we needed to give our code more structure.&lt;/p&gt;&lt;p&gt;Backbone Marionette: Our New Puppet Master&lt;/p&gt;&lt;p&gt;&lt;a href='http://lostechies.com/derickbailey/2012/06/13/why-should-i-use-backbone-marionette-instead-of-%E2%80%A6/'&gt;Derick Bailey explains his reasoning for using Marionette&lt;/a&gt;, and it's compelling. Here are his reasons and what we think of them:&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;composite&amp;#95;application&amp;#95;architecture&quot;&gt;&lt;/a&gt;Composite application architecture&lt;/h3&gt;&lt;p&gt;We get much more value out of our code when we &lt;a href='http://en.wikipedia.org/wiki/Composition&lt;i&gt;over&lt;/i&gt;inheritance'&gt;prefer composition over inheritance&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;enterprise&amp;#95;messaging&amp;#95;pattern&amp;#95;influence&quot;&gt;&lt;/a&gt;Enterprise messaging pattern influence&lt;/h3&gt;&lt;p&gt;The [pub/sub][8] pattern gives us loose coupling, letting us create multiple smaller components instead of one large, monolithic application.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;modularization&amp;#95;options&quot;&gt;&lt;/a&gt;Modularization options&lt;/h3&gt;&lt;p&gt;We don't use any existing &lt;a href='http://requirejs.org/docs/whyamd.html'&gt;module&lt;/a&gt; &lt;a href='http://wiki.commonjs.org/wiki/CommonJS'&gt;libraries&lt;/a&gt; so Marionette's module system works well for us.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;incremental&amp;#95;use&amp;#95;(no&amp;#95;all-or-nothing&amp;#95;requirement)&quot;&gt;&lt;/a&gt;Incremental use (no all-or-nothing requirement)&lt;/h3&gt;&lt;p&gt;Since we've got an existing application, it makes more sense to add or change functionality in pieces instead of all at once.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;no&amp;#95;server&amp;#95;lock-in&quot;&gt;&lt;/a&gt;No server lock-in&lt;/h3&gt;&lt;p&gt;Our backend is Rails without any plans to change it, so this isn't too relevant except that it allows us to use our preferred back-end technology.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;easily&amp;#95;change&amp;#95;the&amp;#95;defaults&quot;&gt;&lt;/a&gt;Easily change the defaults&lt;/h3&gt;&lt;p&gt;All applications seem to need more than what a framework provides by default, so making this easy makes developers happy.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;code&amp;#95;as&amp;#95;configuration&quot;&gt;&lt;/a&gt;Code as configuration&lt;/h3&gt;&lt;p&gt;This goes with the previous reason. The frameworks author's conventions probably overlap a lot with ours, but it won't be 100%.&lt;/p&gt;&lt;p&gt;We'll next discuss specific benefits we get from using Marionette.js on top of Backbone.js. Stay tuned!&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;These folders don't give us a lot of information about the domain of what we're trying to model. It does tell us what types of files we have, but this is not very helpful.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;dom&amp;#95;spaghetti&quot;&gt;&lt;/a&gt;DOM spaghetti&lt;/h2&gt;&lt;p&gt;Backbone views are the heart of an application. The documentation states, &quot;The general idea is to organize your interface into logical views, backed by models, each of which can be updated independently when the model changes, without having to redraw the page.&quot; There is some structure, but it's easy to make views junk drawers that are organized haphazardly. A critique of jQuery is that it's easy to create a lot of selectors that are difficult to organize, and Backbone.js views can easily consist of this mess instead of breaking it up into organized units.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;testing&amp;#95;is&amp;#95;hard&quot;&gt;&lt;/a&gt;Testing is hard&lt;/h2&gt;&lt;p&gt;We test our JavaScript with &lt;a href='http://jasmine.github.io/'&gt;Jasmine&lt;/a&gt;, and the setup required for some of our tests is intimidating. There are tests that recreate a large part of the DOM in fixtures, use a lot of selectors to grab various bits, and then do logic on multiple pieces at once.&lt;/p&gt;&lt;p&gt;This coupling makes changing anything very difficult since the change can affect so many different parts. Difficult tests are no fun for anyone.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;won't&amp;#95;someone&amp;#95;&lt;em&gt;do&lt;/em&gt;&amp;#95;something!&quot;&gt;&lt;/a&gt;Won't someone &lt;em&gt;do&lt;/em&gt; something!&lt;/h2&gt;&lt;p&gt;With all this, we were still putting out new features, although they were small and easily understood. We recently planned work for a much larger feature that would make our creatives much more powerful. After evaluating what this feature requires, we realized that it would be very difficult to add to the code base in its existing form. We decided we needed to give our code more structure.&lt;/p&gt;&lt;p&gt;Backbone Marionette: Our New Puppet Master&lt;/p&gt;&lt;p&gt;&lt;a href='http://lostechies.com/derickbailey/2012/06/13/why-should-i-use-backbone-marionette-instead-of-%E2%80%A6/'&gt;Derick Bailey explains his reasoning for using Marionette&lt;/a&gt;, and it's compelling. Here are his reasons and what we think of them:&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;composite&amp;#95;application&amp;#95;architecture&quot;&gt;&lt;/a&gt;Composite application architecture&lt;/h3&gt;&lt;p&gt;We get much more value out of our code when we &lt;a href='http://en.wikipedia.org/wiki/Composition_over_inheritance'&gt;prefer composition over inheritance&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;enterprise&amp;#95;messaging&amp;#95;pattern&amp;#95;influence&quot;&gt;&lt;/a&gt;Enterprise messaging pattern influence&lt;/h3&gt;&lt;p&gt;The &lt;a href='http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern'&gt;pub/sub&lt;/a&gt; pattern gives us loose coupling, letting us create multiple smaller components instead of one large, monolithic application.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;modularization&amp;#95;options&quot;&gt;&lt;/a&gt;Modularization options&lt;/h3&gt;&lt;p&gt;We don't use any existing &lt;a href='http://requirejs.org/docs/whyamd.html'&gt;module&lt;/a&gt; &lt;a href='http://wiki.commonjs.org/wiki/CommonJS'&gt;libraries&lt;/a&gt; so Marionette's module system works well for us.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;incremental&amp;#95;use&amp;#95;(no&amp;#95;all-or-nothing&amp;#95;requirement)&quot;&gt;&lt;/a&gt;Incremental use (no all-or-nothing requirement)&lt;/h3&gt;&lt;p&gt;Since we've got an existing application, it makes more sense to add or change functionality in pieces instead of all at once.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;no&amp;#95;server&amp;#95;lock-in&quot;&gt;&lt;/a&gt;No server lock-in&lt;/h3&gt;&lt;p&gt;Our backend is Rails without any plans to change it, so this isn't too relevant except that it allows us to use our preferred back-end technology.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;easily&amp;#95;change&amp;#95;the&amp;#95;defaults&quot;&gt;&lt;/a&gt;Easily change the defaults&lt;/h3&gt;&lt;p&gt;All applications seem to need more than what a framework provides by default, so making this easy makes developers happy.&lt;/p&gt;&lt;h3&gt;&lt;a name=&quot;code&amp;#95;as&amp;#95;configuration&quot;&gt;&lt;/a&gt;Code as configuration&lt;/h3&gt;&lt;p&gt;This goes with the previous reason. The frameworks author's conventions probably overlap a lot with ours, but it won't be 100%.&lt;/p&gt;&lt;p&gt;We'll next discuss specific benefits we get from using Marionette.js on top of Backbone.js. Stay tuned!&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -379,16 +459,16 @@ Sat, 09 Nov 2013 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
+https://dbolson.github.io/posts-output/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
+https://dbolson.github.io/posts-output/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html
 </link>
 <title>
 UI Integration Tests with RSpec and Capybara
 </title>
 <description>
-&lt;p&gt;Now that our form object is sufficiently complex, but mostly because sales found a bug, we decided we need to have UI tests for the happy paths for new and edit actions.&lt;/p&gt;&lt;p&gt;We did not want to use Cucumber because we [didn't see its value compared to its overhead][1], so we kept the tests to &lt;a href='https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec'&gt;RSpec features&lt;/a&gt; and Capybara. Features let us test the UI as a user would and Capybara loads a browser so we have JavaScript available.&lt;/p&gt;&lt;p&gt;Here's an example of signing in a user, navigating to the form, filling it out, and submitting it. We want the form to successfully save and redirect to another page.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# spec/features/content&amp;#95;form&amp;#95;spec.rb
+&lt;p&gt;Now that our form object is sufficiently complex, but mostly because sales found a bug, we decided we need to have UI tests for the happy paths for new and edit actions.&lt;/p&gt;&lt;p&gt;We did not want to use Cucumber because we &lt;a href='http://blog.8thlight.com/kevin-liddle/2013/09/18/a-case-against-cucumber.html'&gt;didn't see its value compared to its overhead&lt;/a&gt;, so we kept the tests to &lt;a href='https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec'&gt;RSpec features&lt;/a&gt; and Capybara. Features let us test the UI as a user would and Capybara loads a browser so we have JavaScript available.&lt;/p&gt;&lt;p&gt;Here's an example of signing in a user, navigating to the form, filling it out, and submitting it. We want the form to successfully save and redirect to another page.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# spec/features/content&amp;#95;form&amp;#95;spec.rb
 
 require 'capybara/rails'
 require 'spec&amp;#95;helper'
@@ -469,16 +549,16 @@ Fri, 20 Sep 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
+https://dbolson.github.io/posts-output/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
+https://dbolson.github.io/posts-output/2013-09-10-the-right-time-for-structure-retrofitting-backbone-js-to-a-jquery-application.html
 </link>
 <title>
 The Right Time For Structure - Retrofitting Backbone.js to a jQuery Application
 </title>
 <description>
-&lt;p&gt;It started innocently enough. We had a story to make a few UI changes to a small JavaScript app. There would be no functionality changes, so it was going to be an easy morning. Maybe even an early lunch? When we fired up Vim we saw that lunch was going to be a bit later than expected and that we were having...&lt;a href='http://dundundun.net/'&gt;spaghetti&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Let's break it down, starting with the symptoms:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;0 lines in the repository's README&lt;/li&gt;&lt;li&gt;1 JavaScript file&lt;/li&gt;&lt;li&gt;16 global functions&lt;/li&gt;&lt;li&gt;15 tests&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;This application was created using a &quot;wouldn't it be cool if...&quot; design process. Since this would be a one-off application that would only get a little internal use, if any at all beyond the initial excitement, it made sense to get something out, quick and dirty, and move on to more valuable work. Given the wholly experimental nature (read: risky), this seemed reasonable.&lt;/p&gt;&lt;p&gt;It turns out that we created a popular tool and it wasn't going away anytime soon. And now we had a dilemma: Do we make the quick code change and worry about &lt;a href='http://en.wikipedia.org/wiki/Technical_debt'&gt;maintainability later&lt;/a&gt;, or do we &lt;a href='http://programmer.97things.oreilly.com/wiki/index.php/The&lt;i&gt;Boy&lt;/i&gt;Scout_Rule'&gt;clean up the code now&lt;/a&gt;, spending more time than anyone planned for this feature?&lt;/p&gt;&lt;p&gt;Would you keep reading this post if we wrote the feature, leaving a trail of shattered dreams behind us?&lt;/p&gt;&lt;p&gt;We use [backbone.js][4] for most of our JavaScript applications, so it was the logical choice to organize this application. It turned out that the tests were not very helpful since they were so coupled to the implementation of the global functions, so out they went. One even questions the utility of testing during raw experimentation (is testing code you're likely to shortly toss be considered a form of &lt;a href='https://en.wikipedia.org/wiki/Toyota&lt;i&gt;Production&lt;/i&gt;System'&gt;waste&lt;/a&gt; in the Lean sense)?&lt;/p&gt;&lt;p&gt;We also decided not to practice TDD since we were essentially backfilling tests and it's [not really TDD anymore][6].&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;let&amp;#95;the&amp;#95;retrofitting&amp;#95;begin&quot;&gt;&lt;/a&gt;Let the Retrofitting Begin&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Find the next function that's called&lt;/li&gt;&lt;li&gt;Move it to the appropriate backbone view or model without changing the internals of the  function&lt;/li&gt;&lt;li&gt;Manually test the application in the browser&lt;/li&gt;&lt;li&gt;Clean up the code we just moved (extracting functions, moving DOM selectors, event handlers,  and callbacks)&lt;/li&gt;&lt;li&gt;Manually test the application in the browser again&lt;/li&gt;&lt;li&gt;Repeat the above steps until there are no more global functions&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;We made slow and steady progress using the above process. If a change broke existing functionality, we'd revert the change and make another attempt. Using small iterations and only changing one thing at a time, we made progress and soon ended up with a much cleaner codebase.&lt;/p&gt;&lt;p&gt;Now our code is in a much better place for adding functionality. Before it would have been too difficult to add tests because they would be so brittle, but now our code is much easier to test since it's properly set up with appropriate models and views.&lt;/p&gt;&lt;p&gt;As a bonus, working through each function revealed a lot of dead code that we were able to get rid of. There are few things better than deleting code.&lt;/p&gt;&lt;p&gt;As evidence of our total victory, &lt;code&gt;application.js&lt;/code&gt; is now this:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;$&amp;#40;function&amp;#40;&amp;#41; {
+&lt;p&gt;It started innocently enough. We had a story to make a few UI changes to a small JavaScript app. There would be no functionality changes, so it was going to be an easy morning. Maybe even an early lunch? When we fired up Vim we saw that lunch was going to be a bit later than expected and that we were having...&lt;a href='http://dundundun.net/'&gt;spaghetti&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Let's break it down, starting with the symptoms:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;0 lines in the repository's README&lt;/li&gt;&lt;li&gt;1 JavaScript file&lt;/li&gt;&lt;li&gt;16 global functions&lt;/li&gt;&lt;li&gt;15 tests&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;This application was created using a &quot;wouldn't it be cool if...&quot; design process. Since this would be a one-off application that would only get a little internal use, if any at all beyond the initial excitement, it made sense to get something out, quick and dirty, and move on to more valuable work. Given the wholly experimental nature (read: risky), this seemed reasonable.&lt;/p&gt;&lt;p&gt;It turns out that we created a popular tool and it wasn't going away anytime soon. And now we had a dilemma: Do we make the quick code change and worry about &lt;a href='http://en.wikipedia.org/wiki/Technical_debt'&gt;maintainability later&lt;/a&gt;, or do we &lt;a href='http://programmer.97things.oreilly.com/wiki/index.php/The_Boy_Scout_Rule'&gt;clean up the code now&lt;/a&gt;, spending more time than anyone planned for this feature?&lt;/p&gt;&lt;p&gt;Would you keep reading this post if we wrote the feature, leaving a trail of shattered dreams behind us?&lt;/p&gt;&lt;p&gt;We use &lt;a href='http://backbonejs.org/'&gt;backbone.js&lt;/a&gt; for most of our JavaScript applications, so it was the logical choice to organize this application. It turned out that the tests were not very helpful since they were so coupled to the implementation of the global functions, so out they went. One even questions the utility of testing during raw experimentation (is testing code you're likely to shortly toss be considered a form of &lt;a href='https://en.wikipedia.org/wiki/Toyota_Production_System'&gt;waste&lt;/a&gt; in the Lean sense)?&lt;/p&gt;&lt;p&gt;We also decided not to practice TDD since we were essentially backfilling tests and it's [not really TDD anymore][6].&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;let&amp;#95;the&amp;#95;retrofitting&amp;#95;begin&quot;&gt;&lt;/a&gt;Let the Retrofitting Begin&lt;/h2&gt;&lt;ol&gt;&lt;li&gt;Find the next function that's called&lt;/li&gt;&lt;li&gt;Move it to the appropriate backbone view or model without changing the internals of the  function&lt;/li&gt;&lt;li&gt;Manually test the application in the browser&lt;/li&gt;&lt;li&gt;Clean up the code we just moved (extracting functions, moving DOM selectors, event handlers,  and callbacks)&lt;/li&gt;&lt;li&gt;Manually test the application in the browser again&lt;/li&gt;&lt;li&gt;Repeat the above steps until there are no more global functions&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;We made slow and steady progress using the above process. If a change broke existing functionality, we'd revert the change and make another attempt. Using small iterations and only changing one thing at a time, we made progress and soon ended up with a much cleaner codebase.&lt;/p&gt;&lt;p&gt;Now our code is in a much better place for adding functionality. Before it would have been too difficult to add tests because they would be so brittle, but now our code is much easier to test since it's properly set up with appropriate models and views.&lt;/p&gt;&lt;p&gt;As a bonus, working through each function revealed a lot of dead code that we were able to get rid of. There are few things better than deleting code.&lt;/p&gt;&lt;p&gt;As evidence of our total victory, &lt;code&gt;application.js&lt;/code&gt; is now this:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;javascript&quot;&gt;$&amp;#40;function&amp;#40;&amp;#41; {
   App.init&amp;#40;&amp;#41;;
 }&amp;#41;;
 &lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;&lt;a name=&quot;take-aways&quot;&gt;&lt;/a&gt;Take-aways&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;We must always be professionals&lt;/strong&gt;: Assume any code you're paid to write is going to get used.  As a professional and a craftsman, we strive to create value with our work. We must use the best  tools for the job and write software to the best of our abilities.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Speed at the cost of maintainability isn't true speed&lt;/strong&gt;: Working so quickly created a lot of  technical debt that we eventually had to pay back. When we did, our initial development time  slowed to a crawl. A one hour change turned into four days of work.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Write code for the benefit of the next person&lt;/strong&gt;: Our code should always be written so it's  easy to change since we're always getting new feature requests. Someone will have to write these  new features, and that someone needs to be able to understand the code quickly or spend valuable  time getting up to speed. That person could easily be the same person who wrote the code (we've  all experienced running git blame and seeing a familiar name listed). Remove code that's no  longer used, document the code properly, and use proper naming.&lt;/li&gt;&lt;/ul&gt;
@@ -492,10 +572,10 @@ Tue, 10 Sep 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
+https://dbolson.github.io/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
+https://dbolson.github.io/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html
 </link>
 <title>
 Greater Test Control with RSpec's Tag Filters
@@ -512,10 +592,10 @@ Sun, 18 Aug 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html
+https://dbolson.github.io/posts-output/2013-07-15-structuring-your-fast-tests-in-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-07-15-structuring-your-fast-tests-in-rspec.html
+https://dbolson.github.io/posts-output/2013-07-15-structuring-your-fast-tests-in-rspec.html
 </link>
 <title>
 Structuring your fast tests in RSpec
@@ -559,7 +639,7 @@ class UserDecorator &amp;lt; Draper::Decorator
     'you/are/special'
   end
 end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You'll notice a few things:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The &lt;code&gt;/spec&amp;#95;fast&lt;/code&gt; directory is set up just like the &lt;code&gt;spec&lt;/code&gt; directory where the folder structure  mimics the structure in the application.&lt;/li&gt;&lt;li&gt;The &lt;code&gt;fast&amp;#95;spec&amp;#95;helper&lt;/code&gt; contains everything that all the fast tests need.&lt;/li&gt;&lt;li&gt;The &lt;code&gt;/support&lt;/code&gt; directory functions just like the &lt;code&gt;spec/support&lt;/code&gt; directory.&lt;/li&gt;&lt;li&gt;We use &lt;code&gt;require&amp;#95;relative&lt;/code&gt; for each file we need to load, and we need to load all the files  manually in the tests.&lt;/li&gt;&lt;li&gt;The secret sauce is that there is no &lt;code&gt;require 'spec&amp;#95;helper'&lt;/code&gt; in any of the tests, so there is no  Rails! &lt;a href='http://gal.darkervision.com/wp-content/uploads/2008/11/calvin-naked-resize.jpg'&gt;Freedom&lt;/a&gt;!&lt;/li&gt;&lt;li&gt;Feel free to add to this directory as often as possible. In fact, you should probably default  your tests here. Why? It reduces coupling with the framework and (should) lead to better, ie,  &lt;a href='http://en.wikipedia.org/wiki/SOLID&lt;i&gt;(object-oriented&lt;/i&gt;design'&gt;SOLID&lt;/a&gt;) classes.&lt;/li&gt;&lt;/ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You'll notice a few things:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;The &lt;code&gt;/spec&amp;#95;fast&lt;/code&gt; directory is set up just like the &lt;code&gt;spec&lt;/code&gt; directory where the folder structure  mimics the structure in the application.&lt;/li&gt;&lt;li&gt;The &lt;code&gt;fast&amp;#95;spec&amp;#95;helper&lt;/code&gt; contains everything that all the fast tests need.&lt;/li&gt;&lt;li&gt;The &lt;code&gt;/support&lt;/code&gt; directory functions just like the &lt;code&gt;spec/support&lt;/code&gt; directory.&lt;/li&gt;&lt;li&gt;We use &lt;code&gt;require&amp;#95;relative&lt;/code&gt; for each file we need to load, and we need to load all the files  manually in the tests.&lt;/li&gt;&lt;li&gt;The secret sauce is that there is no &lt;code&gt;require 'spec&amp;#95;helper'&lt;/code&gt; in any of the tests, so there is no  Rails! &lt;a href='http://gal.darkervision.com/wp-content/uploads/2008/11/calvin-naked-resize.jpg'&gt;Freedom&lt;/a&gt;!&lt;/li&gt;&lt;li&gt;Feel free to add to this directory as often as possible. In fact, you should probably default  your tests here. Why? It reduces coupling with the framework and (should) lead to better, ie,  &lt;a href='http://en.wikipedia.org/wiki/SOLID_(object-oriented_design'&gt;SOLID&lt;/a&gt;) classes.&lt;/li&gt;&lt;/ul&gt;
 </description>
 <enclosure>
 
@@ -570,10 +650,10 @@ Mon, 15 Jul 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html
+https://dbolson.github.io/posts-output/2013-06-24-working-with-sass-and-web-fonts.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-24-working-with-sass-and-web-fonts.html
+https://dbolson.github.io/posts-output/2013-06-24-working-with-sass-and-web-fonts.html
 </link>
 <title>
 Working with Sass and web fonts
@@ -618,10 +698,10 @@ Mon, 24 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html
+https://dbolson.github.io/posts-output/2013-06-17-putting-sass-files-in-a-global-namespace.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-17-putting-sass-files-in-a-global-namespace.html
+https://dbolson.github.io/posts-output/2013-06-17-putting-sass-files-in-a-global-namespace.html
 </link>
 <title>
 Putting Sass files in a global namespace
@@ -633,7 +713,7 @@ Putting Sass files in a global namespace
 #my-selector {
   background-color: @background-color; # imported from layouts.scss
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;layouts.scss&lt;/code&gt; doesn't know about the contents of &lt;code&gt;variables.scss&lt;/code&gt;, so it can't access &lt;code&gt;@background-color&lt;/code&gt; that's set within &lt;code&gt;variables.scss&lt;/code&gt;. Now we need to import that file that's probably included in the manifest file, so we're going to have two declarations of the contents of &lt;code&gt;variables.scss&lt;/code&gt; and the dependency of importing it within any file that needs its content.&lt;/p&gt;&lt;p&gt;[twitter-bootstrap-rails][1] generates a &lt;code&gt;bootstrap&amp;#95;and&amp;#95;overrides.css.scss&lt;/code&gt; file that imports the Bootstrap files, so we can use the variables and mixins from Bootstrap in that file, but it won't work for any other files we have. It would be much nicer to organize our &lt;code&gt;.scss&lt;/code&gt; files semantically, eg.,&lt;/p&gt;&lt;pre&gt;&lt;code&gt;forms.scss
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;layouts.scss&lt;/code&gt; doesn't know about the contents of &lt;code&gt;variables.scss&lt;/code&gt;, so it can't access &lt;code&gt;@background-color&lt;/code&gt; that's set within &lt;code&gt;variables.scss&lt;/code&gt;. Now we need to import that file that's probably included in the manifest file, so we're going to have two declarations of the contents of &lt;code&gt;variables.scss&lt;/code&gt; and the dependency of importing it within any file that needs its content.&lt;/p&gt;&lt;p&gt;&lt;a href='https://github.com/seyhunak/twitter-bootstrap-rails'&gt;twitter-bootstrap-rails&lt;/a&gt; generates a &lt;code&gt;bootstrap&amp;#95;and&amp;#95;overrides.css.scss&lt;/code&gt; file that imports the Bootstrap files, so we can use the variables and mixins from Bootstrap in that file, but it won't work for any other files we have. It would be much nicer to organize our &lt;code&gt;.scss&lt;/code&gt; files semantically, eg.,&lt;/p&gt;&lt;pre&gt;&lt;code&gt;forms.scss
 layout.scss
 header.scss
 footer.scss
@@ -665,16 +745,16 @@ Mon, 17 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html
+https://dbolson.github.io/posts-output/2013-06-01-factorygirl-fun-with-associations-with-associations.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-06-01-factorygirl-fun-with-associations-with-associations.html
+https://dbolson.github.io/posts-output/2013-06-01-factorygirl-fun-with-associations-with-associations.html
 </link>
 <title>
 FactoryGirl fun with associations with associations
 </title>
 <description>
-&lt;p&gt;Ah, &lt;a href='https://github.com/thoughtbot/factory&lt;i&gt;girl/blob/master/GETTING&lt;/i&gt;STARTED.md'&gt;factories&lt;/a&gt;. Such a powerful feature that's so easy to abuse and make our tests slow and unhappy. But they're just so convenient, if we can only manage to keep them doing exactly what we want and not create extra database records.&lt;/p&gt;&lt;p&gt;The main problem comes from associations because each one will insert a new record into the database unless it's specified at creation. Using &lt;a href='https://blog.pivotal.io/pivotal-labs/labs/how-to-use-factorygirl-effectively'&gt;composition&lt;/a&gt; helps, but there is still another problem: if we have an association that itself has an association, the original association still saves a new record in the database for its association. An example will help.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# models/widget.rb
+&lt;p&gt;Ah, &lt;a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md'&gt;factories&lt;/a&gt;. Such a powerful feature that's so easy to abuse and make our tests slow and unhappy. But they're just so convenient, if we can only manage to keep them doing exactly what we want and not create extra database records.&lt;/p&gt;&lt;p&gt;The main problem comes from associations because each one will insert a new record into the database unless it's specified at creation. Using &lt;a href='https://blog.pivotal.io/pivotal-labs/labs/how-to-use-factorygirl-effectively'&gt;composition&lt;/a&gt; helps, but there is still another problem: if we have an association that itself has an association, the original association still saves a new record in the database for its association. An example will help.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# models/widget.rb
 class Widget &amp;lt; ActiveRecord::Base
   belongs&amp;#95;to :account
   belongs&amp;#95;to :doodad
@@ -711,7 +791,7 @@ end
 
 widget = FactoryGirl.create&amp;#40;:widget, :with&amp;#95;doodad&amp;#41;
 widget.account == widget.doodad.account # =&amp;gt; false
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The instance of &lt;code&gt;Doodad&lt;/code&gt; has an account that's created when it's created, so &lt;code&gt;widget&lt;/code&gt;'s account and &lt;code&gt;doodad&lt;/code&gt;'s account will be different accounts. This can be a problem if it matters that both belong to the same account.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;yo&amp;#95;dawg,&amp;#95;i&amp;#95;heard&amp;#95;you&amp;#95;like&amp;#95;associations...&quot;&gt;&lt;/a&gt;Yo dawg, I heard you like associations...&lt;/h2&gt;&lt;p&gt;We can use &lt;a href='https://github.com/thoughtbot/factory&lt;i&gt;girl/blob/master/GETTING&lt;/i&gt;STARTED.md#lazy-attributes'&gt;lazy attributes&lt;/a&gt; to set the &lt;code&gt;doodad&lt;/code&gt;'s account to be the same as the &lt;code&gt;Widget&lt;/code&gt;'s.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;FactoryGirl.define do
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The instance of &lt;code&gt;Doodad&lt;/code&gt; has an account that's created when it's created, so &lt;code&gt;widget&lt;/code&gt;'s account and &lt;code&gt;doodad&lt;/code&gt;'s account will be different accounts. This can be a problem if it matters that both belong to the same account.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;yo&amp;#95;dawg,&amp;#95;i&amp;#95;heard&amp;#95;you&amp;#95;like&amp;#95;associations...&quot;&gt;&lt;/a&gt;Yo dawg, I heard you like associations...&lt;/h2&gt;&lt;p&gt;We can use &lt;a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#lazy-attributes'&gt;lazy attributes&lt;/a&gt; to set the &lt;code&gt;doodad&lt;/code&gt;'s account to be the same as the &lt;code&gt;Widget&lt;/code&gt;'s.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;FactoryGirl.define do
   factory :widget do
     account
     doodad { |w| w.association&amp;#40;:doodad, account: w.account&amp;#41; }
@@ -757,10 +837,10 @@ Sat, 01 Jun 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html
+https://dbolson.github.io/posts-output/2013-05-25-when-to-use-ruby-s-object-send.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-25-when-to-use-ruby-s-object-send.html
+https://dbolson.github.io/posts-output/2013-05-25-when-to-use-ruby-s-object-send.html
 </link>
 <title>
 When to use Ruby's Object#send
@@ -804,10 +884,10 @@ Sat, 25 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html
+https://dbolson.github.io/posts-output/2013-05-19-creating-a-presenter-in-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-19-creating-a-presenter-in-rails.html
+https://dbolson.github.io/posts-output/2013-05-19-creating-a-presenter-in-rails.html
 </link>
 <title>
 Creating a presenter in Rails
@@ -834,7 +914,7 @@ Creating a presenter in Rails
 end
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then, in the controller:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;@foo = FooPresenter.new&amp;#40;view&amp;#95;context&amp;#41;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And in the view:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;@foo.bar&amp;#40;'yup'&amp;#41;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Which creates a link to &lt;code&gt;foo&amp;#95;path&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;what's&amp;#95;going&amp;#95;on?&quot;&gt;&lt;/a&gt;What's going on?&lt;/h2&gt;&lt;p&gt;We need to include &lt;code&gt;url&amp;#95;helpers&amp;#40;&amp;#41;&lt;/code&gt; to get the named routes to access &lt;code&gt;foo&amp;#95;path&amp;#40;&amp;#41;&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;We also need to instantiate the presenter with the [&lt;code&gt;view&amp;#95;context&lt;/code&gt;][5] from the controller, which is&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; An instance of a view class. The default view class is &lt;code&gt;ActionView::Base&lt;/code&gt; &gt; The view class must have the following methods: &lt;code&gt;View.new&amp;#91;lookup&amp;#95;context, assigns, controller&amp;#93;&lt;/code&gt; &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;This gives us access to helper methods like &lt;code&gt;content&amp;#95;tag&amp;#40;&amp;#41;&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;isn't&amp;#95;this&amp;#95;still&amp;#95;overkill?&quot;&gt;&lt;/a&gt;Isn't this still overkill?&lt;/h2&gt;&lt;p&gt;Many have &lt;a href='http://blog.steveklabnik.com/posts/2011-09-09-better-ruby-presenters'&gt;discussed&lt;/a&gt; this before, so I'll just reiterate that OOP is nicer than procedural code, so there.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Which creates a link to &lt;code&gt;foo&amp;#95;path&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;what's&amp;#95;going&amp;#95;on?&quot;&gt;&lt;/a&gt;What's going on?&lt;/h2&gt;&lt;p&gt;We need to include &lt;code&gt;url&amp;#95;helpers&amp;#40;&amp;#41;&lt;/code&gt; to get the named routes to access &lt;code&gt;foo&amp;#95;path&amp;#40;&amp;#41;&lt;/code&gt;.&lt;/p&gt;&lt;p&gt;We also need to instantiate the presenter with the &lt;a href='http://apidock.com/rails/AbstractController/Rendering/view_context'&gt;&lt;code&gt;view&amp;#95;context&lt;/code&gt;&lt;/a&gt; from the controller, which is&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; An instance of a view class. The default view class is &lt;code&gt;ActionView::Base&lt;/code&gt;  The view class must have the following methods: &lt;code&gt;View.new&amp;#91;lookup&amp;#95;context, assigns, controller&amp;#93;&lt;/code&gt; &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;This gives us access to helper methods like &lt;code&gt;content&amp;#95;tag&amp;#40;&amp;#41;&lt;/code&gt;.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;isn't&amp;#95;this&amp;#95;still&amp;#95;overkill?&quot;&gt;&lt;/a&gt;Isn't this still overkill?&lt;/h2&gt;&lt;p&gt;Many have &lt;a href='http://blog.steveklabnik.com/posts/2011-09-09-better-ruby-presenters'&gt;discussed&lt;/a&gt; this before, so I'll just reiterate that OOP is nicer than procedural code, so there.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -845,10 +925,10 @@ Sun, 19 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
+https://dbolson.github.io/posts-output/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
+https://dbolson.github.io/posts-output/2013-05-15-setting-default-arguments-in-ruby-the-right-way.html
 </link>
 <title>
 Setting default arguments in Ruby the right way
@@ -857,7 +937,7 @@ Setting default arguments in Ruby the right way
 &lt;p&gt;For setting default arguments, my regular idiom has been:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def initialize&amp;#40;options={}&amp;#41;
   @param = options&amp;#91;:param&amp;#93; || false
 end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recently, Josh Susser &lt;a href='https://twitter.com/joshsusser/status/332302920752197633'&gt;tweeted&lt;/a&gt; that this is bad.&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; Ruby API protip: don't use ||= to set defaults in an options hash. That blocks users being able &gt; to pass false as a value. #lolrails &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;Here's an example of what he's talking about:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Foo
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recently, Josh Susser &lt;a href='https://twitter.com/joshsusser/status/332302920752197633'&gt;tweeted&lt;/a&gt; that this is bad.&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; Ruby API protip: don't use ||= to set defaults in an options hash. That blocks users being able  to pass false as a value. #lolrails &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;Here's an example of what he's talking about:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Foo
   def initialize&amp;#40;options={}&amp;#41;
     @param = options&amp;#91;:param&amp;#93; || true
   end
@@ -896,10 +976,10 @@ Wed, 15 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html
+https://dbolson.github.io/posts-output/2013-05-12-rspec-message-expectations-with-dates.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-12-rspec-message-expectations-with-dates.html
+https://dbolson.github.io/posts-output/2013-05-12-rspec-message-expectations-with-dates.html
 </link>
 <title>
 RSpec message expectations with dates
@@ -932,17 +1012,17 @@ Sun, 12 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
+https://dbolson.github.io/posts-output/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
+https://dbolson.github.io/posts-output/2013-05-05-why-did-heroku-stop-precompiling-my-assets.html
 </link>
 <title>
 Why did Heroku stop precompiling my assets?
 </title>
 <description>
 &lt;p&gt;I come into work today to this error:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;ActionView::Template::Error &amp;#40;'twitter/bootstrap/bootstrap.less' wasn't found.
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Odd...It works in development. What could have happened?&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;search&quot;&gt;&lt;/a&gt;The search&lt;/h2&gt;&lt;p&gt;I ran the application locally with the development environment and got the same error. Great, at least it's reproducible. Let's hit the Googles...&lt;/p&gt;&lt;p&gt;Hmm, some mentions in [twitter-bootstrap-rails][1] and some scattered &lt;a href='http://stackoverflow.com/questions/9047478/rails-app-with-twitter-bootstrap-works-in-development-but-not-in-production/9117069#9117069'&gt;StackOverflow&lt;/a&gt; questions, but nothing that works. Then I noticed Heroku was no longer precompiling the assets on deploy.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;discovery&quot;&gt;&lt;/a&gt;The discovery&lt;/h2&gt;&lt;p&gt;The &lt;a href='https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting'&gt;Heroku docs&lt;/a&gt; have this glorious quote:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; The most common cause of failures in assets:precompile is an app that relies on having its &gt; environment present to boot. Your app's config vars are not present in the environment during &gt; slug compilation, so you should take steps to handle the nil case for config vars (and add-on &gt; resources) in your initializers. &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A recent change added some configuration variables in &lt;code&gt;application.rb&lt;/code&gt; that referenced some environment variables.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;fix&quot;&gt;&lt;/a&gt;The fix&lt;/h2&gt;&lt;p&gt;Based on some more &lt;a href='https://devcenter.heroku.com/articles/smtp'&gt;documentation&lt;/a&gt; and &lt;a href='http://stackoverflow.com/questions/7855870/gmail-on-heroku-with-rails-3'&gt;community help&lt;/a&gt;, I moved the configuration into an initializer that is loaded after the slug compilation when it can access the environment variables.&lt;/p&gt;&lt;p&gt;Deploy. Working. #winning.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Odd...It works in development. What could have happened?&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;search&quot;&gt;&lt;/a&gt;The search&lt;/h2&gt;&lt;p&gt;I ran the application locally with the development environment and got the same error. Great, at least it's reproducible. Let's hit the Googles...&lt;/p&gt;&lt;p&gt;Hmm, some mentions in &lt;a href='https://github.com/seyhunak/twitter-bootstrap-rails'&gt;twitter-bootstrap-rails&lt;/a&gt; and some scattered &lt;a href='http://stackoverflow.com/questions/9047478/rails-app-with-twitter-bootstrap-works-in-development-but-not-in-production/9117069#9117069'&gt;StackOverflow&lt;/a&gt; questions, but nothing that works. Then I noticed Heroku was no longer precompiling the assets on deploy.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;discovery&quot;&gt;&lt;/a&gt;The discovery&lt;/h2&gt;&lt;p&gt;The &lt;a href='https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting'&gt;Heroku docs&lt;/a&gt; have this glorious quote:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; The most common cause of failures in assets:precompile is an app that relies on having its  environment present to boot. Your app's config vars are not present in the environment during  slug compilation, so you should take steps to handle the nil case for config vars (and add-on  resources) in your initializers. &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;A recent change added some configuration variables in &lt;code&gt;application.rb&lt;/code&gt; that referenced some environment variables.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;fix&quot;&gt;&lt;/a&gt;The fix&lt;/h2&gt;&lt;p&gt;Based on some more &lt;a href='https://devcenter.heroku.com/articles/smtp'&gt;documentation&lt;/a&gt; and &lt;a href='http://stackoverflow.com/questions/7855870/gmail-on-heroku-with-rails-3'&gt;community help&lt;/a&gt;, I moved the configuration into an initializer that is loaded after the slug compilation when it can access the environment variables.&lt;/p&gt;&lt;p&gt;Deploy. Working. #winning.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -953,16 +1033,16 @@ Sun, 05 May 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html
+https://dbolson.github.io/posts-output/2013-04-21-a-use-for-ruby-constants.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-21-a-use-for-ruby-constants.html
+https://dbolson.github.io/posts-output/2013-04-21-a-use-for-ruby-constants.html
 </link>
 <title>
 A use for Ruby constants
 </title>
 <description>
-&lt;p&gt;We know that &lt;a href='http://www.liveandcode.com/2009/11/16/adventures-in-ruby-when-constants-arent/'&gt;constants&lt;/a&gt; [aren't][2], so I've always hesitated to use them when I could use a constant method instead. This makes the value more difficult to change since I can't just reassign the method's return value. It also makes it easier to test since I can override it explicitly with a stub.&lt;/p&gt;&lt;p&gt;But now I have a use for a constant...&lt;/p&gt;&lt;p&gt;I have a default value in an &lt;code&gt;ActiveRecord&lt;/code&gt; model that I set on a value when it's nil. I don't keep this in the database since it's an arbitrary value that will probably change often, and it's easier to change that in the application layer. I would normally have this value returned from a method in the class, but I use it twice: once in a validation callback and once in a class method. I would then need to define it twice:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def self.foo&amp;#95;value
+&lt;p&gt;We know that &lt;a href='http://www.liveandcode.com/2009/11/16/adventures-in-ruby-when-constants-arent/'&gt;constants&lt;/a&gt; &lt;a href='http://stackoverflow.com/questions/1977780/what-does-ruby-constant-mean'&gt;aren't&lt;/a&gt;, so I've always hesitated to use them when I could use a constant method instead. This makes the value more difficult to change since I can't just reassign the method's return value. It also makes it easier to test since I can override it explicitly with a stub.&lt;/p&gt;&lt;p&gt;But now I have a use for a constant...&lt;/p&gt;&lt;p&gt;I have a default value in an &lt;code&gt;ActiveRecord&lt;/code&gt; model that I set on a value when it's nil. I don't keep this in the database since it's an arbitrary value that will probably change often, and it's easier to change that in the application layer. I would normally have this value returned from a method in the class, but I use it twice: once in a validation callback and once in a class method. I would then need to define it twice:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def self.foo&amp;#95;value
   'foo'
 end
 
@@ -980,10 +1060,10 @@ Sun, 21 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html
+https://dbolson.github.io/posts-output/2013-04-17-using-activesupport-timewithzone-without-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-17-using-activesupport-timewithzone-without-rails.html
+https://dbolson.github.io/posts-output/2013-04-17-using-activesupport-timewithzone-without-rails.html
 </link>
 <title>
 Using ActiveSupport::TimeWithZone without Rails
@@ -1039,10 +1119,10 @@ Wed, 17 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
+https://dbolson.github.io/posts-output/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
+https://dbolson.github.io/posts-output/2013-04-11-mysql-rspec-won-t-clear-the-database-between-test-runs.html
 </link>
 <title>
 MySQL RSpec won't clear the database between test runs
@@ -1066,10 +1146,10 @@ Thu, 11 Apr 2013 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html
+https://dbolson.github.io/posts-output/2012-08-28-mysql-installation-woes-on-mountain-lion.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-08-28-mysql-installation-woes-on-mountain-lion.html
+https://dbolson.github.io/posts-output/2012-08-28-mysql-installation-woes-on-mountain-lion.html
 </link>
 <title>
 MySQL installation woes on Mountain Lion
@@ -1092,10 +1172,10 @@ Tue, 28 Aug 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html
+https://dbolson.github.io/posts-output/2012-07-07-eventual-consistency-in-ui-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-07-07-eventual-consistency-in-ui-design.html
+https://dbolson.github.io/posts-output/2012-07-07-eventual-consistency-in-ui-design.html
 </link>
 <title>
 Eventual Consistency In UI Design
@@ -1112,10 +1192,10 @@ Sat, 07 Jul 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html
+https://dbolson.github.io/posts-output/2012-06-20-squashing-bugs-with-git.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-06-20-squashing-bugs-with-git.html
+https://dbolson.github.io/posts-output/2012-06-20-squashing-bugs-with-git.html
 </link>
 <title>
 Squashing bugs with Git
@@ -1134,10 +1214,10 @@ Wed, 20 Jun 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html
+https://dbolson.github.io/posts-output/2012-06-10-rails-controller-tests-without-rails.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-06-10-rails-controller-tests-without-rails.html
+https://dbolson.github.io/posts-output/2012-06-10-rails-controller-tests-without-rails.html
 </link>
 <title>
 Rails controller tests without Rails
@@ -1226,16 +1306,16 @@ Sun, 10 Jun 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html
+https://dbolson.github.io/posts-output/2012-05-25-reading-the-developer-s-code.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-25-reading-the-developer-s-code.html
+https://dbolson.github.io/posts-output/2012-05-25-reading-the-developer-s-code.html
 </link>
 <title>
 Reading - The Developer's Code
 </title>
 <description>
-&lt;p&gt;I recently finished reading [The Developer's Code][1] and found some ideas that really resonate. There's a lot in the book that feels very obvious, but then I realize how long it took me to learn those lessons and how many mistakes I've made to learn them. Those thoughts make me realize that the other parts of the book, the ones that don't click as much, are probably even more valuable since I now have an opportunity to learn things without the pain of experiencing then through failure (although I'm sure I'll still get to enjoy those feelings quite often).&lt;/p&gt;&lt;p&gt;Essay 11 is titled &lt;em&gt;Stop Programming&lt;/em&gt;. Its argument is that it's not about the hours one puts into the work but the quality. “Great programming is about maximizing the time you're working at your best, not the cumulative hours you spend in front of a screen.” This is readily obvious from thinking about charging clients an hourly rate vs. a fixed rate. Does it really matter if I sit at my computer for eight hours if I can provide just as much value from two hours of work? Won't &lt;a href='http://en.wikipedia.org/wiki/Parkinson's_law'&gt;work find a way to take the entire time allotted&lt;/a&gt; unless we're ever-vigilant? The difficulty for people to realize this is that programming is abstract and value isn't guaranteed through lines of code written.&lt;/p&gt;&lt;p&gt;The next essay, &lt;em&gt;Test Your Work First Thing in the Morning&lt;/em&gt;, posits that we're mentally and physically fresher earlier in the day, so it makes the most sense to do the hard things then. By the late afternoon, &quot;our perception of what makes sense or feels right now competes with fatigue. Also, fatigue makes us miss the small details.&quot; If we haven't stopped programming to take a break or otherwise recharge, our cognitive abilities will deteriorate more than normal. Thinking as an activity &lt;a href='http://en.wikipedia.org/wiki/Decision_fatigue'&gt;is difficult&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Pair programming is wonderful, but it's intense as well. We've come to understand that we shouldn't work on the more difficult problems at the end of the day, so we always try to leave small bugs or simple features for that time. It's also motivating to start the day solving more interesting problems rather than putting then off until the motivation has waned. At that time it's better to just get something done that is low impact.&lt;/p&gt;
+&lt;p&gt;I recently finished reading &lt;a href='http://pragprog.com/book/kcdc/the-developer-s-code'&gt;The Developer's Code&lt;/a&gt; and found some ideas that really resonate. There's a lot in the book that feels very obvious, but then I realize how long it took me to learn those lessons and how many mistakes I've made to learn them. Those thoughts make me realize that the other parts of the book, the ones that don't click as much, are probably even more valuable since I now have an opportunity to learn things without the pain of experiencing then through failure (although I'm sure I'll still get to enjoy those feelings quite often).&lt;/p&gt;&lt;p&gt;Essay 11 is titled &lt;em&gt;Stop Programming&lt;/em&gt;. Its argument is that it's not about the hours one puts into the work but the quality. “Great programming is about maximizing the time you're working at your best, not the cumulative hours you spend in front of a screen.” This is readily obvious from thinking about charging clients an hourly rate vs. a fixed rate. Does it really matter if I sit at my computer for eight hours if I can provide just as much value from two hours of work? Won't &lt;a href='http://en.wikipedia.org/wiki/Parkinson's_law'&gt;work find a way to take the entire time allotted&lt;/a&gt; unless we're ever-vigilant? The difficulty for people to realize this is that programming is abstract and value isn't guaranteed through lines of code written.&lt;/p&gt;&lt;p&gt;The next essay, &lt;em&gt;Test Your Work First Thing in the Morning&lt;/em&gt;, posits that we're mentally and physically fresher earlier in the day, so it makes the most sense to do the hard things then. By the late afternoon, &quot;our perception of what makes sense or feels right now competes with fatigue. Also, fatigue makes us miss the small details.&quot; If we haven't stopped programming to take a break or otherwise recharge, our cognitive abilities will deteriorate more than normal. Thinking as an activity &lt;a href='http://en.wikipedia.org/wiki/Decision_fatigue'&gt;is difficult&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Pair programming is wonderful, but it's intense as well. We've come to understand that we shouldn't work on the more difficult problems at the end of the day, so we always try to leave small bugs or simple features for that time. It's also motivating to start the day solving more interesting problems rather than putting then off until the motivation has waned. At that time it's better to just get something done that is low impact.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1246,16 +1326,16 @@ Fri, 25 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-15-getting-things-done.html
+https://dbolson.github.io/posts-output/2012-05-15-getting-things-done.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-15-getting-things-done.html
+https://dbolson.github.io/posts-output/2012-05-15-getting-things-done.html
 </link>
 <title>
 Getting Things Done
 </title>
 <description>
-&lt;p&gt;It seems that our backlog of features, bugs, and technical debt grew more than it shrunk. We would fix one bug and discover two more, or we'd clean up some poorly designed feature and find out that there are others that depend on that one. We try to do our best to design new features as best we can, but that can't always happen on a legacy code base.&lt;/p&gt;&lt;p&gt;What could we do? What did we do?&lt;/p&gt;&lt;p&gt;Those two questions were very different. We could schedule time to fix bugs and clean up technical debt in between adding new features, and it's great when management is happy with this process. You may think why we as developers expose that to the management instead of just putting it into the regular development process – that we effectively black box it from the &quot;outside&quot; non-technical people. In a start-up it's not always possible since everyone needed to know what's going on, plus it's hard to hide anything when everyone was in one room. But the positive side was that management understands the need for these chores and didn't push back.&lt;/p&gt;&lt;p&gt;But back to those two questions and their differences.&lt;/p&gt;&lt;p&gt;We could do these things, and they got done, but the bugs and technical debt were still with us in a major way, and they slowed down our entire process. Was there a solution?&lt;/p&gt;&lt;p&gt;What if we just fixed them? No discussion up front, but do it and “apologize” later.&lt;/p&gt;&lt;p&gt;We've built up a lot of UI cruft over the years – poorly structured CSS and HTML, poor &lt;a href='http://openhallway.com/'&gt;usability&lt;/a&gt;, inconsistent UI. It was always a pain point, but there were so many other things we had to do as well, so it stayed around and we just dealt with it.&lt;/p&gt;&lt;p&gt;Until one of our developers took it on himself to start cleaning it up. He didn't ask for permission and he didn't talk about it, but we came in one day to a demo and code review of a much cleaner UI. The conversation immediately was about tweaking the new changes and what else we could do to make the UI better. It wasn't “hey, why did you do this?” but was just accepted that it was there and we would now deal with it. It probably helps that it was user-facing and so immediate that everyone was able to weigh in with their opinion, that it wasn't a code cleanup that only developers would recognize.&lt;/p&gt;&lt;p&gt;It was a big win and we were all much happier about the design, but could this go too far? The developer did this on his own time, either staying late or working on it at home. I don't want to seem like a [5:01 developer][2], since, as Scott prefers, I am excited about technology and I do go home to work on personal projects and learn new things, and these extracurriculars do help me be a better developer for personal and professional reasons. But they do not necessarily immediately impact what I'm doing at work. I feel this is where we should draw a distinction and concern ourselves with doing too much work-related development and not enough personal development. It's a fine line between the two and how much to balance work and life, and there is no simple solution. We should be aware of it and realize how it can become the norm.&lt;/p&gt;
+&lt;p&gt;It seems that our backlog of features, bugs, and technical debt grew more than it shrunk. We would fix one bug and discover two more, or we'd clean up some poorly designed feature and find out that there are others that depend on that one. We try to do our best to design new features as best we can, but that can't always happen on a legacy code base.&lt;/p&gt;&lt;p&gt;What could we do? What did we do?&lt;/p&gt;&lt;p&gt;Those two questions were very different. We could schedule time to fix bugs and clean up technical debt in between adding new features, and it's great when management is happy with this process. You may think why we as developers expose that to the management instead of just putting it into the regular development process – that we effectively black box it from the &quot;outside&quot; non-technical people. In a start-up it's not always possible since everyone needed to know what's going on, plus it's hard to hide anything when everyone was in one room. But the positive side was that management understands the need for these chores and didn't push back.&lt;/p&gt;&lt;p&gt;But back to those two questions and their differences.&lt;/p&gt;&lt;p&gt;We could do these things, and they got done, but the bugs and technical debt were still with us in a major way, and they slowed down our entire process. Was there a solution?&lt;/p&gt;&lt;p&gt;What if we just fixed them? No discussion up front, but do it and “apologize” later.&lt;/p&gt;&lt;p&gt;We've built up a lot of UI cruft over the years – poorly structured CSS and HTML, poor &lt;a href='http://openhallway.com/'&gt;usability&lt;/a&gt;, inconsistent UI. It was always a pain point, but there were so many other things we had to do as well, so it stayed around and we just dealt with it.&lt;/p&gt;&lt;p&gt;Until one of our developers took it on himself to start cleaning it up. He didn't ask for permission and he didn't talk about it, but we came in one day to a demo and code review of a much cleaner UI. The conversation immediately was about tweaking the new changes and what else we could do to make the UI better. It wasn't “hey, why did you do this?” but was just accepted that it was there and we would now deal with it. It probably helps that it was user-facing and so immediate that everyone was able to weigh in with their opinion, that it wasn't a code cleanup that only developers would recognize.&lt;/p&gt;&lt;p&gt;It was a big win and we were all much happier about the design, but could this go too far? The developer did this on his own time, either staying late or working on it at home. I don't want to seem like a &lt;a href='http://www.hanselman.com/blog/501DevelopersFamilyAndExcitementAboutTheCraft.aspx'&gt;5:01 developer&lt;/a&gt;, since, as Scott prefers, I am excited about technology and I do go home to work on personal projects and learn new things, and these extracurriculars do help me be a better developer for personal and professional reasons. But they do not necessarily immediately impact what I'm doing at work. I feel this is where we should draw a distinction and concern ourselves with doing too much work-related development and not enough personal development. It's a fine line between the two and how much to balance work and life, and there is no simple solution. We should be aware of it and realize how it can become the norm.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1266,16 +1346,16 @@ Tue, 15 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html
+https://dbolson.github.io/posts-output/2012-05-10-fast-specs-and-better-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-05-10-fast-specs-and-better-design.html
+https://dbolson.github.io/posts-output/2012-05-10-fast-specs-and-better-design.html
 </link>
 <title>
 Fast specs and better design
 </title>
 <description>
-&lt;p&gt;&lt;a href='http://confreaks.com/videos/641-gogaruco2011-fast-rails-tests'&gt;Corey Haines&lt;/a&gt; first brought testing parts of Rails applications without loading Rails to my attention and excitement a few months ago, and I've been looking at how other developers do similar techniques. Having recently finished [&lt;em&gt;Objects on Rails&lt;/em&gt;][2] and working through the &lt;a href='https://www.destroyallsoftware.com/screencasts'&gt;Destroy All Software&lt;/a&gt; videos, I've been constantly looking at ways to make my Rails code better and faster to test. I believe these are related and that there is a lot of value in working to make the code easy to test and fast.&lt;/p&gt;&lt;p&gt;An example of some code I've written that doesn't rely on Rails is an &lt;a href='https://github.com/rails/rails-observers'&gt;observer&lt;/a&gt;. The observer inherits from &lt;code&gt;ActiveRecord::Observer&lt;/code&gt; and would normally need Rails loaded to exercise its full functionality with the model it's observing. But if we try to keep Rails out and only load what we need, we can drive the design of the observer.&lt;/p&gt;&lt;p&gt;Here we save an activity, which is used as a generic Facebook-style activity stream item, after someone answers a question.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class AnswerObserver &amp;lt; ActiveRecord::Observer
+&lt;p&gt;&lt;a href='http://confreaks.com/videos/641-gogaruco2011-fast-rails-tests'&gt;Corey Haines&lt;/a&gt; first brought testing parts of Rails applications without loading Rails to my attention and excitement a few months ago, and I've been looking at how other developers do similar techniques. Having recently finished &lt;a href='http://devblog.avdi.org/2011/11/15/early-access-beta-of-objects-on-rails-now-available-2/'&gt;&lt;em&gt;Objects on Rails&lt;/em&gt;&lt;/a&gt; and working through the &lt;a href='https://www.destroyallsoftware.com/screencasts'&gt;Destroy All Software&lt;/a&gt; videos, I've been constantly looking at ways to make my Rails code better and faster to test. I believe these are related and that there is a lot of value in working to make the code easy to test and fast.&lt;/p&gt;&lt;p&gt;An example of some code I've written that doesn't rely on Rails is an &lt;a href='https://github.com/rails/rails-observers'&gt;observer&lt;/a&gt;. The observer inherits from &lt;code&gt;ActiveRecord::Observer&lt;/code&gt; and would normally need Rails loaded to exercise its full functionality with the model it's observing. But if we try to keep Rails out and only load what we need, we can drive the design of the observer.&lt;/p&gt;&lt;p&gt;Here we save an activity, which is used as a generic Facebook-style activity stream item, after someone answers a question.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class AnswerObserver &amp;lt; ActiveRecord::Observer
   def after&amp;#95;create&amp;#40;answer&amp;#41;
     Activity.question&amp;#95;answered&amp;#40;answer&amp;#41;
   end
@@ -1307,7 +1387,7 @@ end
     end
   end
 end
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To quote Avdi:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; This method uses &lt;code&gt;#const&amp;#95;get&lt;/code&gt; to attempt to reference the given module. If the module is &gt; defined, or if calling &lt;code&gt;#const&amp;#95;get&lt;/code&gt; causes it to be auto-loaded, the method does nothing more. But &gt; if &lt;code&gt;#const&amp;#95;get&lt;/code&gt; fails to turn up the module, it defines an anonymous empty module to act as a &gt; placeholder. &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;Looking back at the spec file, we see a similar call to &lt;code&gt;stub&amp;#95;class&lt;/code&gt; which does the same thing for classes. We also include the actual file of the code we're testing.&lt;/p&gt;&lt;p&gt;We create an empty &lt;code&gt;Activity&lt;/code&gt; class, normally an &lt;code&gt;ActiveRecord&lt;/code&gt; model, since we don't care what it's doing, just that it receives messages we're going to send to it. That's all this test does, really: we check that the Activity class gets a specific message passed to it with specific parameters.&lt;/p&gt;&lt;p&gt;Testing this way drives the code to be &lt;a href='http://en.wikipedia.org/wiki/Coupling&lt;i&gt;(computer&lt;/i&gt;science)'&gt;loosely coupled&lt;/a&gt; with objects this class needs to communicate with. We could have put all the activity action in the &lt;code&gt;after&amp;#95;create&lt;/code&gt; callback and we'd be able to see what's going on, but we'd need to mock and stub a lot of interactions, or we'd have to go back to loading Rails, slowing our tests down. Plus we'd have a lot of code that has &lt;a href='http://c2.com/cgi/wiki?FeatureEnvySmell'&gt;feature envy&lt;/a&gt; and would be difficult to maintain.&lt;/p&gt;&lt;p&gt;We know the test works because changing the functionality of the callback will break the test, and doing BDD will ensure that we're writing failing tests before we add functionality that could be skipped by our mocks. Of course, this problem exists with slower, more integration-like tests, so it's not like running through the full stack is a silver bullet.&lt;/p&gt;&lt;p&gt;There is a point where there can be too much mocking and stubbing, and I'll get to that in another post. For now, being able to run an entire suite of tests in less than half a second helps keep me in &lt;a href='http://en.wikipedia.org/wiki/Flow_(psychology)'&gt;flow&lt;/a&gt; to write better software.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To quote Avdi:&lt;/p&gt;&lt;blockquote&gt;&lt;p&gt; This method uses &lt;code&gt;#const&amp;#95;get&lt;/code&gt; to attempt to reference the given module. If the module is  defined, or if calling &lt;code&gt;#const&amp;#95;get&lt;/code&gt; causes it to be auto-loaded, the method does nothing more. But  if &lt;code&gt;#const&amp;#95;get&lt;/code&gt; fails to turn up the module, it defines an anonymous empty module to act as a  placeholder. &lt;/p&gt;&lt;/blockquote&gt;&lt;p&gt;Looking back at the spec file, we see a similar call to &lt;code&gt;stub&amp;#95;class&lt;/code&gt; which does the same thing for classes. We also include the actual file of the code we're testing.&lt;/p&gt;&lt;p&gt;We create an empty &lt;code&gt;Activity&lt;/code&gt; class, normally an &lt;code&gt;ActiveRecord&lt;/code&gt; model, since we don't care what it's doing, just that it receives messages we're going to send to it. That's all this test does, really: we check that the Activity class gets a specific message passed to it with specific parameters.&lt;/p&gt;&lt;p&gt;Testing this way drives the code to be &lt;a href='http://en.wikipedia.org/wiki/Coupling_(computer_science)'&gt;loosely coupled&lt;/a&gt; with objects this class needs to communicate with. We could have put all the activity action in the &lt;code&gt;after&amp;#95;create&lt;/code&gt; callback and we'd be able to see what's going on, but we'd need to mock and stub a lot of interactions, or we'd have to go back to loading Rails, slowing our tests down. Plus we'd have a lot of code that has &lt;a href='http://c2.com/cgi/wiki?FeatureEnvySmell'&gt;feature envy&lt;/a&gt; and would be difficult to maintain.&lt;/p&gt;&lt;p&gt;We know the test works because changing the functionality of the callback will break the test, and doing BDD will ensure that we're writing failing tests before we add functionality that could be skipped by our mocks. Of course, this problem exists with slower, more integration-like tests, so it's not like running through the full stack is a silver bullet.&lt;/p&gt;&lt;p&gt;There is a point where there can be too much mocking and stubbing, and I'll get to that in another post. For now, being able to run an entire suite of tests in less than half a second helps keep me in &lt;a href='http://en.wikipedia.org/wiki/Flow_(psychology)'&gt;flow&lt;/a&gt; to write better software.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1318,16 +1398,16 @@ Thu, 10 May 2012 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
+https://dbolson.github.io/posts-output/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
+https://dbolson.github.io/posts-output/2012-03-05-don-t-be-lazy-with-route-resources-and-allow-unused-ones.html
 </link>
 <title>
 Don't be lazy with route resources and allow unused ones
 </title>
 <description>
-&lt;p&gt;Refactoring controllers to make them &lt;a href='http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model'&gt;skinny&lt;/a&gt; is usually a multi-step affair. The common process is to get current functionality tested and them refactor the business logic where it needs to go, moving the tests along with them to their corresponding test files. As the code is moved (to models or service objects, etc.), we can stub out those calls in the controller. Eventually, hopefully, the controller actions will be only a few assignments and a render call. Since the effects can reach across the entire Rails architecture (the M, V, and C, if you will), I find &lt;a href='http://en.wikipedia.org/wiki/Smoke&lt;i&gt;testing#Software&lt;/i&gt;development'&gt;smoke testing&lt;/a&gt; often a necessary step in the process.&lt;/p&gt;&lt;p&gt;Which brings me to two sources of frustration: the default Rails (2.0) routes and default restful routes.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;map.connect ':controller/:action/:id.:format'
+&lt;p&gt;Refactoring controllers to make them &lt;a href='http://weblog.jamisbuck.org/2006/10/18/skinny-controller-fat-model'&gt;skinny&lt;/a&gt; is usually a multi-step affair. The common process is to get current functionality tested and them refactor the business logic where it needs to go, moving the tests along with them to their corresponding test files. As the code is moved (to models or service objects, etc.), we can stub out those calls in the controller. Eventually, hopefully, the controller actions will be only a few assignments and a render call. Since the effects can reach across the entire Rails architecture (the M, V, and C, if you will), I find &lt;a href='http://en.wikipedia.org/wiki/Smoke_testing#Software_development'&gt;smoke testing&lt;/a&gt; often a necessary step in the process.&lt;/p&gt;&lt;p&gt;Which brings me to two sources of frustration: the default Rails (2.0) routes and default restful routes.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;map.connect ':controller/:action/:id.:format'
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This is just ripe for annoyance. Having a list of all the routes set up and not being able to find the one that I need? This guys fault. Rails has a lot of magic, but this has become a major pain because of the implicit and non-obvious nature of allowing anything one wants to sit next to a specified list. But then again, that specific list can have problems of its own too.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;map.resources :photos
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This can be fantastic. One line gives us so much power and ease: 7 actions for the price of one. What's the problem? Well, when I was recently working on some &lt;a href='http://en.wikipedia.org/wiki/Technical_debt'&gt;technical debt&lt;/a&gt;, I thought I found some unused actions. But how did I know for sure? I had to do a lot of &lt;a href='http://en.wikipedia.org/wiki/Grep'&gt;grepping&lt;/a&gt; and manual testing to make sure these really weren't used. It turned out that one I thought wasn't was actually called in one specific case, so I had to back out my changes.&lt;/p&gt;&lt;p&gt;This would have been less painful if the code coverage was better, but that's sometimes the nature of old code, isn't it? If there are methods in the controller that aren't used, it's one thing to not have them declared, but what happens when there is code for an action that goes unused? I decided to be explicit about which routes to use so I didn't have to deal with the same problems later on (I can be my own worst enemy sometimes).&lt;/p&gt;&lt;p&gt;Let's lock down those resources:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;map.resources :foobars, :only =&amp;gt; &amp;#91;:index, :show, :new, :create&amp;#93;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If we're not using &lt;code&gt;:edit&lt;/code&gt;, &lt;code&gt;:update&lt;/code&gt;, and &lt;code&gt;:destroy&lt;/code&gt;, let's not clutter things up with implications.&lt;/p&gt;&lt;p&gt;Maybe it's overkill, but tech debt can be painful to pay back, and I don't want to piss off my future self if this were to happen again.&lt;/p&gt;
@@ -1341,10 +1421,10 @@ Mon, 05 Mar 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-02-12-vimprovements.html
+https://dbolson.github.io/posts-output/2012-02-12-vimprovements.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-02-12-vimprovements.html
+https://dbolson.github.io/posts-output/2012-02-12-vimprovements.html
 </link>
 <title>
 Vimprovements
@@ -1362,16 +1442,16 @@ Sun, 12 Feb 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html
+https://dbolson.github.io/posts-output/2012-01-16-state-machine-transactions.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2012-01-16-state-machine-transactions.html
+https://dbolson.github.io/posts-output/2012-01-16-state-machine-transactions.html
 </link>
 <title>
 State Machine Transactions
 </title>
 <description>
-&lt;p&gt;We have a model that has a &lt;a href='https://github.com/omghax/acts&amp;#95;as&amp;#95;state&amp;#95;machine'&gt;state machine&lt;/a&gt; on it to activate, close, and cancel after meeting certain conditions. When closing this model, we want to manipulate an associated model as well, and we want these in a &lt;a href='http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html'&gt;transaction&lt;/a&gt; to preserve data integrity. Unfortunately, there is logic in the associated model that doesn't like to have the original model in the new state before saving.&lt;/p&gt;&lt;p&gt;One solution is to set up the following callbacks:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;state :closed, :enter =&amp;gt; :enter&amp;#95;close, :after =&amp;gt; :after&amp;#95;close
+&lt;p&gt;We have a model that has a &lt;a href='https://github.com/omghax/acts_as_state_machine'&gt;state machine&lt;/a&gt; on it to activate, close, and cancel after meeting certain conditions. When closing this model, we want to manipulate an associated model as well, and we want these in a &lt;a href='http://api.rubyonrails.org/classes/ActiveRecord/Transactions/ClassMethods.html'&gt;transaction&lt;/a&gt; to preserve data integrity. Unfortunately, there is logic in the associated model that doesn't like to have the original model in the new state before saving.&lt;/p&gt;&lt;p&gt;One solution is to set up the following callbacks:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;state :closed, :enter =&amp;gt; :enter&amp;#95;close, :after =&amp;gt; :after&amp;#95;close
 &lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def enter&amp;#95;closed
   # do stuff to model
 end
@@ -1405,16 +1485,16 @@ Mon, 16 Jan 2012 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html
+https://dbolson.github.io/posts-output/2011-12-22-can-we-have-too-many-tools.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-12-22-can-we-have-too-many-tools.html
+https://dbolson.github.io/posts-output/2011-12-22-can-we-have-too-many-tools.html
 </link>
 <title>
 Can We Have Too Many Tools?
 </title>
 <description>
-&lt;p&gt;&lt;a href='http://www.vim.org/'&gt;Vim&lt;/a&gt; is a great editor. There are &lt;a href='https://github.com/carlhuda/janus'&gt;so many plugins&lt;/a&gt; that make it even better and increase my productivity. But can there be a saturation point where it's not worth finding the next plugin to shave a keystroke off of a command? I've been trying to find the sweet spot for the right amount of tools for the job.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;bigger&amp;#95;toolbox&quot;&gt;&lt;/a&gt;Bigger toolbox&lt;/h2&gt;&lt;p&gt;Having &lt;a href='blog/2011/11/18/welcome-the-new-guys/'&gt;more developers&lt;/a&gt; to talk to and work with, I have been exposed to different methods of development. &lt;a href='http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/'&gt;Yan&lt;/a&gt; in particular, has been a tremendous Vim resource. He's made it his focus to optimize working with this editor as much as possible, and it's quite impressive. I've adopted some of his ideas, no longer content to be &quot;good enough&quot; with Vim.&lt;/p&gt;&lt;p&gt;Janus has been a tremendous help. It exposed me to &lt;a href='http://www.vim.org/scripts/script.php?script&amp;#95;id=3025'&gt;command-T&lt;/a&gt;, which is now my favorite thing ever. I no longer use a buffer explorer because it's easier to just find it with command-T than search through the buffer list. I also rarely use &lt;a href='http://www.vim.org/scripts/script.php?script&amp;#95;id=1658'&gt;NERDtree&lt;/a&gt; now, since I was using that mostly as a convenience to open project files. I'll still use it for looking in directories, but it's not open by default anymore.&lt;/p&gt;&lt;p&gt;From Yan, I've install &lt;a href='https://github.com/tjennings/git-grep-vim'&gt;git-grep&lt;/a&gt; and mapped &lt;code&gt;K&lt;/code&gt; to search for the word under the cursor, and that's been such a pleasant, and faster experience, than using vimgrep. Yan is also cleaning up a plugin for rspec integration that provides some nice wins.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;too&amp;#95;big?&quot;&gt;&lt;/a&gt;Too big?&lt;/h2&gt;&lt;p&gt;But how far do I take this path? I could continue to add plugins and map commonly used keystrokes to further increase efficiency, but when do I start to get diminishing returns? For example, I could map a letter to &lt;code&gt;:GitGrep&lt;/code&gt; and save six keystrokes, but I haven't found the need to do that yet. Usually when I'm searching for something, I'm thinking about what I want to search for while typing the command, so I'm effectively multitasking and not wasting time with all that extra typing. Sometimes slowing down can be a good thing to allow that planning. Plus each new mapping or plugin is something new to learn, and it can occasionally become overwhelming with all the new options.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;just&amp;#95;right,&amp;#95;for&amp;#95;now&quot;&gt;&lt;/a&gt;Just right, for now&lt;/h2&gt;&lt;p&gt;I'll definitely continue to improve my Vim Fu, but I'm not in a hurry to continually add to my repertoire until I've mastered what I currently have available. I've come this far on a basic setup, and Vim has been around long enough that there have been many others who have gotten by with less, so I'm not going to stress out about not optimizing every single key I type.&lt;/p&gt;
+&lt;p&gt;&lt;a href='http://www.vim.org/'&gt;Vim&lt;/a&gt; is a great editor. There are &lt;a href='https://github.com/carlhuda/janus'&gt;so many plugins&lt;/a&gt; that make it even better and increase my productivity. But can there be a saturation point where it's not worth finding the next plugin to shave a keystroke off of a command? I've been trying to find the sweet spot for the right amount of tools for the job.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;bigger&amp;#95;toolbox&quot;&gt;&lt;/a&gt;Bigger toolbox&lt;/h2&gt;&lt;p&gt;Having &lt;a href='blog/2011/11/18/welcome-the-new-guys/'&gt;more developers&lt;/a&gt; to talk to and work with, I have been exposed to different methods of development. &lt;a href='http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/'&gt;Yan&lt;/a&gt; in particular, has been a tremendous Vim resource. He's made it his focus to optimize working with this editor as much as possible, and it's quite impressive. I've adopted some of his ideas, no longer content to be &quot;good enough&quot; with Vim.&lt;/p&gt;&lt;p&gt;Janus has been a tremendous help. It exposed me to &lt;a href='http://www.vim.org/scripts/script.php?script_id=3025'&gt;command-T&lt;/a&gt;, which is now my favorite thing ever. I no longer use a buffer explorer because it's easier to just find it with command-T than search through the buffer list. I also rarely use &lt;a href='http://www.vim.org/scripts/script.php?script_id=1658'&gt;NERDtree&lt;/a&gt; now, since I was using that mostly as a convenience to open project files. I'll still use it for looking in directories, but it's not open by default anymore.&lt;/p&gt;&lt;p&gt;From Yan, I've install &lt;a href='https://github.com/tjennings/git-grep-vim'&gt;git-grep&lt;/a&gt; and mapped &lt;code&gt;K&lt;/code&gt; to search for the word under the cursor, and that's been such a pleasant, and faster experience, than using vimgrep. Yan is also cleaning up a plugin for rspec integration that provides some nice wins.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;too&amp;#95;big?&quot;&gt;&lt;/a&gt;Too big?&lt;/h2&gt;&lt;p&gt;But how far do I take this path? I could continue to add plugins and map commonly used keystrokes to further increase efficiency, but when do I start to get diminishing returns? For example, I could map a letter to &lt;code&gt;:GitGrep&lt;/code&gt; and save six keystrokes, but I haven't found the need to do that yet. Usually when I'm searching for something, I'm thinking about what I want to search for while typing the command, so I'm effectively multitasking and not wasting time with all that extra typing. Sometimes slowing down can be a good thing to allow that planning. Plus each new mapping or plugin is something new to learn, and it can occasionally become overwhelming with all the new options.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;just&amp;#95;right,&amp;#95;for&amp;#95;now&quot;&gt;&lt;/a&gt;Just right, for now&lt;/h2&gt;&lt;p&gt;I'll definitely continue to improve my Vim Fu, but I'm not in a hurry to continually add to my repertoire until I've mastered what I currently have available. I've come this far on a basic setup, and Vim has been around long enough that there have been many others who have gotten by with less, so I'm not going to stress out about not optimizing every single key I type.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1425,10 +1505,10 @@ Thu, 22 Dec 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html
+https://dbolson.github.io/posts-output/2011-12-04-pair-programming-feedback.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-12-04-pair-programming-feedback.html
+https://dbolson.github.io/posts-output/2011-12-04-pair-programming-feedback.html
 </link>
 <title>
 Pair Programming Feedback
@@ -1445,10 +1525,10 @@ Sun, 04 Dec 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html
+https://dbolson.github.io/posts-output/2011-11-18-welcome-the-new-guys.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-11-18-welcome-the-new-guys.html
+https://dbolson.github.io/posts-output/2011-11-18-welcome-the-new-guys.html
 </link>
 <title>
 Welcome the New Guys
@@ -1466,10 +1546,10 @@ Fri, 18 Nov 2011 00:00:00 -0800
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
+https://dbolson.github.io/posts-output/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
+https://dbolson.github.io/posts-output/2011-11-04-rails-2-3-5-bug-with-accepts_nested_attributes_for.html
 </link>
 <title>
 Rails 2.3.5 Bug With accepts_nested_attributes_for
@@ -1501,10 +1581,10 @@ Fri, 04 Nov 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html
+https://dbolson.github.io/posts-output/2011-10-22-rails-security-refactor-protect-those-attributes.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-10-22-rails-security-refactor-protect-those-attributes.html
+https://dbolson.github.io/posts-output/2011-10-22-rails-security-refactor-protect-those-attributes.html
 </link>
 <title>
 Rails Security Refactor - Protect Those Attributes
@@ -1541,16 +1621,16 @@ Sat, 22 Oct 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-10-07-our-interview-process.html
+https://dbolson.github.io/posts-output/2011-10-07-our-interview-process.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-10-07-our-interview-process.html
+https://dbolson.github.io/posts-output/2011-10-07-our-interview-process.html
 </link>
 <title>
 Our Interview Process
 </title>
 <description>
-&lt;p&gt;At Crowdcast, we're currently hiring developers, and through much practice we have come up with an interview process that maximizes our chances of finding a candidate who will be a good fit.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;our&amp;#95;hiring&amp;#95;process&quot;&gt;&lt;/a&gt;Our Hiring Process&lt;/h2&gt;&lt;p&gt;There are a few steps that aren't always in the same order, and we may even skip some depending on the candidate.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;phone&amp;#95;screen&quot;&gt;&lt;/a&gt;The phone screen&lt;/h2&gt;&lt;p&gt;I'm not involved in this first step. The engineering manager will talk to a candidate initially to find out if there are any immediate red flags and to clarify his experience. If nothing strange happens (believe me, there have been strange happenings), we'll schedule the candidate to come in or give him a preliminary coding test.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;rails&amp;#95;test&quot;&gt;&lt;/a&gt;The rails test&lt;/h2&gt;&lt;p&gt;We send the client a small Rails coding project that should only take a few hours. We'd like him to create a Rails application with some basic functionality and minimal markup and styling (design is a bonus but not a requirement), put the project on his Github account, and send us a url to the code. This is a &lt;a href='http://blog.codinghorror.com/why-cant-programmers-program/'&gt;Fizzbuzz&lt;/a&gt;-style question for the Rails framework, and it also implies that he has a Github account. You do &lt;a href='https://github.com/dbolson'&gt;have one&lt;/a&gt;, right? If the candidate can already show us Rails code, we may skip this step and just bring him in to the office.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;onsite&amp;#95;interview&quot;&gt;&lt;/a&gt;The onsite interview&lt;/h2&gt;&lt;p&gt;We then bring the candidate in for a few interview rounds. I'll ask a candidate about previous experience and what he enjoys working on to establish a little history and familiarity and to decode what's written on his resume. I'll next go through a technical screening about Ruby, some basic questions and some slightly-less basic questions, and I'll let the candidate explain as much or little as he'd like. A good one will definitely have a lot of say for some of the answers, and a short reply is usually an indication of minimal experience with the subject matter.&lt;/p&gt;&lt;p&gt;Next, we'll get into some Rails-specific questions, both methods and techniques. It's certainly not necessary to know everything about the framework, especially given its development speed, but there are some core ideas that get used often that he should be familiar with. If the candidate can teach me something, that makes me very happy.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;pair&amp;#95;programming&amp;#95;exercise&amp;#95;part&amp;#95;i&quot;&gt;&lt;/a&gt;The pair programming exercise part I&lt;/h2&gt;&lt;p&gt;A new wrinkle we've introduced. Since I'll be &lt;a href='https://en.wikipedia.org/wiki/Pair&amp;#95;programming'&gt;pair programming&lt;/a&gt; with someone, I'd like to know how he thinks and how we'll work together. We'll sit at one computer and, with the candidate driving, work through a small Ruby problem. We'll do &lt;a href='https://en.wikipedia.org/wiki/Test-driven&amp;#95;development'&gt;TDD&lt;/a&gt; (we use &lt;a href='https://www.relishapp.com/rspec'&gt;Rspec&lt;/a&gt; but that's not a requirement). The problem should take 20 – 40 minutes and leaves a lot of room to delve into interesting design issues and refactorings. This is the fun part.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;pair&amp;#95;programming&amp;#95;exercise&amp;#95;part&amp;#95;ii&quot;&gt;&lt;/a&gt;The pair programming exercise part II&lt;/h2&gt;&lt;p&gt;The last step is to invite the candidate back to pair program on real code for a few hours. We need to make sure we're a fit for each other, and this gives him an opportunity to engage our code base and be part of the team. This is not just for me but for everyone in the office, and of course the candidate, to assess the interactions.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;post&amp;#95;mortem&quot;&gt;&lt;/a&gt;Post mortem&lt;/h2&gt;&lt;p&gt;Does any interview process find the perfect candidate? Not that I've discovered. We can't go as in-depth as &lt;a href='https://gist.github.com/obie/652092'&gt;Hashrocket&lt;/a&gt;, but we can get partially there with the multiple pairing exercises and full team interaction. It's so incredibly important to get along with coworkers since we spend as much time at work as sleeping (actually, it's probably more time at work), so just having the technical chops is not enough. We hope that our process gives us the knowledge to make the right decisions for everyone involved.&lt;/p&gt;
+&lt;p&gt;At Crowdcast, we're currently hiring developers, and through much practice we have come up with an interview process that maximizes our chances of finding a candidate who will be a good fit.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;our&amp;#95;hiring&amp;#95;process&quot;&gt;&lt;/a&gt;Our Hiring Process&lt;/h2&gt;&lt;p&gt;There are a few steps that aren't always in the same order, and we may even skip some depending on the candidate.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;phone&amp;#95;screen&quot;&gt;&lt;/a&gt;The phone screen&lt;/h2&gt;&lt;p&gt;I'm not involved in this first step. The engineering manager will talk to a candidate initially to find out if there are any immediate red flags and to clarify his experience. If nothing strange happens (believe me, there have been strange happenings), we'll schedule the candidate to come in or give him a preliminary coding test.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;rails&amp;#95;test&quot;&gt;&lt;/a&gt;The rails test&lt;/h2&gt;&lt;p&gt;We send the client a small Rails coding project that should only take a few hours. We'd like him to create a Rails application with some basic functionality and minimal markup and styling (design is a bonus but not a requirement), put the project on his Github account, and send us a url to the code. This is a &lt;a href='http://blog.codinghorror.com/why-cant-programmers-program/'&gt;Fizzbuzz&lt;/a&gt;-style question for the Rails framework, and it also implies that he has a Github account. You do &lt;a href='https://github.com/dbolson'&gt;have one&lt;/a&gt;, right? If the candidate can already show us Rails code, we may skip this step and just bring him in to the office.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;onsite&amp;#95;interview&quot;&gt;&lt;/a&gt;The onsite interview&lt;/h2&gt;&lt;p&gt;We then bring the candidate in for a few interview rounds. I'll ask a candidate about previous experience and what he enjoys working on to establish a little history and familiarity and to decode what's written on his resume. I'll next go through a technical screening about Ruby, some basic questions and some slightly-less basic questions, and I'll let the candidate explain as much or little as he'd like. A good one will definitely have a lot of say for some of the answers, and a short reply is usually an indication of minimal experience with the subject matter.&lt;/p&gt;&lt;p&gt;Next, we'll get into some Rails-specific questions, both methods and techniques. It's certainly not necessary to know everything about the framework, especially given its development speed, but there are some core ideas that get used often that he should be familiar with. If the candidate can teach me something, that makes me very happy.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;pair&amp;#95;programming&amp;#95;exercise&amp;#95;part&amp;#95;i&quot;&gt;&lt;/a&gt;The pair programming exercise part I&lt;/h2&gt;&lt;p&gt;A new wrinkle we've introduced. Since I'll be &lt;a href='https://en.wikipedia.org/wiki/Pair_programming'&gt;pair programming&lt;/a&gt; with someone, I'd like to know how he thinks and how we'll work together. We'll sit at one computer and, with the candidate driving, work through a small Ruby problem. We'll do &lt;a href='https://en.wikipedia.org/wiki/Test-driven_development'&gt;TDD&lt;/a&gt; (we use &lt;a href='https://www.relishapp.com/rspec'&gt;Rspec&lt;/a&gt; but that's not a requirement). The problem should take 20 – 40 minutes and leaves a lot of room to delve into interesting design issues and refactorings. This is the fun part.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;the&amp;#95;pair&amp;#95;programming&amp;#95;exercise&amp;#95;part&amp;#95;ii&quot;&gt;&lt;/a&gt;The pair programming exercise part II&lt;/h2&gt;&lt;p&gt;The last step is to invite the candidate back to pair program on real code for a few hours. We need to make sure we're a fit for each other, and this gives him an opportunity to engage our code base and be part of the team. This is not just for me but for everyone in the office, and of course the candidate, to assess the interactions.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;post&amp;#95;mortem&quot;&gt;&lt;/a&gt;Post mortem&lt;/h2&gt;&lt;p&gt;Does any interview process find the perfect candidate? Not that I've discovered. We can't go as in-depth as &lt;a href='https://gist.github.com/obie/652092'&gt;Hashrocket&lt;/a&gt;, but we can get partially there with the multiple pairing exercises and full team interaction. It's so incredibly important to get along with coworkers since we spend as much time at work as sleeping (actually, it's probably more time at work), so just having the technical chops is not enough. We hope that our process gives us the knowledge to make the right decisions for everyone involved.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1561,16 +1641,16 @@ Fri, 07 Oct 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html
+https://dbolson.github.io/posts-output/2011-09-27-emailing-with-delayed-job.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-27-emailing-with-delayed-job.html
+https://dbolson.github.io/posts-output/2011-09-27-emailing-with-delayed-job.html
 </link>
 <title>
 Emailing with Delayed Job
 </title>
 <description>
-&lt;p&gt;We used &lt;a href='https://github.com/tobi/delayed&amp;#95;job'&gt;Delayed Job&lt;/a&gt; to queue emails sent out to users, both to offload that blocking process and for scheduling. It has worked well so far, but recently there were some strange bugs popping up. Some emails were stuck in the queue, and the error message was about bad YAML syntax.&lt;/p&gt;&lt;p&gt;Delayed Job serialized objects in its handler field, and, with some user input that's not encoded properly, created incorrect YAML. For example, this could happen:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;yaml&quot;&gt;id: 1
+&lt;p&gt;We used &lt;a href='https://github.com/tobi/delayed_job'&gt;Delayed Job&lt;/a&gt; to queue emails sent out to users, both to offload that blocking process and for scheduling. It has worked well so far, but recently there were some strange bugs popping up. Some emails were stuck in the queue, and the error message was about bad YAML syntax.&lt;/p&gt;&lt;p&gt;Delayed Job serialized objects in its handler field, and, with some user input that's not encoded properly, created incorrect YAML. For example, this could happen:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;yaml&quot;&gt;id: 1
   foo: 'here is some 'text'
   bar: 'something else'
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Notice the odd number of single quotes in &lt;code&gt;foo&lt;/code&gt;? Yeah, that's bad. Since we already had that kind of data saved, we needed another way to fix this.&lt;/p&gt;&lt;p&gt;Instead of having methods in the notifier.rb file like so:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;def forgot&amp;#95;password&amp;#40;user&amp;#41;
@@ -1591,10 +1671,10 @@ Tue, 27 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html
+https://dbolson.github.io/posts-output/2011-09-15-testing-controller-json-responses-in-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-15-testing-controller-json-responses-in-rspec.html
+https://dbolson.github.io/posts-output/2011-09-15-testing-controller-json-responses-in-rspec.html
 </link>
 <title>
 Testing controller JSON responses in Rspec
@@ -1625,10 +1705,10 @@ Thu, 15 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html
+https://dbolson.github.io/posts-output/2011-09-12-attaching-events-to-a-disabled-submit-button.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-12-attaching-events-to-a-disabled-submit-button.html
+https://dbolson.github.io/posts-output/2011-09-12-attaching-events-to-a-disabled-submit-button.html
 </link>
 <title>
 Attaching Events to a Disabled Submit Button
@@ -1665,10 +1745,10 @@ Mon, 12 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
+https://dbolson.github.io/posts-output/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
+https://dbolson.github.io/posts-output/2011-09-06-my-name-is-danny-and-i-make-mistakes.html
 </link>
 <title>
 My name is Danny...and I make mistakes
@@ -1685,10 +1765,10 @@ Tue, 06 Sep 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html
+https://dbolson.github.io/posts-output/2011-07-13-adding-field-separation-for-list-data.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-07-13-adding-field-separation-for-list-data.html
+https://dbolson.github.io/posts-output/2011-07-13-adding-field-separation-for-list-data.html
 </link>
 <title>
 Adding Field Separation for List Data
@@ -1772,10 +1852,10 @@ Wed, 13 Jul 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html
+https://dbolson.github.io/posts-output/2011-07-08-namespacing-lib-files-and-rspec.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-07-08-namespacing-lib-files-and-rspec.html
+https://dbolson.github.io/posts-output/2011-07-08-namespacing-lib-files-and-rspec.html
 </link>
 <title>
 Namespacing lib files and RSpec
@@ -1795,7 +1875,7 @@ end
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Without the require, I would receive the message&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;load&amp;#95;missing&amp;#95;constant': Expected /Users/danny/code/metaldetectr/lib/metal&amp;#95;archives&amp;#95;fetcher.rb to define MetalArchivesFetcher &amp;#40;LoadError&amp;#41;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It felt a little off to need to require the file again because Rails already loads it in with&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# config/application.rb
 config.autoload&amp;#95;paths += Dir&amp;#91;&amp;quot;#{config.root}/lib/&amp;#42;&amp;#42;/&amp;quot;&amp;#93;
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I could put the require in &lt;code&gt;spec&amp;#95;helper.rb&lt;/code&gt;, but it still felt strange.&lt;/p&gt;&lt;p&gt;I decided to remove the module namespace. That lets me remove the require line and all preceding &lt;code&gt;MetalDetectr::&lt;/code&gt; for every MetalArchivesFetcher call in the spec. Is this the right decision? It's definitely &lt;a href='https://en.wikipedia.org/wiki/Don%27t&amp;#95;repeat&amp;#95;yourself'&gt;DRYer&lt;/a&gt;, but I do create tighter coupling. Jim Weirich's talk, &lt;a href='http://mattgrande.com/2009/05/11/jim-weirich-on-connascence/'&gt;&quot;The Building Blocks of Modularity&quot;&lt;/a&gt; (that I can't find online) does go over the trade-offs of writing code that is either more tightly or loosely coupled, and my takeaway from that is, since this file is already coupled to the application and models within it, why add an additional layer? It's more of a perceived loosening while only adding a bit more complexity. And that's usually not a good thing.&lt;/p&gt;&lt;p&gt;Perhaps I'll add it back in later, but for now, &lt;a href='https://en.wikipedia.org/wiki/You&amp;#95;aren%27t&amp;#95;gonna&amp;#95;need&amp;#95;it'&gt;I'm not going to need it&lt;/a&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I could put the require in &lt;code&gt;spec&amp;#95;helper.rb&lt;/code&gt;, but it still felt strange.&lt;/p&gt;&lt;p&gt;I decided to remove the module namespace. That lets me remove the require line and all preceding &lt;code&gt;MetalDetectr::&lt;/code&gt; for every MetalArchivesFetcher call in the spec. Is this the right decision? It's definitely &lt;a href='https://en.wikipedia.org/wiki/Don%27t_repeat_yourself'&gt;DRYer&lt;/a&gt;, but I do create tighter coupling. Jim Weirich's talk, &lt;a href='http://mattgrande.com/2009/05/11/jim-weirich-on-connascence/'&gt;&quot;The Building Blocks of Modularity&quot;&lt;/a&gt; (that I can't find online) does go over the trade-offs of writing code that is either more tightly or loosely coupled, and my takeaway from that is, since this file is already coupled to the application and models within it, why add an additional layer? It's more of a perceived loosening while only adding a bit more complexity. And that's usually not a good thing.&lt;/p&gt;&lt;p&gt;Perhaps I'll add it back in later, but for now, &lt;a href='https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it'&gt;I'm not going to need it&lt;/a&gt;.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -1806,10 +1886,10 @@ Fri, 08 Jul 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html
+https://dbolson.github.io/posts-output/2011-06-26-a-real-life-github-success-story.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-06-26-a-real-life-github-success-story.html
+https://dbolson.github.io/posts-output/2011-06-26-a-real-life-github-success-story.html
 </link>
 <title>
 A Real Life GitHub Success Story
@@ -1855,10 +1935,10 @@ Sun, 26 Jun 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html
+https://dbolson.github.io/posts-output/2011-06-11-metal-archives-json-results-parsing.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-06-11-metal-archives-json-results-parsing.html
+https://dbolson.github.io/posts-output/2011-06-11-metal-archives-json-results-parsing.html
 </link>
 <title>
 Metal Archives' JSON Results Parsing
@@ -1918,10 +1998,10 @@ Sat, 11 Jun 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html
+https://dbolson.github.io/posts-output/2011-05-31-histograms-in-ruby-with-seer.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-31-histograms-in-ruby-with-seer.html
+https://dbolson.github.io/posts-output/2011-05-31-histograms-in-ruby-with-seer.html
 </link>
 <title>
 Histograms in Ruby With Seer
@@ -2014,10 +2094,10 @@ Tue, 31 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html
+https://dbolson.github.io/posts-output/2011-05-23-scraping-a-site-when-it-changes-its-design.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-23-scraping-a-site-when-it-changes-its-design.html
+https://dbolson.github.io/posts-output/2011-05-23-scraping-a-site-when-it-changes-its-design.html
 </link>
 <title>
 Scraping a Site When It Changes Its Design
@@ -2034,10 +2114,10 @@ Mon, 23 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html
+https://dbolson.github.io/posts-output/2011-05-14-introducing-metaldetectr.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-14-introducing-metaldetectr.html
+https://dbolson.github.io/posts-output/2011-05-14-introducing-metaldetectr.html
 </link>
 <title>
 Introducing MetalDetectr
@@ -2054,16 +2134,16 @@ Sat, 14 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html
+https://dbolson.github.io/posts-output/2011-05-10-messing-with-magic-encoding.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-10-messing-with-magic-encoding.html
+https://dbolson.github.io/posts-output/2011-05-10-messing-with-magic-encoding.html
 </link>
 <title>
 Messing With Magic Encoding
 </title>
 <description>
-&lt;p&gt;There's some irony in how difficult Ruby can be with different character sets considering it was written by someone who doesn't speak English natively. I don't want to get political here, so I'm just going to mention some encoding strangeness.&lt;/p&gt;&lt;p&gt;Ruby 1.9 is much improved over Ruby 1.8, but I don't know that &lt;a href='http://stackoverflow.com/questions/3291017/how-can-i-avoid-putting-the-magic-encoding-comment-on-top-of-every-utf-8-file-in'&gt;defaulting to US-ASCII encoding&lt;/a&gt; is a good one. I suppose so, if one wishes to be more explicit with some sort of default. This became an issue when I wrote a screen-scraping library that read a site with foreign (to me) characters. With the default encoding, the program would stop on those characters, returning early without reading the entire word. It took a long time to track down because the site I was scrapping would time-out a lot, so I assumed that that was the issue. But when it would seemingly time-out on the same pages each time, I had to look into the problem more.&lt;/p&gt;&lt;p&gt;After finding the problem, I needed a solution. &lt;a href='http://blog.grayproductions.net/articles/ruby&amp;#95;19s&amp;#95;three&amp;#95;default&amp;#95;encodings'&gt;This post&lt;/a&gt; gave me the direction to fix it, so I was able to check the following for a result:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;page = Mechanize.new&amp;#40;'/url'&amp;#41;
+&lt;p&gt;There's some irony in how difficult Ruby can be with different character sets considering it was written by someone who doesn't speak English natively. I don't want to get political here, so I'm just going to mention some encoding strangeness.&lt;/p&gt;&lt;p&gt;Ruby 1.9 is much improved over Ruby 1.8, but I don't know that &lt;a href='http://stackoverflow.com/questions/3291017/how-can-i-avoid-putting-the-magic-encoding-comment-on-top-of-every-utf-8-file-in'&gt;defaulting to US-ASCII encoding&lt;/a&gt; is a good one. I suppose so, if one wishes to be more explicit with some sort of default. This became an issue when I wrote a screen-scraping library that read a site with foreign (to me) characters. With the default encoding, the program would stop on those characters, returning early without reading the entire word. It took a long time to track down because the site I was scrapping would time-out a lot, so I assumed that that was the issue. But when it would seemingly time-out on the same pages each time, I had to look into the problem more.&lt;/p&gt;&lt;p&gt;After finding the problem, I needed a solution. &lt;a href='http://blog.grayproductions.net/articles/ruby_19s_three_default_encodings'&gt;This post&lt;/a&gt; gave me the direction to fix it, so I was able to check the following for a result:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;page = Mechanize.new&amp;#40;'/url'&amp;#41;
 page.encoding = 'iso-8859-1'
 page.search&amp;#40;...&amp;#41;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Setting the encoding to iso-8859-1 let me get the foreign characters I needed. In the tests, I put the following magic comment at the top of the file:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;# encoding: utf-8
@@ -2078,16 +2158,16 @@ Tue, 10 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html
+https://dbolson.github.io/posts-output/2011-05-02-i-am-become-genius.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-05-02-i-am-become-genius.html
+https://dbolson.github.io/posts-output/2011-05-02-i-am-become-genius.html
 </link>
 <title>
 I Am Become Genius
 </title>
 <description>
-&lt;p&gt;As follow-up to my &lt;a href='/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html.html'&gt;previous post&lt;/a&gt;, I would like to share &lt;a href='http://jamesthornton.com/blog/how-to-get-to-genius'&gt;an article&lt;/a&gt; that's made the rounds on the internet recently. &quot;How to get to Genius,&quot; an excellent synthesis of key ideas for success, correlates with themes from Pragmatic Thinking and Learning.&lt;/p&gt;&lt;p&gt;The working definition for &quot;genius&quot; is &quot;the extreme form of insight...in terms of perspective,&quot; or similarly, the intuition an expert has gained from many years of deliberate study ([Malcolm Gladwell's 10,000 hour rule][3]). A genius has internalized a system so much that he is effectively part of that system. A genius/expert's perspective separates the novice because the latter does not understand either the rules of the system or the broad implications of why the system exists. It's the “ability to notice these vague connections amongst all the noise, amongst all the internal chatter going on inside your head, [that] separates the insightful from the unaware, the unobservant.&quot;&lt;/p&gt;&lt;p&gt;With evidence from neuroscience about brain plasticity, and using the computer/brain metaphor from Pragmatic Thinking, each read is a write, meaning that the act of remembering changes the memories of the brain and that constantly recalling information will write this information more permanently to memory, we bring together the necessity of much deliberate practice and seeing patterns within a system. The long hours thinking and practicing something will ingrain what's learned deeply in the mind, creating greater understanding and recall of the rules. This in turn grants the ability to understand more of what we study, and thus we can gain a broader perspective. With these tools, it becomes possible to see something different than if we were to only focus our attention on small details. Thus, becoming a genius, while certainly not easy, is, conceptually, simple and, more importantly, &lt;strong&gt;possible&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;As follow-up to my &lt;a href='/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html.html'&gt;previous post&lt;/a&gt;, I would like to share &lt;a href='http://jamesthornton.com/blog/how-to-get-to-genius'&gt;an article&lt;/a&gt; that's made the rounds on the internet recently. &quot;How to get to Genius,&quot; an excellent synthesis of key ideas for success, correlates with themes from Pragmatic Thinking and Learning.&lt;/p&gt;&lt;p&gt;The working definition for &quot;genius&quot; is &quot;the extreme form of insight...in terms of perspective,&quot; or similarly, the intuition an expert has gained from many years of deliberate study (&lt;a href='http://gladwell.com/outliers/'&gt;Malcolm Gladwell's 10,000 hour rule&lt;/a&gt;). A genius has internalized a system so much that he is effectively part of that system. A genius/expert's perspective separates the novice because the latter does not understand either the rules of the system or the broad implications of why the system exists. It's the “ability to notice these vague connections amongst all the noise, amongst all the internal chatter going on inside your head, [that] separates the insightful from the unaware, the unobservant.&quot;&lt;/p&gt;&lt;p&gt;With evidence from neuroscience about brain plasticity, and using the computer/brain metaphor from Pragmatic Thinking, each read is a write, meaning that the act of remembering changes the memories of the brain and that constantly recalling information will write this information more permanently to memory, we bring together the necessity of much deliberate practice and seeing patterns within a system. The long hours thinking and practicing something will ingrain what's learned deeply in the mind, creating greater understanding and recall of the rules. This in turn grants the ability to understand more of what we study, and thus we can gain a broader perspective. With these tools, it becomes possible to see something different than if we were to only focus our attention on small details. Thus, becoming a genius, while certainly not easy, is, conceptually, simple and, more importantly, &lt;strong&gt;possible&lt;/strong&gt;.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -2098,16 +2178,16 @@ Mon, 02 May 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
+https://dbolson.github.io/posts-output/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
+https://dbolson.github.io/posts-output/2011-04-26-book-review-pragmatic-thinking-and-learning-refactor-your-wetware.html
 </link>
 <title>
 Book Review - Pragmatic Thinking and Learning: Refactor Your Wetware
 </title>
 <description>
-&lt;p&gt;The &lt;a href='http://pragprog.com/'&gt;Pragmatic Programmers&lt;/a&gt; have consistently put out good material for years, and whether &lt;a href='http://pragprog.com/book/tpp/the-pragmatic-programmer'&gt;their own&lt;/a&gt; or &lt;a href='http://pragprog.com/book/achbd/the-rspec-book'&gt;other authors'&lt;/a&gt;, the quality is almost always high. I just finished &lt;a href='http://pragprog.com/book/ahptl/pragmatic-thinking-and-learning'&gt;&amp;#42;Pragmatic Thinking and Learning&amp;#42;&lt;/a&gt; and, reading &lt;a href='http://www.duffbert.com/duffbert/blog.nsf/d6plinks/TADF-7KYLN5'&gt;numerous&lt;/a&gt; other reviews, they are all very positive. The community liked it, and that's usually a good sign (we'll see what happens when not everyone is &lt;a href='http://www.rubyinside.com/rails-3-1-adopts-coffeescript-jquery-sass-and-controversy-4669.html'&gt;happy&lt;/a&gt;).&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;important&amp;#95;relationships&quot;&gt;&lt;/a&gt;Important relationships&lt;/h2&gt;&lt;p&gt;The first major concept introduced, and repeatedly referenced, is that the relationships between objects are more interesting than the objects themselves. Discrete &quot;things&quot; -- whether facts, concepts, or people, exist not in a vacuum but with other similar and different &quot;things.&quot; Emergent behaviors and ideas spring up with the interactions between everything in their specific system. These specific contexts generate yet more powerful versions of the what is interacting in them.&lt;/p&gt;&lt;p&gt;A non-programming example is opening a locked door. The situation of why one wants to open the door matters in how one will attempt to open the door. Whether there is a baby in a burning house with a locked front door or there are documents we want to steal in a hotel room under security will influence the method used -- an axe or lock picking tools. The why strongly influences the how and context matters.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;got&amp;#95;skills?&quot;&gt;&lt;/a&gt;Got skills?&lt;/h2&gt;&lt;p&gt;We then turn to the &lt;a href='http://en.wikipedia.org/wiki/Dreyfus&amp;#95;model&amp;#95;of&amp;#95;skill&amp;#95;acquisition'&gt;Dreyfus Model for Skill Acquisition&lt;/a&gt; and see how people learn new topics. Starting as a novice, one who needs context-free rules, like recipes, because he doesn't know enough to establish any big picture of the problem domain, and ending as an expert who understands the system he works in so well he works by intuition and pattern matching, there is a trend from stricter rules to practically none. The greater the expertise, the more we understand what is possible and what we should consider, both giving us faster access to what is possible and a smaller, and more easily understood, problem.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;impr-you-vement&quot;&gt;&lt;/a&gt;Impr-you-vement&lt;/h2&gt;&lt;p&gt;The methods for improving skills is simple but not easy. Only through deliberate practice can we get to the highest levels of understanding, and this involves a lot of well-structured, hard work. We need a system to work on well-defined tasks that are appropriately challenging, continuous feedback from those tasks to keep us working on relevant ideas, and lots of repetition to strengthen the ideas and make them part of our long-term memories.&lt;/p&gt;&lt;p&gt;It also helps to find the relationships between what we're learning, looking at the big picture to understand the overall meaning and not be bothered with the minute details (at least not at the beginning). Analogies to previous knowledge further create relationships and help establish the context of the new ideas. For example, when reading a non-fiction book, we should first scan the table of contents and chapter summaries to get an overview of what we're going to read to establish the most ideas to focus on. While reading we should summarize the concepts, create metaphors with the material, and, when finished, expand the notes with a reread and discuss the ideas with colleagues. These tactics will cement the knowledge in the brain better than just a cursory skimming of the book.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;nothing&amp;#95;is&amp;#95;perfect,&amp;#95;however&quot;&gt;&lt;/a&gt;Nothing is perfect, however&lt;/h2&gt;&lt;p&gt;One weakness of the book is the reliance on the left/right brain dichotomy, an idea that &lt;a href='http://prostheticknowledge.tumblr.com/post/3563608775/fuckyeah-neuroscience-left-brain-vs-right-brain-and'&gt;isn't totally backed by science&lt;/a&gt;. This criticism goes as deep as one wants to rely on the truth of this assertion, but if we think of it as a metaphor, like the main brain metaphor of a computer (&lt;a href='http://dangerousintersection.org/2006/05/18/the-brain-is-not-a-computer/'&gt;another incomplete metaphor&lt;/a&gt;), and always remember that it's just a method to point in the general direction of understanding, and that we shouldn't understand these concepts to be almost literally accurate, we can get away with the comparisons. Regardless, I'm sure there is value in the takeaways such as creating analogies between disparate topics, drawing out ideas, talking out loud, and using other mixed media.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;so&amp;#95;what?&quot;&gt;&lt;/a&gt;So what?&lt;/h2&gt;&lt;p&gt;Pragmatic Learning is an excellent book, faults and all, and I did take away some concrete plans.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;I've created a &lt;a href='http://danielchoi.com/software/soywiki.html'&gt;wiki&lt;/a&gt; for knowledge dumps and connecting ideas&lt;/li&gt;&lt;li&gt;I'm researching mind mapping software (either &lt;a href='http://freemind.sourceforge.net/wiki/index.php/Main&amp;#95;Page'&gt;this one&lt;/a&gt; or &lt;a href='http://www.mindmeister.com/'&gt;this one&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;I'm writing down my ideas in a notebook, along with notes on books I'm reading, which I then transfer to an online medium&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;There are dozens of other specific tasks to do, and I plan to come back to the book and implement more as needed. It's certainly not necessary to try every single one, but it is reasonable, if the motivation is there (and who wouldn't want to learn how to learn better?), the results will follow.&lt;/p&gt;
+&lt;p&gt;The &lt;a href='http://pragprog.com/'&gt;Pragmatic Programmers&lt;/a&gt; have consistently put out good material for years, and whether &lt;a href='http://pragprog.com/book/tpp/the-pragmatic-programmer'&gt;their own&lt;/a&gt; or &lt;a href='http://pragprog.com/book/achbd/the-rspec-book'&gt;other authors'&lt;/a&gt;, the quality is almost always high. I just finished &lt;a href='http://pragprog.com/book/ahptl/pragmatic-thinking-and-learning'&gt;&lt;em&gt;Pragmatic Thinking and Learning&lt;/em&gt;&lt;/a&gt; and, reading &lt;a href='http://www.duffbert.com/duffbert/blog.nsf/d6plinks/TADF-7KYLN5'&gt;numerous&lt;/a&gt; other reviews, they are all very positive. The community liked it, and that's usually a good sign (we'll see what happens when not everyone is &lt;a href='http://www.rubyinside.com/rails-3-1-adopts-coffeescript-jquery-sass-and-controversy-4669.html'&gt;happy&lt;/a&gt;).&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;important&amp;#95;relationships&quot;&gt;&lt;/a&gt;Important relationships&lt;/h2&gt;&lt;p&gt;The first major concept introduced, and repeatedly referenced, is that the relationships between objects are more interesting than the objects themselves. Discrete &quot;things&quot; &amp;ndash; whether facts, concepts, or people, exist not in a vacuum but with other similar and different &quot;things.&quot; Emergent behaviors and ideas spring up with the interactions between everything in their specific system. These specific contexts generate yet more powerful versions of the what is interacting in them.&lt;/p&gt;&lt;p&gt;A non-programming example is opening a locked door. The situation of why one wants to open the door matters in how one will attempt to open the door. Whether there is a baby in a burning house with a locked front door or there are documents we want to steal in a hotel room under security will influence the method used &amp;ndash; an axe or lock picking tools. The why strongly influences the how and context matters.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;got&amp;#95;skills?&quot;&gt;&lt;/a&gt;Got skills?&lt;/h2&gt;&lt;p&gt;We then turn to the &lt;a href='http://en.wikipedia.org/wiki/Dreyfus_model_of_skill_acquisition'&gt;Dreyfus Model for Skill Acquisition&lt;/a&gt; and see how people learn new topics. Starting as a novice, one who needs context-free rules, like recipes, because he doesn't know enough to establish any big picture of the problem domain, and ending as an expert who understands the system he works in so well he works by intuition and pattern matching, there is a trend from stricter rules to practically none. The greater the expertise, the more we understand what is possible and what we should consider, both giving us faster access to what is possible and a smaller, and more easily understood, problem.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;impr-you-vement&quot;&gt;&lt;/a&gt;Impr-you-vement&lt;/h2&gt;&lt;p&gt;The methods for improving skills is simple but not easy. Only through deliberate practice can we get to the highest levels of understanding, and this involves a lot of well-structured, hard work. We need a system to work on well-defined tasks that are appropriately challenging, continuous feedback from those tasks to keep us working on relevant ideas, and lots of repetition to strengthen the ideas and make them part of our long-term memories.&lt;/p&gt;&lt;p&gt;It also helps to find the relationships between what we're learning, looking at the big picture to understand the overall meaning and not be bothered with the minute details (at least not at the beginning). Analogies to previous knowledge further create relationships and help establish the context of the new ideas. For example, when reading a non-fiction book, we should first scan the table of contents and chapter summaries to get an overview of what we're going to read to establish the most ideas to focus on. While reading we should summarize the concepts, create metaphors with the material, and, when finished, expand the notes with a reread and discuss the ideas with colleagues. These tactics will cement the knowledge in the brain better than just a cursory skimming of the book.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;nothing&amp;#95;is&amp;#95;perfect,&amp;#95;however&quot;&gt;&lt;/a&gt;Nothing is perfect, however&lt;/h2&gt;&lt;p&gt;One weakness of the book is the reliance on the left/right brain dichotomy, an idea that &lt;a href='http://prostheticknowledge.tumblr.com/post/3563608775/fuckyeah-neuroscience-left-brain-vs-right-brain-and'&gt;isn't totally backed by science&lt;/a&gt;. This criticism goes as deep as one wants to rely on the truth of this assertion, but if we think of it as a metaphor, like the main brain metaphor of a computer (&lt;a href='http://dangerousintersection.org/2006/05/18/the-brain-is-not-a-computer/'&gt;another incomplete metaphor&lt;/a&gt;), and always remember that it's just a method to point in the general direction of understanding, and that we shouldn't understand these concepts to be almost literally accurate, we can get away with the comparisons. Regardless, I'm sure there is value in the takeaways such as creating analogies between disparate topics, drawing out ideas, talking out loud, and using other mixed media.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;so&amp;#95;what?&quot;&gt;&lt;/a&gt;So what?&lt;/h2&gt;&lt;p&gt;Pragmatic Learning is an excellent book, faults and all, and I did take away some concrete plans.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;I've created a &lt;a href='http://danielchoi.com/software/soywiki.html'&gt;wiki&lt;/a&gt; for knowledge dumps and connecting ideas&lt;/li&gt;&lt;li&gt;I'm researching mind mapping software (either &lt;a href='http://freemind.sourceforge.net/wiki/index.php/Main_Page'&gt;this one&lt;/a&gt; or &lt;a href='http://www.mindmeister.com/'&gt;this one&lt;/a&gt;)&lt;/li&gt;&lt;li&gt;I'm writing down my ideas in a notebook, along with notes on books I'm reading, which I then transfer to an online medium&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;There are dozens of other specific tasks to do, and I plan to come back to the book and implement more as needed. It's certainly not necessary to try every single one, but it is reasonable, if the motivation is there (and who wouldn't want to learn how to learn better?), the results will follow.&lt;/p&gt;
 </description>
 <enclosure>
 
@@ -2118,16 +2198,16 @@ Tue, 26 Apr 2011 00:00:00 -0700
 </item>
 <item>
 <guid>
-https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html
+https://dbolson.github.io/posts-output/2011-04-06-composite-pattern-ftw.html
 </guid>
 <link>
-https://dbolson.github.io/posts/2011-04-06-composite-pattern-ftw.html
+https://dbolson.github.io/posts-output/2011-04-06-composite-pattern-ftw.html
 </link>
 <title>
 Composite Pattern FTW
 </title>
 <description>
-&lt;p&gt;A &lt;a href='http://www.paulgraham.com/taste.html'&gt;post&lt;/a&gt; by Paul Graham I recently found resonated with what I've been doing at work recently. In his post, &quot;Taste for Makers,&quot; PG posits that beauty is not wholly subjective and that good design is beautiful. Among others, good design:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;is simple&lt;/li&gt;&lt;li&gt;solves the right problem&lt;/li&gt;&lt;li&gt;is suggestive&lt;/li&gt;&lt;li&gt;looks easy&lt;/li&gt;&lt;li&gt;uses symmetry&lt;/li&gt;&lt;li&gt;is redesign&lt;/li&gt;&lt;li&gt;can copy&lt;/li&gt;&lt;li&gt;is often quite strange&lt;/li&gt;&lt;li&gt;happens in chunks&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;I'd like to focus on a few of these descriptions and use an example I've recently done.&lt;/p&gt;&lt;p&gt;In his fantastic book, &lt;em&gt;&lt;a href='http://www.designpatternsinruby.com/'&gt;Design Patterns in Ruby&lt;/a&gt;&lt;/em&gt;, &lt;a href='http://blog.russolsen.com/'&gt;Russ Olsen&lt;/a&gt; describes one tenant of the &lt;a href='http://c2.com/cgi/wiki?GangOfFour'&gt;GOF&lt;/a&gt; book to “prefer composition over inheritance.” Inheritance creates tighter coupling between classes, since the children of the base class need to know about the internals of the base, even though the coupling is very specific to the implementation and (should be) well understood. &lt;a href='http://en.wikipedia.org/wiki/Composite&amp;#95;pattern'&gt;Composition&lt;/a&gt;, however, changes the relationship between objects. An object no longer is another type of object but has the functionality of another object (&lt;a href='http://en.wikipedia.org/wiki/Has-a'&gt;is-a vs. has-a&lt;/a&gt;). This relationship increases the encapsulation of the composite object by providing an interface to the composed object instead of exposing the underlying details of a base class.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;slices&amp;#95;&lt;em&gt;and&lt;/em&gt;&amp;#95;dices!&quot;&gt;&lt;/a&gt;Slices &lt;em&gt;and&lt;/em&gt; Dices!&lt;/h2&gt;&lt;p&gt;Now I know there is a tendency to think of design patterns as a &lt;a href='http://en.wikipedia.org/wiki/No&amp;#95;Silver&amp;#95;Bullet'&gt;silver bullet&lt;/a&gt;, but bear with me. The situation is fine when the inheritance tree is simple and the functionality basic. The complexity grows as the tree grows and as more functionality is required. Soon, you're not quite sure if it should inherit &lt;code&gt;Foo&lt;/code&gt; which inherits from &lt;code&gt;Bar&lt;/code&gt;, or if you should just inherit from Baz way up near the base. You'll have to dig into the classes to find out which one is closest to what you want and hope it makes the most sense to place the new class wherever you end up placing it. However, using the Composite Pattern gives us much more flexibility for creating new classes and giving them abilities.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;an&amp;#95;example&quot;&gt;&lt;/a&gt;An Example&lt;/h2&gt;&lt;p&gt;There is a system that asks users different types of questions. One type asks when an event will happen (&lt;code&gt;DateQuestion&lt;/code&gt;), one type asks the numerical results of an event (&lt;code&gt;NumberQuestion&lt;/code&gt;), and one asks which event will happen given a set of choices (&lt;code&gt;ChoiceQuestion&lt;/code&gt;). We have a base &lt;code&gt;Question&lt;/code&gt; that each inherits from, and since dates can be represented as numbers, &lt;code&gt;DateQuestion&lt;/code&gt; will inherit from &lt;code&gt;NumberQuestion&lt;/code&gt;. These questions allow answers, comments, access control lists, and have a specific work flow (create, activate, suspend, close, etc.).&lt;/p&gt;&lt;p&gt;Later on, the system needs to support a few more types of questions: a numeric range (&lt;code&gt;NumberRangeQuestion&lt;/code&gt;), a date range (&lt;code&gt;DateRangeQuestion&lt;/code&gt;), a yes/no-only (&lt;code&gt;YesNoQuestion&lt;/code&gt;)... you get the point. We need to figure out where these new types go in the inheritance tree – whether one is a child of a &lt;code&gt;DateQuestion&lt;/code&gt; (itself a child of &lt;code&gt;NumberQuestion&lt;/code&gt;), or if it's just a child of &lt;code&gt;NumberQuestion&lt;/code&gt;, or maybe it's its own type and only inherits from the base &lt;code&gt;Question&lt;/code&gt; type. We start to bump into complexity issues, that is, unnecessary complexity.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;i'll&amp;#95;take&amp;#95;a&amp;#95;little&amp;#95;of&amp;#95;this...&quot;&gt;&lt;/a&gt;I'll Take a Little of This...&lt;/h2&gt;&lt;p&gt;Let's approach this problem from a different angle. Given our original &lt;code&gt;Question&lt;/code&gt; types, we can make them all inherit from a base &lt;code&gt;Question&lt;/code&gt; class and then give them abilities as needed. So now our classes look like this:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Question
+&lt;p&gt;A &lt;a href='http://www.paulgraham.com/taste.html'&gt;post&lt;/a&gt; by Paul Graham I recently found resonated with what I've been doing at work recently. In his post, &quot;Taste for Makers,&quot; PG posits that beauty is not wholly subjective and that good design is beautiful. Among others, good design:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;is simple&lt;/li&gt;&lt;li&gt;solves the right problem&lt;/li&gt;&lt;li&gt;is suggestive&lt;/li&gt;&lt;li&gt;looks easy&lt;/li&gt;&lt;li&gt;uses symmetry&lt;/li&gt;&lt;li&gt;is redesign&lt;/li&gt;&lt;li&gt;can copy&lt;/li&gt;&lt;li&gt;is often quite strange&lt;/li&gt;&lt;li&gt;happens in chunks&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;I'd like to focus on a few of these descriptions and use an example I've recently done.&lt;/p&gt;&lt;p&gt;In his fantastic book, &lt;em&gt;&lt;a href='http://www.designpatternsinruby.com/'&gt;Design Patterns in Ruby&lt;/a&gt;&lt;/em&gt;, &lt;a href='http://blog.russolsen.com/'&gt;Russ Olsen&lt;/a&gt; describes one tenant of the &lt;a href='http://c2.com/cgi/wiki?GangOfFour'&gt;GOF&lt;/a&gt; book to “prefer composition over inheritance.” Inheritance creates tighter coupling between classes, since the children of the base class need to know about the internals of the base, even though the coupling is very specific to the implementation and (should be) well understood. &lt;a href='http://en.wikipedia.org/wiki/Composite_pattern'&gt;Composition&lt;/a&gt;, however, changes the relationship between objects. An object no longer is another type of object but has the functionality of another object (&lt;a href='http://en.wikipedia.org/wiki/Has-a'&gt;is-a vs. has-a&lt;/a&gt;). This relationship increases the encapsulation of the composite object by providing an interface to the composed object instead of exposing the underlying details of a base class.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;slices&amp;#95;&lt;em&gt;and&lt;/em&gt;&amp;#95;dices!&quot;&gt;&lt;/a&gt;Slices &lt;em&gt;and&lt;/em&gt; Dices!&lt;/h2&gt;&lt;p&gt;Now I know there is a tendency to think of design patterns as a &lt;a href='http://en.wikipedia.org/wiki/No_Silver_Bullet'&gt;silver bullet&lt;/a&gt;, but bear with me. The situation is fine when the inheritance tree is simple and the functionality basic. The complexity grows as the tree grows and as more functionality is required. Soon, you're not quite sure if it should inherit &lt;code&gt;Foo&lt;/code&gt; which inherits from &lt;code&gt;Bar&lt;/code&gt;, or if you should just inherit from Baz way up near the base. You'll have to dig into the classes to find out which one is closest to what you want and hope it makes the most sense to place the new class wherever you end up placing it. However, using the Composite Pattern gives us much more flexibility for creating new classes and giving them abilities.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;an&amp;#95;example&quot;&gt;&lt;/a&gt;An Example&lt;/h2&gt;&lt;p&gt;There is a system that asks users different types of questions. One type asks when an event will happen (&lt;code&gt;DateQuestion&lt;/code&gt;), one type asks the numerical results of an event (&lt;code&gt;NumberQuestion&lt;/code&gt;), and one asks which event will happen given a set of choices (&lt;code&gt;ChoiceQuestion&lt;/code&gt;). We have a base &lt;code&gt;Question&lt;/code&gt; that each inherits from, and since dates can be represented as numbers, &lt;code&gt;DateQuestion&lt;/code&gt; will inherit from &lt;code&gt;NumberQuestion&lt;/code&gt;. These questions allow answers, comments, access control lists, and have a specific work flow (create, activate, suspend, close, etc.).&lt;/p&gt;&lt;p&gt;Later on, the system needs to support a few more types of questions: a numeric range (&lt;code&gt;NumberRangeQuestion&lt;/code&gt;), a date range (&lt;code&gt;DateRangeQuestion&lt;/code&gt;), a yes/no-only (&lt;code&gt;YesNoQuestion&lt;/code&gt;)... you get the point. We need to figure out where these new types go in the inheritance tree – whether one is a child of a &lt;code&gt;DateQuestion&lt;/code&gt; (itself a child of &lt;code&gt;NumberQuestion&lt;/code&gt;), or if it's just a child of &lt;code&gt;NumberQuestion&lt;/code&gt;, or maybe it's its own type and only inherits from the base &lt;code&gt;Question&lt;/code&gt; type. We start to bump into complexity issues, that is, unnecessary complexity.&lt;/p&gt;&lt;h2&gt;&lt;a name=&quot;i'll&amp;#95;take&amp;#95;a&amp;#95;little&amp;#95;of&amp;#95;this...&quot;&gt;&lt;/a&gt;I'll Take a Little of This...&lt;/h2&gt;&lt;p&gt;Let's approach this problem from a different angle. Given our original &lt;code&gt;Question&lt;/code&gt; types, we can make them all inherit from a base &lt;code&gt;Question&lt;/code&gt; class and then give them abilities as needed. So now our classes look like this:&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Question
   include Commentable
   include AccessListControllable
   include Workflowable

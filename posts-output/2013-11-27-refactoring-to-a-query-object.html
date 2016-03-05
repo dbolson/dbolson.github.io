@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Refactoring to a Query Object</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">November 27, 2013</div>
+        
+    </div>
+    <h2>Refactoring to a Query Object</h2>
+</div>
+<div>
+    
+    <p>We noticed that the approval badges for a manager were off. They were calculating how many <em>total</em> records there were instead of records for the users managed by the current manager.</p><pre><code class="ruby"># view partial
+= link&#95;to managers&#95;approvals&#95;path do
+  #icon
+  = display&#95;badge&#40;Approval.where&#40;status: 'requested'&#41;.count&#41;
+</code></pre><p>We were also doing too much logic in the view, so we needed to extract this. We want to minimize what we put in <code>ActiveRecord</code> models so they only have to worry about persistence, and the query needs two objects to figure out the right data, so we put this code in a <a href='http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/'>query object</a>.</p><pre><code class="ruby"># app/queries/requested&#95;approvals.rb
+class RequestedApprovals
+  def self.requested&#95;for&#95;manager&#40;user&#41;
+    new.requested&#95;for&#95;manager&#40;user&#41;
+  end
+
+  def initialize&#40;relation=Approval&#41;
+    @relation = relation
+  end
+
+  def requested&#95;for&#95;manager&#40;user&#41;
+    relation
+      .where&#40;'user&#95;id IN &#40;?&#41;', user.managed&#95;user&#95;ids&#41;
+      .requested
+      .by&#95;name
+  end
+
+  private
+
+  attr&#95;accessor :relation
+end
+</code></pre><p>We can further refactor the <code>#where</code> method to a scope in <code>approval.rb</code> since there's a bit of feature envy:</p><pre><code class="ruby"># app/models/approval.rb
+scope :for&#95;users, -&gt; &#40;user&#95;ids&#41; { where&#40;'user&#95;id IN &#40;?&#41;', user&#95;ids&#41; }
+</code></pre><p>So now we have:</p><pre><code class="ruby"># app/queries/requested&#95;approvals.rb
+def requested&#95;for&#95;manager&#40;user&#41;
+  relation
+    .for&#95;users&#40;user.managed&#95;user&#95;ids&#41;
+    .requested
+    .by&#95;name
+end
+</code></pre><p>There are a few things going on here:</p><ul><li><code>requested&#95;for&#95;manager</code> returns an <code>ActiveRecord::Relation</code> so we can treat it as a normal query  (eg., chain methods on it).</li><li>We use a class method so we don't need to use <code>RequestedApprovals.new.requested&#95;for&#95;manager&#40;user&#41;</code>.  The class method delegates to the instance method, and we keep the instance method public so we  can test the code more easily with a stubbed dependency (if we want to go that route).</li><li>The <code>attr&#95;accessor</code> is private so we don't expose it but can still access the instance variable  without using <code>@relation</code>. This keeps the code a little cleaner because we're not littering  instance variables all over the place.</li></ul><p>Now we can do this:</p><pre><code class="ruby"># app/controllers/managers/approvals&#95;controller.rb
+@approvals = RequestedApprovals.requested&#95;for&#95;manager&#40;current&#95;user&#41;
+
+# view partial
+= display&#95;badge&#40;RequestedApprovals.requested&#95;for&#95;manager&#40;current&#95;user&#41;.count&#41;
+</code></pre><h2><a name="testing"></a>Testing</h2><p>We tested this through the controller as an integration test. This was slow, but it ensured the proper behavior while we refactored.</p><pre><code class="ruby">spec/controllers/managers/approvals&#95;controller&#95;spec.rb
+describe Managers::ApprovalsController do
+  let&#40;:user&#41; { create&#40;:manager&#41; }
+
+  describe '#index' do
+    let&#40;:managed&#41; { create&#40;:user, manager: user&#41; }
+
+    let!&#40;:requested&#95;approval&#41; { create&#40;:approval, user: managed, status: 'requested'&#41; }
+    let!&#40;:requested&#95;other&#95;user&#95;approval&#41; { create&#40;:approval, :with&#95;user, status: 'requested'&#41; }
+    let!&#40;:requested&#95;owned&#95;by&#95;manager&#95;approval&#41; { create&#40;:approval, user: user, status: 'requested'&#41; }
+    let!&#40;:another&#95;approved&#41; { create&#40;:approval, user: user, status: 'approved by finance'&#41; }
+
+    before do
+      sign&#95;in user
+    end
+
+    it 'is successful' do
+      get :index
+      expect&#40;response&#41;.to be&#95;success
+    end
+
+    it 'shows the approvals for those managed by the user' do
+      get :index
+      results = assigns&#40;:approvals&#41;
+      expect&#40;results&#41;.to eq&#40;&#91;requested&#95;owned&#95;by&#95;manager&#95;approval, requested&#95;approval&#93;&#41;
+    end
+  end
+end
+</code></pre><p>Now that we've refactored our code, we can write tests for the query object and throw out our integration tests for faster, more easily understood unit tests.</p><pre><code class="ruby"># spec/queries/requested&#95;approvals&#95;spec.rb
+describe RequestedApprovals do
+  let&#40;:subject&#41; { RequestedApprovals }
+
+  describe '.requested&#95;for&#95;manager' do
+    let!&#40;:requested&#95;approval&#41; { create&#40;:approval, user: managed, status: 'requested'&#41; }
+    let!&#40;:requested&#95;other&#95;user&#95;approval&#41; { create&#40;:approval, :with&#95;user, status: 'requested'&#41; }
+    let!&#40;:requested&#95;owned&#95;by&#95;manager&#95;approval&#41; { create&#40;:approval, user: user, status: 'requested'&#41; }
+    let!&#40;:another&#95;approved&#41; { create&#40;:approval, user: user, status: 'approved by finance'&#41; }
+
+    it 'finds approvals for the users the user manages' do
+      results = subject.requested&#95;for&#95;manager&#40;user&#41;
+      expect&#40;results&#41;.to eq&#40;&#91;requested&#95;owned&#95;by&#95;manager, requested&#93;&#41;
+    end
+  end
+end
+</code></pre><p>We kept the integration tests for the query object since it's conceptually tied to the database. We could stub all the chained methods on the relation, but that's fragile and hard to test.</p><p>We changed the controller tests to make the query object a mock since that object was tested somewhere else and we knew it worked.</p><pre><code class="ruby"># spec/controllers/managers/approvals&#95;controller&#95;spec.rb
+describe Managers::ApprovalsController do
+  let&#40;:user&#41; { create&#40;:manager&#41; }
+  let&#40;:approval&#41; { double&#40;:approval&#41; }
+
+  describe '#index' do
+    before do
+      sign&#95;in user
+      allow&#40;RequestedApprovals&#41;.to receive&#40;:requested&#95;for&#95;manager&#41;.with&#40;user&#41;
+    end
+
+    it 'is successful' do
+      get :index
+      expect&#40;response&#41;.to be&#95;success
+    end
+
+    it 'shows the approvals for those managed by the user' do
+      expect&#40;RequestedApprovals&#41;.to receive&#40;:requested&#95;for&#95;manager&#41;.with&#40;user&#41;.and&#95;return&#40;&#91;approval&#93;&#41;
+      get :index
+      expect&#40;assigns&#40;:approvals&#41;&#41;.to eq&#40;&#91;approval&#93;&#41;
+    end
+  end
+end
+</code></pre>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/tags-output/refactoring.html">refactoring</a>
+    
+    <a href="/tags-output/ruby.html">ruby</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts-output/2014-02-06-musings-on-activesupport-concern.html">&laquo; Musings on ActiveSupport::Concern</a>
+        
+        
+        <a class="right" href="/posts-output/2013-11-09-your-backbone-can-t-save-you-now-why-we-use-backbone-marionette.html">Your Backbone Can&#39;t Save You Now - Why We Use Backbone Marionette &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
+                        
+                        <li><a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Many Ways to Write a Unit Test</a></li>
+                        
+                        <li><a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Trip Report - My Visit to the London Office</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/tags-output/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags-output/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags-output/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags-output/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags-output/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/tags-output/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags-output/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags-output/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags-output/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags-output/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags-output/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags-output/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags-output/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags-output/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags-output/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags-output/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags-output/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags-output/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags-output/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags-output/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags-output/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags-output/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags-output/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags-output/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags-output/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags-output/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags-output/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags-output/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags-output/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags-output/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags-output/work.html">work</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy;  Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

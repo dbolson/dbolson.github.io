@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: Namespacing lib files and RSpec</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,58 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 8, 2011</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>Namespacing lib files and RSpec</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>I've been in an ongoing battle with RSpec to get it to properly load files in the <code>/lib</code> directory of a rails app. There's a class <code>MetalArchivesFetcher</code> wrapped in a MetalDetectr module as a namespace:</p><pre><code class="ruby">module MetalDetectr
+  class MetalArchivesFetcher
+    ...
+  end
+end
+</code></pre><p>The spec file starts like this:</p><pre><code class="ruby">require 'spec&#95;helper'
+require 'metal&#95;archives&#95;fetcher'
+
+describe MetalDetectr::MetalArchivesFetcher do
+  ...
+end
+</code></pre><p>Without the require, I would receive the message</p><pre><code class="ruby">load&#95;missing&#95;constant': Expected /Users/danny/code/metaldetectr/lib/metal&#95;archives&#95;fetcher.rb to define MetalArchivesFetcher &#40;LoadError&#41;
+</code></pre><p>It felt a little off to need to require the file again because Rails already loads it in with</p><pre><code class="ruby"># config/application.rb
+config.autoload&#95;paths += Dir&#91;&quot;#{config.root}/lib/&#42;&#42;/&quot;&#93;
+</code></pre><p>I could put the require in <code>spec&#95;helper.rb</code>, but it still felt strange.</p><p>I decided to remove the module namespace. That lets me remove the require line and all preceding <code>MetalDetectr::</code> for every MetalArchivesFetcher call in the spec. Is this the right decision? It's definitely <a href='https://en.wikipedia.org/wiki/Don%27t_repeat_yourself'>DRYer</a>, but I do create tighter coupling. Jim Weirich's talk, <a href='http://mattgrande.com/2009/05/11/jim-weirich-on-connascence/'>"The Building Blocks of Modularity"</a> (that I can't find online) does go over the trade-offs of writing code that is either more tightly or loosely coupled, and my takeaway from that is, since this file is already coupled to the application and models within it, why add an additional layer? It's more of a perceived loosening while only adding a bit more complexity. And that's usually not a good thing.</p><p>Perhaps I'll add it back in later, but for now, <a href='https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it'>I'm not going to need it</a>.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/testing.html">testing</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/modularity.html">modularity</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/metaldetectr.html">metaldetectr</a>
     
+    <a href="/tags-output/rails.html">rails</a>
+    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2011-07-13-adding-field-separation-for-list-data.html">&laquo; Adding Field Separation for List Data</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2011-06-26-a-real-life-github-success-story.html">A Real Life GitHub Success Story &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Rubber Duck Dialogs: Histograms in Ruby With Seer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
+          type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+    <link href="/css/screen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html">Rubber Duck Dialogs</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li ><a href="/index.html">Home</a></li>
+                <li
+                ><a href="/archives.html">Archives</a></li>
+                
+                <li><a href="/feed.xml">RSS</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+</nav>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div id="content">
+                
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">May 31, 2011</div>
+        
+    </div>
+    <h2>Histograms in Ruby With Seer</h2>
+</div>
+<div>
+    
+    <p>Google has a robust set of charts through their <a href='https://developers.google.com/chart/'>visualization API</a> that they use for Analytics, so when I needed a solution to graph a histogram, I turned to a Ruby implementation of Google Charts.</p><p>There are <a href='https://www.ruby-toolbox.com/categories/graphing.html'>other options</a>, but most have little activity. The <a href='https://github.com/CoralineAda/seer'>Seer</a> gem seems to provide enough power to get the data I need, providing a decent set of configuration options and a lot of simplicity.</p><p>To get started, add this bit of JavaScript to the head of the page:</p><pre><code class="javascript">Seer::init&#95;visualization
+</code></pre><p>In the view (preferably a view helper), add this:</p><pre><code class="ruby">begin
+  Seer::visualize&#40;
+    question.data&#95;points,
+    :as =&gt; :column&#95;chart,
+    :in&#95;element =&gt; 'histogram',
+    :series =&gt; {
+      :series&#95;label =&gt; 'label',
+      :data&#95;method =&gt; 'percentage'
+    },
+    :chart&#95;options =&gt; {
+      :max =&gt; 100,
+      :min =&gt; 0,
+      :height =&gt; 355,
+      :width =&gt; 488,
+      :is&#95;3&#95;d =&gt; false,
+      :legend =&gt; 'none',
+      :colors =&gt; &quot;&#91;{color:'#990000', darker:'#660000'}&#93;&quot;,
+      :title =&gt; 'Best Estimates',
+      :title&#95;x =&gt; 'Numbers',
+      :title&#95;y =&gt; 'Percent'
+    }&#41;
+rescue ArgumentError =&gt; e
+  show&#95;no&#95;data&#95;message&#95;for&#95;histogram
+end
+</code></pre><p>Here, we provide a <code>Struct</code> (<code>question.data&#95;points</code>, which I'll get to later) to the column chart (as per Google's API) to render in a div with a histogram id. The <code>series&#95;label</code> and <code>data&#95;method</code> names are important, as they are the two methods the <code>Struct</code> responds to and provide the x- and y-axis data respectively. There are a fair amount of options to play with. Notice that visualize will raise an exception if there is no data instead of just rendering a blank chart, so we need to catch that and display something else. I put a message to tell the user as much:</p><pre><code class="ruby">def show&#95;no&#95;data&#95;message&#95;for&#95;histogram
+  content&#95;tag&#40;:div&#41;,
+    content&#95;tag&#40;:h1, 'There is not enough data to display the Crowd Belief chart'&#41;,
+    :id =&gt; 'empty&#95;histogram&#95;text'
+  &#41;
+end
+</code></pre><p>The interesting part is packaging up the data into the <code>Struct</code>. Bear in mind that this code is not totally clean and refactored, but the test coverage will make it a lot easier to do so later.</p><pre><code class="ruby">class DataPointsContainer
+  class DataPoint &lt; Struct.new&#40;:label, :percentage&#41;; end
+end
+</code></pre><p>That's all we need to get the Seer visualization working, so now we can provide <code>DataPoint</code> with some data points. As background, a <code>Question</code> has a numerical answer, and we want to get a set of data points where each point is a range of equal size containing the answers. We will show up to 11 points, depending on the size of the range (not the amount of data) so the graph doesn't look too bare or too cluttered. One last fun wrinkle is dealing with outlier data. We decided we don't want to show those data points as separate pieces of data but absorb them into the first and last points of the chart. To calculate the range without the outliers, we first calculate the mean and the standard deviation, and we return two lists: one with the outliers (those above or below 1.96 standard deviations from the mean or ~5% and 95%).</p><pre><code class="ruby">def outliers&#95;and&#95;kept&#95;answers&#40;all&#95;answers&#41;
+  mean = mean&#40;all&#95;answers&#41;
+  stddev = stddev&#40;all&#95;answers, mean&#41;
+
+  all&#95;answers.partition do |i|
+    i &gt; high&#95;threshold&#40;all&#95;answers, mean, stddev&#41; ||
+    i &lt; low&#95;threshold&#40;all&#95;answers, mean, stddev&#41;
+  end
+end
+
+def low&#95;threshold&#40;numbers, mean, stddev&#41;
+  mean - &#40;stddev &#42; STDDEV&#95;FACTOR&#41;.round
+end
+
+def high&#95;threshold&#40;numbers, mean, stddev&#41;
+  mean + &#40;stddev &#42; STDDEV&#95;FACTOR&#41;.round
+end
+</code></pre><p>Now we can find the smallest and largest points of the new range of data without worrying about the outliers messing up everything. We start with the first data point as the lowest in the range and add the width of each range to get the highest point:</p><pre><code class="ruby">low&#95;point = answers.minimum
+high&#95;point = low&#95;point + range&#95;width&#40;answers.minimum, answers.maximum, amount&#95;of&#95;points&#41;
+
+def range&#95;width&#40;min, max, points&#95;size&#41;
+  width = &#40;&#40;max - min&#41;.to&#95;f / points&#95;size.to&#95;f&#41;
+  width = 1.0 if width &lt; 1.0 &amp;&amp; @question.precision.to&#95;i == 0
+  width
+end
+</code></pre><p>For each data point (up to 11), we create a <code>DataPoint</code>, set the low to the current high, and find the new high by adding the width range to the current low (which is the old high). If we're on the last data point, use the last number in the range instead. When creating the <code>DataPoint</code>, we calculate the percentage by doing a SQL count of all answers within the range and grouping by the value:</p><pre><code class="ruby">answers.count&#40;
+  :conditions =&gt; 'value &gt;= #{low} AND value &lt; #{high}&quot;,
+  :order =&gt; 'value ASC',
+  :group =&gt; 'value'
+&#41;
+</code></pre><p>Finally, we add the additional outliers to either the first or last <code>DataPoint</code>, if the outliers exist:</p><pre><code class="ruby">if index == 0
+  additional = outliers.count { |x| x &lt; low }
+end
+
+if index == total&#95;points&#95;count - 1
+  additional = outliers.count { |x| x &gt; high }
+end
+
+amount += additional
+</code></pre><p>The only thing left to do is to give the Question model access to the data points in its class:</p><pre><code class="ruby">def data&#95;points
+  DataPointsContainer.new&#40;self&#41;.data&#95;points
+end
+</code></pre><p>A downside to this gem is that there is <a href='https://www.ruby-forum.com/topic/996227'>not</a> a <a href='https://groups.google.com/forum/?fromgroups#!topic/rubyonrails-talk/5ULCgyWU7Xk'>lot</a> of <a href='http://stackoverflow.com/questions/4624601/seer-gem-usage-showing-errors'>discussion</a> about it, but I found that is also true for other solutions. Google does provide more options than the gem currently offers, but I haven't had a need for these yet, and I can fork and add the functionality later if needed. The only frustration so far is on Google's part, because there are some options (removing the pop up bubbles or editing their contents) that aren't available.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
+    
+    <a href="/tags-output/ruby.html">ruby</a>
+    
+    <a href="/tags-output/open source.html">open source</a>
+    
+</div>
+
+
+    <div id="prev-next">
+        
+        <a href="/posts-output/2011-06-11-metal-archives-json-results-parsing.html">&laquo; Metal Archives&#39; JSON Results Parsing</a>
+        
+        
+        <a class="right" href="/posts-output/2011-05-23-scraping-a-site-when-it-changes-its-design.html">Scraping a Site When It Changes Its Design &raquo;</a>
+        
+    </div>
+
+    
+
+
+</div>
+
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div id="sidebar">
+                <h3>Links</h3>
+                <ul id="links">
+                    <li><a href="https://github.com/dbolson">GitHub</a></li>
+                    
+                </ul>
+                
+                <div id="recent">
+                    <h3>Recent Posts</h3>
+                    <ul>
+                        
+                        <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
+                        
+                        <li><a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Many Ways to Write a Unit Test</a></li>
+                        
+                        <li><a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Trip Report - My Visit to the London Office</a></li>
+                        
+                    </ul>
+                </div>
+                
+                
+                <div id="tags">
+                    <h3>Categories</h3>
+                    <ul>
+                        
+                        <li><a href="/tags-output/backbone.html">backbone</a></li>
+                        
+                        <li><a href="/tags-output/book review.html">book review</a></li>
+                        
+                        <li><a href="/tags-output/bugs.html">bugs</a></li>
+                        
+                        <li><a href="/tags-output/conferences.html">conferences</a></li>
+                        
+                        <li><a href="/tags-output/design patterns.html">design patterns</a></li>
+                        
+                        <li><a href="/tags-output/encoding.html">encoding</a></li>
+                        
+                        <li><a href="/tags-output/interviewing.html">interviewing</a></li>
+                        
+                        <li><a href="/tags-output/javascript.html">javascript</a></li>
+                        
+                        <li><a href="/tags-output/jquery.html">jquery</a></li>
+                        
+                        <li><a href="/tags-output/learning.html">learning</a></li>
+                        
+                        <li><a href="/tags-output/marionette.html">marionette</a></li>
+                        
+                        <li><a href="/tags-output/markdown.html">markdown</a></li>
+                        
+                        <li><a href="/tags-output/metaldetectr.html">metaldetectr</a></li>
+                        
+                        <li><a href="/tags-output/modularity.html">modularity</a></li>
+                        
+                        <li><a href="/tags-output/mysql.html">mysql</a></li>
+                        
+                        <li><a href="/tags-output/open source.html">open source</a></li>
+                        
+                        <li><a href="/tags-output/pair programming.html">pair programming</a></li>
+                        
+                        <li><a href="/tags-output/productivity.html">productivity</a></li>
+                        
+                        <li><a href="/tags-output/rails.html">rails</a></li>
+                        
+                        <li><a href="/tags-output/refactoring.html">refactoring</a></li>
+                        
+                        <li><a href="/tags-output/rspec.html">rspec</a></li>
+                        
+                        <li><a href="/tags-output/ruby.html">ruby</a></li>
+                        
+                        <li><a href="/tags-output/sass.html">sass</a></li>
+                        
+                        <li><a href="/tags-output/soa.html">soa</a></li>
+                        
+                        <li><a href="/tags-output/speaking.html">speaking</a></li>
+                        
+                        <li><a href="/tags-output/testing.html">testing</a></li>
+                        
+                        <li><a href="/tags-output/tests.html">tests</a></li>
+                        
+                        <li><a href="/tags-output/tools.html">tools</a></li>
+                        
+                        <li><a href="/tags-output/user interface.html">user interface</a></li>
+                        
+                        <li><a href="/tags-output/vim.html">vim</a></li>
+                        
+                        <li><a href="/tags-output/work.html">work</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <footer>Copyright &copy;  Danny Olson
+        <p style="text-align: center;">Powered by <a href="http://cryogenweb.org">Cryogen</a></p></footer>
+</div>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="/js/highlight.pack.js" type="text/javascript"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

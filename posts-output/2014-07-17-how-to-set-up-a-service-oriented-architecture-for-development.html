@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs</title>
+    <title>Rubber Duck Dialogs: How to Set up a Service Oriented Architecture for Development</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -27,7 +27,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li  class="active" ><a href="/index.html">Home</a></li>
+                <li ><a href="/index.html">Home</a></li>
                 <li
                 ><a href="/archives.html">Archives</a></li>
                 
@@ -46,69 +46,116 @@
             <div id="content">
                 
 <div id="post">
-    
     <div class="post-header">
-        <h2>Find and Replace in Vim</h2>
-        <div id="post-meta">
-            
-            <div class="date">December 13, 2015</div>
-        </div>
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">July 17, 2014</div>
+        
     </div>
-    <p>Find and replace in Vim has been something I've always struggled with, but here, at last, is the solution: <a href="http://jezenthomas.com/how-i-find-and-replace-in-vim" shape="rect"><em>How I Find and Replace in Vim</em></a></p>
-    <a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Continue reading &#8594;</a>
-    <hr>
+    <h2>How to Set up a Service Oriented Architecture for Development</h2>
+</div>
+<div>
     
-    <div class="post-header">
-        <h2>Many Ways to Write a Unit Test</h2>
-        <div id="post-meta">
-            
-            <div class="date">May 20, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/05/20/many-ways-to-write-a-unit-test/" shape="rect">to unit test</a>.</p>
-    <a href="/posts-output/2015-05-20-many-ways-to-write-a-unit-test.html">Continue reading &#8594;</a>
-    <hr>
+    <p>Service oriented architectures can have many benefits, but there are trade-offs as well. One immediate annoyance is setting up multiple applications to do local development. The current workflow looks like this:</p><p><strong>Side note</strong>: Things have been quiet around here as I've just completed my first month at <a href='https://www.fundingcircle.com/us/'>Funding Circle</a> and haven't made the time to blog. Now that I'm settling in, let's get this blog going again.</p><pre><code>$ cd app1
+$ RACK&#95;ENV=development rackup -p 3002
+
+# open a new tab
+$ cd app2
+$ RACK&#95;ENV=development rackup -p 4000
+
+# open a new tab
+$ cd app3
+$ RACK&#95;ENV=development rackup -p 5000
+
+# etc.
+</code></pre><p>It's also convenient to label the tabs to know where to look for an application's output, so we need to name each tab as well. This is boring and error prone as it's very easy to forget to start an application that could prevent the entire system from working as expected.</p><h2><a name="consular&#95;to&#95;the&#95;rescue!"></a>Consular to the Rescue!</h2><p>We just recently found out about <a href='https://github.com/achiu/consular'>Consular</a> to automate terminal tasks and turn the above headache into a one command solution.</p><p>Setup is simple:</p><pre><code>$ gem install consular
+$ gem install consular-iterm
+$ rbenv rehash # if appropriate
+$ consular init
+</code></pre><p>This generates <code>&#126;/.consularc</code> for customization, and <code>&#126;/.config/consular</code> for projects. If you're using <a href='http://www.iterm2.com/'>iTerm</a>, you'll need to require the necessary core.</p><pre><code># &#126;/.consularc
+require 'consular/iterm'
+
+# the rest of the file
+</code></pre><p>Now generate a project:</p><pre><code>$ consular edit soa-setup
+</code></pre><p>Here is an example project that replaces the current workflow:</p><pre><code># &#126;/.config/consular/soa-setup.term
+tab 'app1' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 3002'
+end
+
+tab 'app2' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 4000'
+end
+
+tab 'app3' do
+  run 'cd &#126;/workspace/app3'
+  run 'RACK&#95;ENV=development rackup -p 5000'
+end
+</code></pre><p>Now all you need to do is run one command, <code>consular start soa-setup</code>.</p><h2><a name="some&#95;tweaks"></a>Some tweaks</h2><p>It's nice to not have to do this (minimal) song and dance for each development machine, so we packaged this up into some scripts to make the process easier.</p><pre><code># bin/setup
+echo &quot;Installing Consular...&quot;
+
+bundle install
+rbenv rehash
+consular init
+
+# prepend require to file
+echo &quot;require 'consular/iterm'\n&quot; &gt; tmpfile
+cat &#126;/.consularc &gt;&gt; tmpfile
+cp tmpfile &#126;/.consularc
+rm tmpfile
+
+# copy project&#40;s&#41; to home directory to use anywhere
+cp lib/default.term &#126;/.config/consular/
+
+echo &quot;\nRun bin/run to start all applications.&quot;
+</code></pre><pre><code># bin/run
+consular start default
+</code></pre><pre><code># lib/default.term
+tab 'app1' do
+  run 'cd &#126;/workspace/app1'
+  run 'RACK&#95;ENV=development rackup -p 3002'
+end
+
+tab 'app2' do
+  run 'cd &#126;/workspace/app2'
+  run 'RACK&#95;ENV=development rackup -p 4000'
+end
+
+tab 'app3' do
+  run 'cd &#126;/workspace/app3'
+  run 'RACK&#95;ENV=development rackup -p 5000'
+end
+</code></pre><pre><code># Gemfile
+source 'https://rubygems.org'
+
+gem 'consular'
+gem 'consular-iterm'
+</code></pre><p>Finally, you can create a symlink to the <code>run</code> command:</p><pre><code>ln -s &#126;/path/to/bin/run &#126;/launch-apps
+</code></pre><p>Go forth and be lazy, I mean, <a href='http://c2.com/cgi/wiki?LazinessImpatienceHubris'>virtuous</a>!</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-    <div class="post-header">
-        <h2>Trip Report - My Visit to the London Office</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about my <a href="https://engineering.fundingcircle.com/blog/2015/03/09/trip-report-my-visit-to-the-london-office/" shape="rect">trip to London</a>.</p>
-    <a href="/posts-output/2015-03-09-trip-report-my-visit-to-the-london-office.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/tools.html">tools</a>
     
-    <div class="post-header">
-        <h2>Our Interview Process</h2>
-        <div id="post-meta">
-            
-            <div class="date">March 2, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about how <a href="https://engineering.fundingcircle.com/blog/2015/03/02/our-interview-process/" shape="rect">Funding Circle interviews</a>.</p>
-    <a href="/posts-output/2015-03-02-our-interview-process.html">Continue reading &#8594;</a>
-    <hr>
+    <a href="/tags-output/soa.html">soa</a>
     
-    <div class="post-header">
-        <h2>Our Values - Respect</h2>
-        <div id="post-meta">
-            
-            <div class="date">February 9, 2015</div>
-        </div>
-    </div>
-    <p>Read a post about the <a href="https://engineering.fundingcircle.com/blog/2015/02/09/our-values-respect/" shape="rect">Funding Circle values</a>.</p>
-    <a href="/posts-output/2015-02-09-our-values-respect.html">Continue reading &#8594;</a>
-    <hr>
-    
+</div>
+
 
     <div id="prev-next">
         
+        <a href="/posts-output/2015-02-09-our-values-respect.html">&laquo; Our Values - Respect</a>
         
-        <a class="right" href="/p/2.html">Next &raquo;</a>
+        
+        <a class="right" href="/posts-output/2014-03-22-what-do-you-get-when-you-send-an-engineer-to-poland-to-give-his-first-presentation.html">What Do You Get When You Send an Engineer to Poland to Give His First Presentation &raquo;</a>
         
     </div>
+
+    
+
+
 </div>
 
             </div>
