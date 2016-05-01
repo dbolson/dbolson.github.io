@@ -67,7 +67,7 @@ $ cd app3
 $ RACK&#95;ENV=development rackup -p 5000
 
 # etc.
-</code></pre><p>It's also convenient to label the tabs to know where to look for an application's output, so we need to name each tab as well. This is boring and error prone as it's very easy to forget to start an application that could prevent the entire system from working as expected.</p><h2><a name="consular&#95;to&#95;the&#95;rescue!"></a>Consular to the Rescue!</h2><p>We just recently found out about <a href='https://github.com/achiu/consular'>Consular</a> to automate terminal tasks and turn the above headache into a one command solution.</p><p>Setup is simple:</p><pre><code>$ gem install consular
+</code></pre><p>It's also convenient to label the tabs to know where to look for an application's output, so we need to name each tab as well. This is boring and error prone as it's very easy to forget to start an application that could prevent the entire system from working as expected.</p><h3><a name="consular&#95;to&#95;the&#95;rescue!"></a>Consular to the Rescue!</h3><p>We just recently found out about <a href='https://github.com/achiu/consular'>Consular</a> to automate terminal tasks and turn the above headache into a one command solution.</p><p>Setup is simple:</p><pre><code>$ gem install consular
 $ gem install consular-iterm
 $ rbenv rehash # if appropriate
 $ consular init
@@ -91,7 +91,7 @@ tab 'app3' do
   run 'cd &#126;/workspace/app3'
   run 'RACK&#95;ENV=development rackup -p 5000'
 end
-</code></pre><p>Now all you need to do is run one command, <code>consular start soa-setup</code>.</p><h2><a name="some&#95;tweaks"></a>Some tweaks</h2><p>It's nice to not have to do this (minimal) song and dance for each development machine, so we packaged this up into some scripts to make the process easier.</p><pre><code># bin/setup
+</code></pre><p>Now all you need to do is run one command, <code>consular start soa-setup</code>.</p><h3><a name="some&#95;tweaks"></a>Some tweaks</h3><p>It's nice to not have to do this (minimal) song and dance for each development machine, so we packaged this up into some scripts to make the process easier.</p><pre><code># bin/setup
 echo &quot;Installing Consular...&quot;
 
 bundle install
@@ -173,7 +173,7 @@ gem 'consular-iterm'
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

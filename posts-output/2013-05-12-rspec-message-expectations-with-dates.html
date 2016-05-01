@@ -55,7 +55,7 @@
 </div>
 <div>
     
-    <p>I've got a class that has a collaborator class. The collaborator takes a start date and an end date as arguments. I want to test that the original object instantiates the collaborator with the right dates.</p><h2><a name="a&#95;little&#95;tricky"></a>A little tricky</h2><p>The tests fail if I were to assert that the collaborator should receive dates as its arguments.</p><pre><code class="ruby"># the test
+    <p>I've got a class that has a collaborator class. The collaborator takes a start date and an end date as arguments. I want to test that the original object instantiates the collaborator with the right dates.</p><h3><a name="a&#95;little&#95;tricky"></a>A Little Tricky</h3><p>The tests fail if I were to assert that the collaborator should receive dates as its arguments.</p><pre><code class="ruby"># the test
 a&#95;collaborator.should&#95;receive&#40;:new&#41;
   .with&#40;'an argument',
       Time.zone.parse&#40;'2000-1-11 00:00:00'&#41;,
@@ -66,7 +66,7 @@ a&#95;collaborator.should&#95;receive&#40;:new&#41;
 Stub :a&#95;collaborator received :new with unexpected arguments
  expected: &#40;&quot;an argument&quot;, Tue, 11 Jan 2000 00:00:00 UTC +00:00, Tue, 11 Jan 2000 23:59:59 UTC +00:00&#41;
       got: &#40;&quot;an argument&quot;, Tue, 11 Jan 2000 00:00:00 UTC +00:00, Tue, 11 Jan 2000 23:59:59 UTC +00:00&#41;
-</code></pre><p>Time comparison in Ruby is a little tricky. So what do we do?</p><h2><a name="an&#95;unexpected&#95;expectation&#95;syntax"></a>An unexpected expectation syntax</h2><p>It <a href='https://www.relishapp.com/rspec/rspec-mocks/docs/message-expectations'>turns out</a> that RSpec has another expectation syntax that will let us do some manipulation of the date arguments. Check this out:</p><pre><code class="ruby">a&#95;collaborator.should&#95;receive&#40;:new&#41; { |an&#95;argument, start&#95;date, end&#95;date|
+</code></pre><p>Time comparison in Ruby is a little tricky. So what do we do?</p><h3><a name="an&#95;unexpected&#95;expectation&#95;syntax"></a>An Unexpected Expectation Syntax</h3><p>It <a href='https://www.relishapp.com/rspec/rspec-mocks/docs/message-expectations'>turns out</a> that RSpec has another expectation syntax that will let us do some manipulation of the date arguments. Check this out:</p><pre><code class="ruby">a&#95;collaborator.should&#95;receive&#40;:new&#41; { |an&#95;argument, start&#95;date, end&#95;date|
   expect&#40;an&#95;argument&#41;.to eq&#40;'an argument'&#41;
   expect&#40;start&#95;date.to&#95;i&#41;.to eq&#40;Time.zone.parse&#40;'2000-1-11 00:00:00'&#41;.to&#95;i&#41;
   expect&#40;end&#95;date.to&#95;i&#41;.to eq&#40;Time.zone.parse&#40;'2000-1-11 23:59:59'&#41;.to&#95;i&#41;
@@ -115,7 +115,7 @@ Stub :a&#95;collaborator received :new with unexpected arguments
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

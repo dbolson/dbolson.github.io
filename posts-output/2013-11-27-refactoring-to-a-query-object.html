@@ -94,7 +94,7 @@ end
 
 # view partial
 = display&#95;badge&#40;RequestedApprovals.requested&#95;for&#95;manager&#40;current&#95;user&#41;.count&#41;
-</code></pre><h2><a name="testing"></a>Testing</h2><p>We tested this through the controller as an integration test. This was slow, but it ensured the proper behavior while we refactored.</p><pre><code class="ruby">spec/controllers/managers/approvals&#95;controller&#95;spec.rb
+</code></pre><h3><a name="testing"></a>Testing</h3><p>We tested this through the controller as an integration test. This was slow, but it ensured the proper behavior while we refactored.</p><pre><code class="ruby">spec/controllers/managers/approvals&#95;controller&#95;spec.rb
 describe Managers::ApprovalsController do
   let&#40;:user&#41; { create&#40;:manager&#41; }
 
@@ -203,7 +203,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

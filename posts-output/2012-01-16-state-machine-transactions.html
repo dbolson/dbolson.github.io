@@ -63,7 +63,7 @@ end
 def after&#95;close
   # do stuff to associated model
 end
-</code></pre><h2><a name="the&#95;problem"></a>The problem</h2><p>It turns out that the callbacks are not wrapped in a transaction and that <code>#after&#95;close</code> is called after the model saves, leaving the associated model in danger of getting in a back state or failing validations.</p><h2><a name="the&#95;solution"></a>The solution</h2><p>Using <a href='http://rhnh.net/2010/07/05/acts-as-state-machine-is-not-concurrent'>this post</a> as a guide, we ended up with this code:</p><pre><code class="ruby">class ActiveRecord::Base
+</code></pre><h3><a name="the&#95;problem"></a>The Problem</h3><p>It turns out that the callbacks are not wrapped in a transaction and that <code>#after&#95;close</code> is called after the model saves, leaving the associated model in danger of getting in a back state or failing validations.</p><h3><a name="the&#95;solution"></a>The Solution</h3><p>Using <a href='http://rhnh.net/2010/07/05/acts-as-state-machine-is-not-concurrent'>this post</a> as a guide, we ended up with this code:</p><pre><code class="ruby">class ActiveRecord::Base
   def self.transaction&#95;around&#95;transitions
     event&#95;table.keys.each do |t|
       define&#95;method&#40;&quot;#{t}&#95;with&#95;lock!&quot;&#41; do
@@ -78,7 +78,7 @@ end
 </code></pre><p>And call that method after setting up the transitions:</p><pre><code class="ruby">event :close do
   transitions :from =&gt; :foo, :to =&gt; :bar
 end
-</code></pre><h2><a name="other&#95;transitions..."></a>Other transitions...</h2><p>Now there is a transaction around the entire state change and its callbacks, and we'll be able to sleep tonight knowing that all the saving is safe and sound, all wrapped up in a nice, warm transaction.</p>
+</code></pre><h3><a name="other&#95;transitions..."></a>Other Transitions...</h3><p>Now there is a transaction around the entire state change and its callbacks, and we'll be able to sleep tonight knowing that all the saving is safe and sound, all wrapped up in a nice, warm transaction.</p>
 </div>
 
 <div id="post-tags">
@@ -120,7 +120,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

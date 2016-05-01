@@ -92,7 +92,7 @@ end
 
 widget = FactoryGirl.create&#40;:widget, :with&#95;doodad&#41;
 widget.account == widget.doodad.account # =&gt; false
-</code></pre><p>The instance of <code>Doodad</code> has an account that's created when it's created, so <code>widget</code>'s account and <code>doodad</code>'s account will be different accounts. This can be a problem if it matters that both belong to the same account.</p><h2><a name="yo&#95;dawg,&#95;i&#95;heard&#95;you&#95;like&#95;associations..."></a>Yo dawg, I heard you like associations...</h2><p>We can use <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#lazy-attributes'>lazy attributes</a> to set the <code>doodad</code>'s account to be the same as the <code>Widget</code>'s.</p><pre><code class="ruby">FactoryGirl.define do
+</code></pre><p>The instance of <code>Doodad</code> has an account that's created when it's created, so <code>widget</code>'s account and <code>doodad</code>'s account will be different accounts. This can be a problem if it matters that both belong to the same account.</p><h3><a name="yo&#95;dawg,&#95;i&#95;heard&#95;you&#95;like&#95;associations..."></a>Yo dawg, I heard you like associations...</h3><p>We can use <a href='https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#lazy-attributes'>lazy attributes</a> to set the <code>doodad</code>'s account to be the same as the <code>Widget</code>'s.</p><pre><code class="ruby">FactoryGirl.define do
   factory :widget do
     account
     doodad { |w| w.association&#40;:doodad, account: w.account&#41; }
@@ -171,7 +171,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

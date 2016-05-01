@@ -76,7 +76,7 @@
 end
 </code></pre><p>Then, in the controller:</p><pre><code class="ruby">@foo = FooPresenter.new&#40;view&#95;context&#41;
 </code></pre><p>And in the view:</p><pre><code class="ruby">@foo.bar&#40;'yup'&#41;
-</code></pre><p>Which creates a link to <code>foo&#95;path</code>.</p><h2><a name="what's&#95;going&#95;on?"></a>What's going on?</h2><p>We need to include <code>url&#95;helpers&#40;&#41;</code> to get the named routes to access <code>foo&#95;path&#40;&#41;</code>.</p><p>We also need to instantiate the presenter with the <a href='http://apidock.com/rails/AbstractController/Rendering/view_context'><code>view&#95;context</code></a> from the controller, which is</p><blockquote><p> An instance of a view class. The default view class is <code>ActionView::Base</code>  The view class must have the following methods: <code>View.new&#91;lookup&#95;context, assigns, controller&#93;</code> </p></blockquote><p>This gives us access to helper methods like <code>content&#95;tag&#40;&#41;</code>.</p><h2><a name="isn't&#95;this&#95;still&#95;overkill?"></a>Isn't this still overkill?</h2><p>Many have <a href='http://blog.steveklabnik.com/posts/2011-09-09-better-ruby-presenters'>discussed</a> this before, so I'll just reiterate that OOP is nicer than procedural code, so there.</p>
+</code></pre><p>Which creates a link to <code>foo&#95;path</code>.</p><h3><a name="what's&#95;going&#95;on?"></a>What's going on?</h3><p>We need to include <code>url&#95;helpers&#40;&#41;</code> to get the named routes to access <code>foo&#95;path&#40;&#41;</code>.</p><p>We also need to instantiate the presenter with the <a href='http://apidock.com/rails/AbstractController/Rendering/view_context'><code>view&#95;context</code></a> from the controller, which is</p><blockquote><p> An instance of a view class. The default view class is <code>ActionView::Base</code>  The view class must have the following methods: <code>View.new&#91;lookup&#95;context, assigns, controller&#93;</code> </p></blockquote><p>This gives us access to helper methods like <code>content&#95;tag&#40;&#41;</code>.</p><h3><a name="isn't&#95;this&#95;still&#95;overkill?"></a>Isn't this still overkill?</h3><p>Many have <a href='http://blog.steveklabnik.com/posts/2011-09-09-better-ruby-presenters'>discussed</a> this before, so I'll just reiterate that OOP is nicer than procedural code, so there.</p>
 </div>
 
 <div id="post-tags">
@@ -118,7 +118,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

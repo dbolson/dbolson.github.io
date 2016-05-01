@@ -63,7 +63,7 @@ end
 class Target &lt; ActiveRecord::Base
   belongs&#95;to :question
 end
-</code></pre><p>The administrator fills the form out, choosing a target or not, and Rails will save, update, or destroy it as normal. Well, almost. <a href='https://github.com/rails/rails/commit/146a7505680cbb646c0b9d55dca7cc8494b36e47'>Apparently</a> there is a bug in Rails 2.3.5 that will save the child model twice, and we're experiencing that now.</p><h2><a name="what&#95;i&#95;want&#95;to&#95;do"></a>What I want to do</h2><p>Upgrade to Rails 3.1, get all the new hotness and bug fixes, and not worry about this problem.</p><h2><a name="what&#95;i'm&#95;going&#95;to&#95;do"></a>What I'm going to do</h2><p>Since we don't have the resources to upgrade Rails (yet…), we need a workaround. Here's what we came up with.</p><pre><code class="ruby">after&#95;save :ensure&#95;one&#95;target&#95;while&#95;in&#95;draft
+</code></pre><p>The administrator fills the form out, choosing a target or not, and Rails will save, update, or destroy it as normal. Well, almost. <a href='https://github.com/rails/rails/commit/146a7505680cbb646c0b9d55dca7cc8494b36e47'>Apparently</a> there is a bug in Rails 2.3.5 that will save the child model twice, and we're experiencing that now.</p><h3><a name="what&#95;i&#95;want&#95;to&#95;do"></a>What I want to do</h3><p>Upgrade to Rails 3.1, get all the new hotness and bug fixes, and not worry about this problem.</p><h3><a name="what&#95;i'm&#95;going&#95;to&#95;do"></a>What I'm going to do</h3><p>Since we don't have the resources to upgrade Rails (yet…), we need a workaround. Here's what we came up with.</p><pre><code class="ruby">after&#95;save :ensure&#95;one&#95;target&#95;while&#95;in&#95;draft
 
 def ensure&#95;one&#95;target&#95;while&#95;in&#95;draft
   if draft? &amp;&amp; targets.count &gt; 1
@@ -114,7 +114,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

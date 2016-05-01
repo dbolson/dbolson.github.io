@@ -125,7 +125,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
-</code></pre><h2><a name="notes"></a>Notes</h2><ul><li>We set <code>js: true</code> to load Capybara since we need to execute JavaScript in the test (more on that  below). This was what loads the browser and slowed down tests, so don't use it unless you need  it.</li><li>We then used the helper method <code>sign&#95;in</code> to set up the user and sign the user in. We had a few  helpers that let us compose the setup we needed for each test, and we can build on them to make  our tests more readable and maintainable.</li><li>While filling out the form, we needed to execute JavaScript to fill in a hidden field.</li><li>After submitting, we expected the page to redirect and flash a success message.</li><li>We also needed to change RSpec to not use transactional fixtures by default. More about that  <a href='http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/'>here</a>.</li></ul><h2><a name="results"></a>Results</h2><p>We now know if the form breaks for a normal new or update action. We can and probably will add to these tests and we discover bugs and add new features, but we now have the plumbing in place to do so.</p>
+</code></pre><h3><a name="notes"></a>Notes</h3><ul><li>We set <code>js: true</code> to load Capybara since we need to execute JavaScript in the test (more on that  below). This was what loads the browser and slowed down tests, so don't use it unless you need  it.</li><li>We then used the helper method <code>sign&#95;in</code> to set up the user and sign the user in. We had a few  helpers that let us compose the setup we needed for each test, and we can build on them to make  our tests more readable and maintainable.</li><li>While filling out the form, we needed to execute JavaScript to fill in a hidden field.</li><li>After submitting, we expected the page to redirect and flash a success message.</li><li>We also needed to change RSpec to not use transactional fixtures by default. More about that  <a href='http://devblog.avdi.org/2012/08/31/configuring-database_cleaner-with-rails-rspec-capybara-and-selenium/'>here</a>.</li></ul><h3><a name="results"></a>Results</h3><p>We now know if the form breaks for a normal new or update action. We can and probably will add to these tests and we discover bugs and add new features, but we now have the plumbing in place to do so.</p>
 </div>
 
 <div id="post-tags">
@@ -169,7 +169,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

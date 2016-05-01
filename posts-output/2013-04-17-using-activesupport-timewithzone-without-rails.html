@@ -81,7 +81,7 @@
     end
   end
 end
-</code></pre><p>The corresponding tests didn't like <code>Time.zone</code> – they thought it was nil. Which it is.</p><h2><a name="the&#95;fix"></a>The fix</h2><p>The tests need the proper <code>ActiveSupport</code> module loaded, and the time zone needs to be set.</p><pre><code class="ruby">require 'active&#95;support/core&#95;ext'
+</code></pre><p>The corresponding tests didn't like <code>Time.zone</code> – they thought it was nil. Which it is.</p><h3><a name="the&#95;fix"></a>The Fix</h3><p>The tests need the proper <code>ActiveSupport</code> module loaded, and the time zone needs to be set.</p><pre><code class="ruby">require 'active&#95;support/core&#95;ext'
 Time.zone = 'UTC'
 </code></pre><p>Now the time zone is set and the tests will work as expected.</p><pre><code class="ruby">let&#40;:range&#41; { daterange.new&#40;10.days.ago..time.zone.now&#41; }
 
@@ -136,7 +136,7 @@ end
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         

@@ -55,7 +55,7 @@
 </div>
 <div>
     
-    <p>Rails makes it easy to package our CSS files using the asset pipeline – just put all the <code>.scss</code> files in the <code>application.css</code> manifest file or set <code>require&#95;tree .</code> to automatically pull in all the appropriate files.</p><h2><a name="if&#95;only&#95;it&#95;were&#95;that&#95;easy..."></a>If only it were that easy...</h2><p>Using the asset pipeline keeps each <code>.scss</code> file in its own namespace, so you will need to import any files that have variables we want to use in the current file.</p><pre><code class="scss"># layouts.scss
+    <p>Rails makes it easy to package our CSS files using the asset pipeline – just put all the <code>.scss</code> files in the <code>application.css</code> manifest file or set <code>require&#95;tree .</code> to automatically pull in all the appropriate files.</p><h3><a name="if&#95;only&#95;it&#95;were&#95;that&#95;easy..."></a>If only it were that easy...</h3><p>Using the asset pipeline keeps each <code>.scss</code> file in its own namespace, so you will need to import any files that have variables we want to use in the current file.</p><pre><code class="scss"># layouts.scss
 @import &quot;variables&quot;;
 
 #my-selector {
@@ -67,7 +67,7 @@ header.scss
 footer.scss
 notification.scss
 # ... etc.
-</code></pre><p>Each of these files will probably want to have access to Bootstrap variables and site-wide variables, but we will need to import everything we want to use.</p><h2><a name="a&#95;dryer&#95;way"></a>A DRYer way</h2><p>h/t to <a href='https://blog.pivotal.io/pivotal-labs/labs/structure-your-sass-files-with-import'>Pivotal Labs</a> for the implementation and the <a href='http://guides.rubyonrails.org/asset_pipeline.html'>link</a> to the docs:</p><blockquote><p> If you want to use multiple Sass files, you should generally use the Sass @import rule instead of these Sprockets directives. Using Sprockets directives all Sass files exist within their own scope, making variables or mixins only available within the document they were defined in. </p></blockquote><p>Here's what the results look like:</p><pre><code class="javascript"># application.scss
+</code></pre><p>Each of these files will probably want to have access to Bootstrap variables and site-wide variables, but we will need to import everything we want to use.</p><h3><a name="a&#95;dryer&#95;way"></a>A DRYer way</h3><p>h/t to <a href='https://blog.pivotal.io/pivotal-labs/labs/structure-your-sass-files-with-import'>Pivotal Labs</a> for the implementation and the <a href='http://guides.rubyonrails.org/asset_pipeline.html'>link</a> to the docs:</p><blockquote><p> If you want to use multiple Sass files, you should generally use the Sass @import rule instead of these Sprockets directives. Using Sprockets directives all Sass files exist within their own scope, making variables or mixins only available within the document they were defined in. </p></blockquote><p>Here's what the results look like:</p><pre><code class="javascript"># application.scss
 // &#42;= require bootstrap-datepicker
 
 @import &quot;twitter/bootstrap/bootstrap&quot;;
@@ -82,7 +82,7 @@ notification.scss
 @import &quot;footer&quot;;
 @import &quot;content&quot;;
 # ... etc.
-</code></pre><p>A few notes about this:</p><ul><li>We renamed application.css to application.scss. This will allow us to use include a manifest and  use <code>.scss</code> syntax.</li><li>We are still using the manifest for third-party CSS files. Since <code>bootstrap-datepicker</code> comes in  through a <a href='https://github.com/Nerian/bootstrap-datepicker-rails/'>gem</a>, we can just reference the CSS and let it do its thing automatically.</li><li>We could load each Bootstrap file individually if we want to reduce its footprint, but loading  the entire library is easier to illustrate here.</li></ul><h2><a name="results"></a>Results</h2><p>We can make our code more modular by easily reusing variables and mixins. Maybe we can even work toward more <a href='http://ruby.bvision.com/blog/please-stop-embedding-bootstrap-classes-in-your-html'>semantic naming</a>...</p><h2><a name="one&#95;caveat"></a>One caveat</h2><p>We had to remove the <code>spec/javascripts/spec.css</code> file that loaded the manifest file since that is now <code>.scss</code> and not <code>.css</code>. This upset <a href='http://jasmine.github.io/'>Jasmine</a>, and we don't like it when Jasmine is upset.</p>
+</code></pre><p>A few notes about this:</p><ul><li>We renamed application.css to application.scss. This will allow us to use include a manifest and  use <code>.scss</code> syntax.</li><li>We are still using the manifest for third-party CSS files. Since <code>bootstrap-datepicker</code> comes in  through a <a href='https://github.com/Nerian/bootstrap-datepicker-rails/'>gem</a>, we can just reference the CSS and let it do its thing automatically.</li><li>We could load each Bootstrap file individually if we want to reduce its footprint, but loading  the entire library is easier to illustrate here.</li></ul><h3><a name="results"></a>Results</h3><p>We can make our code more modular by easily reusing variables and mixins. Maybe we can even work toward more <a href='http://ruby.bvision.com/blog/please-stop-embedding-bootstrap-classes-in-your-html'>semantic naming</a>...</p><h3><a name="one&#95;caveat"></a>One caveat</h3><p>We had to remove the <code>spec/javascripts/spec.css</code> file that loaded the manifest file since that is now <code>.scss</code> and not <code>.css</code>. This upset <a href='http://jasmine.github.io/'>Jasmine</a>, and we don't like it when Jasmine is upset.</p>
 </div>
 
 <div id="post-tags">
@@ -122,7 +122,7 @@ notification.scss
                     <h3>Recent Posts</h3>
                     <ul>
                         
-                        <li><a href="/posts-output/2016-05-01-my-tools-my-choice.html">My Tools, My Choice</a></li>
+                        <li><a href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams</a></li>
                         
                         <li><a href="/posts-output/2015-12-13-find-and-replace-in-vim.html">Find and Replace in Vim</a></li>
                         
