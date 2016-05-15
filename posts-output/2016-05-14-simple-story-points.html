@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs: Structuring your fast tests in RSpec</title>
+    <title>Rubber Duck Dialogs: Simple Story Points</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -48,70 +48,32 @@
 <div id="post">
     <div class="post-header">
     <div id="post-meta" class="row">
-        <div class="col-lg-6">July 15, 2013</div>
+        <div class="col-lg-6">May 14, 2016</div>
         
     </div>
-    <h2>Structuring your fast tests in RSpec</h2>
+    <h2>Simple Story Points</h2>
 </div>
 <div>
     
-    <p>Not to be too hyperbolic, but <code>spec&#95;fast</code> directory <em>will</em> increase the quality of all our lives in addition to making our code better. You see, we don't have to load Rails for all our test files. In fact, it's a dependency that we should try to stay away from as much as possible.</p><pre><code>/spec&#95;fast
-  /contexts
-  /decorators
-  /models
-  /lib
-  /services
-</code></pre><p>Sure, if we need to touch the database or we're testing the integration of multiple classes that access the framework, we need it. But we don't need it for so many other things. What other things you ask? How about most other things.</p><p>For example, we use <a href='https://github.com/drapergem/draper'>Draper</a> to decorate our objects with presentational data. Do we need Rails to test these? Nope. You can see it in action below:</p><pre><code class="ruby"># spec&#95;fast/decorators/user&#95;decorator.rb
-require 'draper'
-
-require&#95;relative '../fast&#95;spec&#95;helper'
-require&#95;relative '../../app/decorators/user&#95;decorator'
-
-describe UserDecorator do
-  let&#40;:decorator&#41; { UserDecorator }
-
-  let&#40;:user&#41; { stub&#40;:user, my&#95;method: 'my method'&#41; }
-
-  describe 'delegation' do
-    it 'delegates all methods' do
-      expect&#40;decorator.decorate&#40;user&#41;.my&#95;method&#41;.to eq&#40;'my method'&#41;
-    end
-  end
-
-  describe '#special&#95;url' do
-    it 'sets the URL to the special URL' do
-      expect&#40;decorator.decorate&#40;user&#41;.special&#95;url&#41;.to eq&#40;'you/are/special'&#41;
-    end
-  end
-end
-
-# app/decorators/user&#95;decorator.rbo
-class UserDecorator &lt; Draper::Decorator
-  delegate&#95;all
-
-  def special&#95;url
-    'you/are/special'
-  end
-end
-</code></pre><p>You'll notice a few things:</p><ul><li>The <code>/spec&#95;fast</code> directory is set up just like the <code>spec</code> directory where the folder structure  mimics the structure in the application.</li><li>The <code>fast&#95;spec&#95;helper</code> contains everything that all the fast tests need.</li><li>The <code>/support</code> directory functions just like the <code>spec/support</code> directory.</li><li>We use <code>require&#95;relative</code> for each file we need to load, and we need to load all the files  manually in the tests.</li><li>The secret sauce is that there is no <code>require 'spec&#95;helper'</code> in any of the tests, so there is no  Rails! <a href='http://gal.darkervision.com/wp-content/uploads/2008/11/calvin-naked-resize.jpg'>Freedom</a>!</li><li>Feel free to add to this directory as often as possible. In fact, you should probably default  your tests here. Why? It reduces coupling with the framework and (should) lead to better, ie,  <a href='http://en.wikipedia.org/wiki/SOLID_(object-oriented_design'>SOLID</a>) classes.</li></ul>
+    <p>We use <a href='https://agilefaq.wordpress.com/2007/11/13/what-is-a-story-point/'>story points</a> in agile practices to predict the future. They measure effort and not hours, although in my experience they tend to be strongly correlated. Their supposed value comes for determining when software will be delivered and provide actual business value. What company wouldn't want that?</p><p>Of course, <a href='https://blog.8thlight.com/uncle-bob/2012/04/20/Why-Is-Estimating-So-Hard.html'>estimation is hard</a>, especially for something we've never done before. Which is much of the software we write. It takes months of data to build up a model of any accuracy, and there are many confounding factors that can prevent stability, and therefore, predictability. Bugs, changing requirements, fixing technical debt, and unknown unknowns are unexpected and affect the team's velocity.</p><h3><a name="another&#95;way"></a>Another Way</h3><p>Once a team has been creating story points for a few months and understands how to break down stories, we can attempt a simpler method. This is inspired, if not pilfered, from <a href='http://softwaredevelopmenttoday.com/noestimates/'>NoEstimates</a> (you can probably guess what that implies) and <a href='https://en.wikipedia.org/wiki/Kanban'>kanban</a>. The idea is that the higher the complexity of a story, the less accurate the estimate, so let's reduce the complexity for each story. We need to change our concept of a deliverable unit of business value, as those are highly variable: a story may involve only a single line change in a CSS file or may involve setting up a new database, data model, business logic, and user interface. If "business value" means "user facing change" then the latter example is one story and needs to be estimated as such. But if we break it down into much smaller units of deliverable work, each of which is more easily understood, we have a better chance of being more accurate in our estimates.</p><p>What does this look like?</p><p>Say we have a single story to add a new field to an existing form, ensure the input is valid, show an error message if it's not, and send a success email if it is. There are a few tasks:</p><ul><li>Add a database migration</li><li>Add data model validation</li><li>Add new HTML markup</li><li>Add logic to handle failure</li><li>Send an email on success</li></ul><p>After the engineers get together for planning poker, they decide it's worth two story points. An engineer picks up the story and finds out that the validation code is more complex than previously thought and will need to spend some time to refactor the code. After deploying to a staging server, the acceptance test results in some changes to the styling of the form and a bug in the validation logic. The engineer makes these changes, merges, deploys, and the story is eventually accepted.</p><p>What if we had split up the deliverables to be a each task instead? In this case, we could deliver the new HTML first and hide it behind a feature flag. We get the feedback about the styling and can make the changes quickly and get that story accepted. We then move on to the rest of the tasks, delivering each in term. When we discover the need to refactor, we already know we've delivered the rest of the tasks and that, even if this story goes long, we've accurately estimated, and delivered, the other ones. This is reflected in four tasks delivered as estimated instead of a two point story that should probably have been at least a three pointer.</p><h3><a name="how&#95;to&#95;estimate"></a>How to Estimate</h3><p>Since everything is a one point story, we can calculate the velocity by simply adding up all delivered stories. And since all stories are broken down into one pointers, we can estimate how much we can deliver in the future by the average of how many stories are delivered each week, just as we were doing before. If we continually deliver 4 - 6 stories an iteration, we'll probably continue doing so.</p><h3><a name="how&#95;to&#95;accept&#95;everything"></a>How to Accept Everything</h3><p>How do we accept a story that has no UI and is only a database change? If the product owner is technical enough, they can still accept these types of stories. If not, another engineer can accept these and wait for the product owner to accept the user facing stories downstream. We just need to shift our definition of business value to ensure we can create units of work that are small enough.</p><h3><a name="benefits"></a>Benefits</h3><ul><li>Faster, more consistent delivery cadence which will push us to use more <a href='http://martinfowler.com/bliki/ContinuousDelivery.html'>continuous delivery</a>.</li><li>Faster feedback loop so stories don't languish while going back and forth between development and QA.</li><li>It is easier to reason about smaller stories, and we can build up context on the completion of each piece.</li><li>We can potentially work on more stories in parallel which lets each engineer touch more parts of the entire codebase.</li></ul><h3><a name="drawbacks"></a>Drawbacks</h3><ul><li>The team needs to understand how to break down stories and what a one pointer looks like.</li><li>Some stories will be blocked on others so we need to work on some in serial, not parallel.</li><li>This flow requires more infrastructure to prevent blockages at various stages of delivery.</li><li>We need to get acceptance feedback quickly so we don't end up with a huge list of stories that require acceptance.</li></ul><p>Give this a try if you find your team unhappy with the current way of estimating.</p>
 </div>
 
 <div id="post-tags">
     <b>Categories: </b>
     
-    <a href="/tags-output/testing.html">testing</a>
+    <a href="/tags-output/teams.html">teams</a>
     
-    <a href="/tags-output/ruby.html">ruby</a>
+    <a href="/tags-output/productivity.html">productivity</a>
+    
+    <a href="/tags-output/work.html">work</a>
     
 </div>
 
 
     <div id="prev-next">
         
-        <a href="/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html">&laquo; Greater Test Control with RSpec&#39;s Tag Filters</a>
         
-        
-        <a class="right" href="/posts-output/2013-06-24-working-with-sass-and-web-fonts.html">Working with Sass and web fonts &raquo;</a>
+        <a class="right" href="/posts-output/2016-05-01-tools-and-teams.html">Tools and Teams &raquo;</a>
         
     </div>
 

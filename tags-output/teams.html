@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs: Structuring your fast tests in RSpec</title>
+    <title>Rubber Duck Dialogs: Posts Tagged &quot;teams&quot;</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -45,79 +45,17 @@
         <div class="col-lg-9">
             <div id="content">
                 
-<div id="post">
-    <div class="post-header">
-    <div id="post-meta" class="row">
-        <div class="col-lg-6">July 15, 2013</div>
-        
+<div id="posts-by-tag">
+    <div id="page-header">
+        <h2>Posts Tagged &quot;teams&quot;</h2>
     </div>
-    <h2>Structuring your fast tests in RSpec</h2>
-</div>
-<div>
+    <ul>
     
-    <p>Not to be too hyperbolic, but <code>spec&#95;fast</code> directory <em>will</em> increase the quality of all our lives in addition to making our code better. You see, we don't have to load Rails for all our test files. In fact, it's a dependency that we should try to stay away from as much as possible.</p><pre><code>/spec&#95;fast
-  /contexts
-  /decorators
-  /models
-  /lib
-  /services
-</code></pre><p>Sure, if we need to touch the database or we're testing the integration of multiple classes that access the framework, we need it. But we don't need it for so many other things. What other things you ask? How about most other things.</p><p>For example, we use <a href='https://github.com/drapergem/draper'>Draper</a> to decorate our objects with presentational data. Do we need Rails to test these? Nope. You can see it in action below:</p><pre><code class="ruby"># spec&#95;fast/decorators/user&#95;decorator.rb
-require 'draper'
-
-require&#95;relative '../fast&#95;spec&#95;helper'
-require&#95;relative '../../app/decorators/user&#95;decorator'
-
-describe UserDecorator do
-  let&#40;:decorator&#41; { UserDecorator }
-
-  let&#40;:user&#41; { stub&#40;:user, my&#95;method: 'my method'&#41; }
-
-  describe 'delegation' do
-    it 'delegates all methods' do
-      expect&#40;decorator.decorate&#40;user&#41;.my&#95;method&#41;.to eq&#40;'my method'&#41;
-    end
-  end
-
-  describe '#special&#95;url' do
-    it 'sets the URL to the special URL' do
-      expect&#40;decorator.decorate&#40;user&#41;.special&#95;url&#41;.to eq&#40;'you/are/special'&#41;
-    end
-  end
-end
-
-# app/decorators/user&#95;decorator.rbo
-class UserDecorator &lt; Draper::Decorator
-  delegate&#95;all
-
-  def special&#95;url
-    'you/are/special'
-  end
-end
-</code></pre><p>You'll notice a few things:</p><ul><li>The <code>/spec&#95;fast</code> directory is set up just like the <code>spec</code> directory where the folder structure  mimics the structure in the application.</li><li>The <code>fast&#95;spec&#95;helper</code> contains everything that all the fast tests need.</li><li>The <code>/support</code> directory functions just like the <code>spec/support</code> directory.</li><li>We use <code>require&#95;relative</code> for each file we need to load, and we need to load all the files  manually in the tests.</li><li>The secret sauce is that there is no <code>require 'spec&#95;helper'</code> in any of the tests, so there is no  Rails! <a href='http://gal.darkervision.com/wp-content/uploads/2008/11/calvin-naked-resize.jpg'>Freedom</a>!</li><li>Feel free to add to this directory as often as possible. In fact, you should probably default  your tests here. Why? It reduces coupling with the framework and (should) lead to better, ie,  <a href='http://en.wikipedia.org/wiki/SOLID_(object-oriented_design'>SOLID</a>) classes.</li></ul>
-</div>
-
-<div id="post-tags">
-    <b>Categories: </b>
+        <li>
+            <a href="/posts-output/2016-05-14-simple-story-points.html">Simple Story Points</a>
+        </li>
     
-    <a href="/tags-output/testing.html">testing</a>
-    
-    <a href="/tags-output/ruby.html">ruby</a>
-    
-</div>
-
-
-    <div id="prev-next">
-        
-        <a href="/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html">&laquo; Greater Test Control with RSpec&#39;s Tag Filters</a>
-        
-        
-        <a class="right" href="/posts-output/2013-06-24-working-with-sass-and-web-fonts.html">Working with Sass and web fonts &raquo;</a>
-        
-    </div>
-
-    
-
-
+    </ul>
 </div>
 
             </div>
