@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
     <meta charset="utf-8"/>
-    <title>Rubber Duck Dialogs: Posts Tagged &quot;rspec&quot;</title>
+    <title>Rubber Duck Dialogs: Do Not Do This: Stub System Under Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Alegreya:400italic,700italic,400,700' rel='stylesheet'
           type='text/css'>
@@ -45,29 +45,102 @@
         <div class="col-lg-9">
             <div id="content">
                 
-<div id="posts-by-tag">
-    <div id="page-header">
-        <h2>Posts Tagged &quot;rspec&quot;</h2>
+<div id="post">
+    <div class="post-header">
+    <div id="post-meta" class="row">
+        <div class="col-lg-6">June 18, 2016</div>
+        
     </div>
-    <ul>
+    <h2>Do Not Do This: Stub System Under Test</h2>
+</div>
+<div>
     
-        <li>
-            <a href="/posts-output/2013-09-20-ui-integration-tests-with-rspec-and-capybara.html">UI Integration Tests with RSpec and Capybara</a>
-        </li>
+    <p>In OOP it is a good thing when we're able to use one method in a class to create another. Unfortunately there can be a tendency to stub out the one method when writing tests for another in the system under test (SUT). "We've already tested that one, so it's redundant to test it again" you might say.</p><p>This reasoning can lead to two affects on our codebase. The first, as detailed <a href='https://robots.thoughtbot.com/don-t-stub-the-system-under-test'>here</a>, is that the test setup tells us a lot about our code. If the setup is difficult it can be a sign that we should move parts of our code around to split up our different functionality.</p><p>Another risk I'd like to discuss is how this stubbing causes brittleness in our tests and can mask bugs.</p><p>Say we are building a very basic calculator. We start with one method that adds two numbers.</p><p>We write a test first.</p><pre><code class="ruby">require &quot;minitest/autorun&quot;
+
+class TestCalculator &lt; Minitest::Test
+  def test&#95;add
+    c = Calculator.new
+
+    assert&#95;equal 3, c.add&#40;1, 2&#41;
+  end
+end
+</code></pre><p>We then write the code to make it pass.</p><pre><code class="ruby">class Calculator
+  def add&#40;x, y&#41;
+    x + y
+  end
+end
+</code></pre><p>We next want to write an increment method, reusing our <code>#add</code> method. Since we've already tested <code>#add</code> we can just stub the response from that.</p><pre><code class="ruby">class TestCalculator &lt; Minitest::Test
+  def test&#95;add
+    c = Calculator.new
+
+    assert&#95;equal 3, c.add&#40;1, 2&#41;
+  end
+
+  def test&#95;inc
+    c = Calculator.new
+
+    c.stub&#40;:add, 3&#41; do
+      assert&#95;equal 3, c.inc&#40;2&#41;
+    end
+  end
+end
+
+class Calculator
+  def add&#40;x, y&#41;
+    x + y
+  end
+
+  def inc&#40;x&#41;
+    add&#40;1, x&#41;
+  end
+end
+</code></pre><p>Now &ndash; to be web scale &ndash; we want to change our <code>#add</code> method to subtract one from the sum (remember: web scale!). We update the method's test and code.</p><pre><code class="ruby">class Calculator
+  def add&#40;x, y&#41;
+    x + y - 1
+  end
+
+  def inc&#40;x&#41;
+    add&#40;1, x&#41;
+  end
+end
+
+class TestCalculator &lt; Minitest::Test
+  def test&#95;add
+    c = Calculator.new
+
+    assert&#95;equal 2, c.add&#40;1, 2&#41;
+  end
+
+  def test&#95;inc
+    c = Calculator.new
+
+    c.stub&#40;:add, 3&#41; do
+      assert&#95;equal 3, c.inc&#40;2&#41;
+    end
+  end
+end
+</code></pre><p>Our tests stay passing and we're all good, right? Well our <code>#inc</code> method is still passing, but it is clearly the wrong answer when we run the code manually.</p><pre><code>puts Calculator.new.inc&#40;2&#41; # =&gt; 2
+</code></pre><p>By stubbing the call to <code>#add</code> in the <code>#inc</code> method, we've hidden a bug in our <code>#inc</code> method. If there were no stub we would have noticed the test failure and been able to fix it before our customers noticed.</p><p>"But it's a pain to fix the <code>#inc</code> test when we were only changing the <code>#add</code> code." That's true, and our tests are doing us a favor by showing us this coupling. Maybe this is bad and it doesn't make sense for the <code>#inc</code> method to be coupled to the <code>#add</code> method, or maybe it's an acceptable trade off to ensure the two methods are internally consistent.</p><p>The triviality of this example makes clear the risks of stubbing the SUT. This risk scales to other objects such as <code>ActiveRecord</code> classes, especially validations and callbacks, and other languages.</p><p>Please don't stub the SUT. External dependencies are fine to stub, and sometimes our tests are telling us when the current SUT does too much and should be broken apart.</p>
+</div>
+
+<div id="post-tags">
+    <b>Categories: </b>
     
-        <li>
-            <a href="/posts-output/2013-08-18-greater-test-control-with-rspec-s-tag-filters.html">Greater Test Control with RSpec&#39;s Tag Filters</a>
-        </li>
+    <a href="/tags-output/testing.html">testing</a>
     
-        <li>
-            <a href="/posts-output/2013-06-01-factorygirl-fun-with-associations-with-associations.html">FactoryGirl fun with associations with associations</a>
-        </li>
+</div>
+
+
+    <div id="prev-next">
+        
+        
+        <a class="right" href="/posts-output/2016-05-14-simple-story-points.html">Simple Story Points &raquo;</a>
+        
+    </div>
+
     
-        <li>
-            <a href="/posts-output/2013-05-12-rspec-message-expectations-with-dates.html">RSpec message expectations with dates</a>
-        </li>
-    
-    </ul>
+
+
 </div>
 
             </div>

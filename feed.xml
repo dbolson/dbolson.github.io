@@ -12,11 +12,96 @@ https://dbolson.github.io
 Thinking out loud, on the internet
 </description>
 <lastBuildDate>
-Sun, 15 May 2016 08:00:16 -0700
+Sat, 18 Jun 2016 09:45:56 -0700
 </lastBuildDate>
 <generator>
 clj-rss
 </generator>
+<item>
+<guid>
+https://dbolson.github.io/posts-output/2016-06-18-do-not-do-this-stub-system-under-test.html
+</guid>
+<link>
+https://dbolson.github.io/posts-output/2016-06-18-do-not-do-this-stub-system-under-test.html
+</link>
+<title>
+Do Not Do This: Stub System Under Test
+</title>
+<description>
+&lt;p&gt;In OOP it is a good thing when we're able to use one method in a class to create another. Unfortunately there can be a tendency to stub out the one method when writing tests for another in the system under test (SUT). &quot;We've already tested that one, so it's redundant to test it again&quot; you might say.&lt;/p&gt;&lt;p&gt;This reasoning can lead to two affects on our codebase. The first, as detailed &lt;a href='https://robots.thoughtbot.com/don-t-stub-the-system-under-test'&gt;here&lt;/a&gt;, is that the test setup tells us a lot about our code. If the setup is difficult it can be a sign that we should move parts of our code around to split up our different functionality.&lt;/p&gt;&lt;p&gt;Another risk I'd like to discuss is how this stubbing causes brittleness in our tests and can mask bugs.&lt;/p&gt;&lt;p&gt;Say we are building a very basic calculator. We start with one method that adds two numbers.&lt;/p&gt;&lt;p&gt;We write a test first.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;require &amp;quot;minitest/autorun&amp;quot;
+
+class TestCalculator &amp;lt; Minitest::Test
+  def test&amp;#95;add
+    c = Calculator.new
+
+    assert&amp;#95;equal 3, c.add&amp;#40;1, 2&amp;#41;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We then write the code to make it pass.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Calculator
+  def add&amp;#40;x, y&amp;#41;
+    x + y
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We next want to write an increment method, reusing our &lt;code&gt;#add&lt;/code&gt; method. Since we've already tested &lt;code&gt;#add&lt;/code&gt; we can just stub the response from that.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class TestCalculator &amp;lt; Minitest::Test
+  def test&amp;#95;add
+    c = Calculator.new
+
+    assert&amp;#95;equal 3, c.add&amp;#40;1, 2&amp;#41;
+  end
+
+  def test&amp;#95;inc
+    c = Calculator.new
+
+    c.stub&amp;#40;:add, 3&amp;#41; do
+      assert&amp;#95;equal 3, c.inc&amp;#40;2&amp;#41;
+    end
+  end
+end
+
+class Calculator
+  def add&amp;#40;x, y&amp;#41;
+    x + y
+  end
+
+  def inc&amp;#40;x&amp;#41;
+    add&amp;#40;1, x&amp;#41;
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Now &amp;ndash; to be web scale &amp;ndash; we want to change our &lt;code&gt;#add&lt;/code&gt; method to subtract one from the sum (remember: web scale!). We update the method's test and code.&lt;/p&gt;&lt;pre&gt;&lt;code class=&quot;ruby&quot;&gt;class Calculator
+  def add&amp;#40;x, y&amp;#41;
+    x + y - 1
+  end
+
+  def inc&amp;#40;x&amp;#41;
+    add&amp;#40;1, x&amp;#41;
+  end
+end
+
+class TestCalculator &amp;lt; Minitest::Test
+  def test&amp;#95;add
+    c = Calculator.new
+
+    assert&amp;#95;equal 2, c.add&amp;#40;1, 2&amp;#41;
+  end
+
+  def test&amp;#95;inc
+    c = Calculator.new
+
+    c.stub&amp;#40;:add, 3&amp;#41; do
+      assert&amp;#95;equal 3, c.inc&amp;#40;2&amp;#41;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Our tests stay passing and we're all good, right? Well our &lt;code&gt;#inc&lt;/code&gt; method is still passing, but it is clearly the wrong answer when we run the code manually.&lt;/p&gt;&lt;pre&gt;&lt;code&gt;puts Calculator.new.inc&amp;#40;2&amp;#41; # =&amp;gt; 2
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;By stubbing the call to &lt;code&gt;#add&lt;/code&gt; in the &lt;code&gt;#inc&lt;/code&gt; method, we've hidden a bug in our &lt;code&gt;#inc&lt;/code&gt; method. If there were no stub we would have noticed the test failure and been able to fix it before our customers noticed.&lt;/p&gt;&lt;p&gt;&quot;But it's a pain to fix the &lt;code&gt;#inc&lt;/code&gt; test when we were only changing the &lt;code&gt;#add&lt;/code&gt; code.&quot; That's true, and our tests are doing us a favor by showing us this coupling. Maybe this is bad and it doesn't make sense for the &lt;code&gt;#inc&lt;/code&gt; method to be coupled to the &lt;code&gt;#add&lt;/code&gt; method, or maybe it's an acceptable trade off to ensure the two methods are internally consistent.&lt;/p&gt;&lt;p&gt;The triviality of this example makes clear the risks of stubbing the SUT. This risk scales to other objects such as &lt;code&gt;ActiveRecord&lt;/code&gt; classes, especially validations and callbacks, and other languages.&lt;/p&gt;&lt;p&gt;Please don't stub the SUT. External dependencies are fine to stub, and sometimes our tests are telling us when the current SUT does too much and should be broken apart.&lt;/p&gt;
+</description>
+<enclosure>
+
+</enclosure>
+<pubDate>
+Sat, 18 Jun 2016 00:00:00 -0700
+</pubDate>
+</item>
 <item>
 <guid>
 https://dbolson.github.io/posts-output/2016-05-14-simple-story-points.html
