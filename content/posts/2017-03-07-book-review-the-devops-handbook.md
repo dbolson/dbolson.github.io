@@ -1,7 +1,6 @@
 ---
 title: "Book Review - The DevOps Handbook"
 date: 2017-03-07
-draft: true
 categories:
   - "book review"
 ---
