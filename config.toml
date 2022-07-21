@@ -1,3 +1,16 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://dbolson.github.io/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Rubber Duck Dialogs'
+
+paginate = '10'
+theme = 'mainroad'
+
+[Params]
+  post_meta = ['date']
+
+[Params.sidebar]
+  home = 'right'
+  widgets = ['search', 'recent', 'categories', 'taglist']
+
+[Params.widgets]
+  recent_num = 5
