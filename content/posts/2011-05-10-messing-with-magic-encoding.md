@@ -1,7 +1,7 @@
 ---
 title: "Messing With Magic Encoding"
 date: 2011-05-10
-categories
+categories:
   - "encoding"
   - "ruby"
 ---
